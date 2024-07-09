@@ -1,4 +1,3 @@
-import { View, Text } from "react-native";
 import React from "react";
 import { Tabs } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
@@ -22,10 +21,19 @@ const TabsLayout = () => {
             ),
           }}
         />
-        <Tabs.Screen name="profile" options={{ tabBarLabel: "Profile" }} />
+        <Tabs.Screen
+          name="Profile"
+          options={{
+            tabBarLabel: "Profile",
+            tabBarIcon: () => <Ionicons name="profile" />,
+          }}
+        />
         <Tabs.Screen
           name="notification"
-          options={{ tabBarLabel: "Notification" }}
+          options={{
+            tabBarLabel: "Notification",
+            tabBarIcon: () => <Ionicons name="notification" />,
+          }}
         />
       </Tabs>
     </>
