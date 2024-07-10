@@ -14,11 +14,11 @@ export default function Index() {
   // return <Redirect href={"/home"} />;
 
   return (
-    <SafeAreaView className=" bg-slate-900 h-full">
+    <SafeAreaView className=" bg-white h-full">
       <ScrollView contentContainerStyle={{ height: "100%" }}>
         <View className=" w-full justify-center items-center min-h-[85vh] px-4">
           <Image
-            source={images.logo}
+            source={images.logo1}
             className="w-[130px] h-[84px]"
             resizeMode="contain"
           />
