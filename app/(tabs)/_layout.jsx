@@ -4,35 +4,79 @@ import { Ionicons } from "@expo/vector-icons";
 
 import { Colors } from "../../constants/Colors";
 
+import { icons } from "../../constants";
+import { View, Image, Text } from "react-native";
+
+const TabIcon = ({ icon, color, name, focused }) => {
+  return (
+    <View className=" items-center justify-center gap-1">
+      <Image
+        source={icon}
+        resizeMode="contain"
+        tintColor={color}
+        className="w-6 h-6"
+      />
+      <Text
+        className={`${focused ? "font-rsemibold " : "font-rregular "}text-xs`}
+      >
+        {name}
+      </Text>
+    </View>
+  );
+};
+
 const TabsLayout = () => {
   return (
     <>
       <Tabs
         screenOptions={{
+          tabBarShowLabel: false,
           tabBarActiveTintColor: Colors,
         }}
       >
         <Tabs.Screen
           name="home"
           options={{
-            tabBarLabel: "Home",
-            tabBarIcon: ({ color }) => (
-              <Ionicons name="home" size={24} color={color} />
+            title: "Home",
+            headerShown: false,
+            tabBarIcon: ({ color, focused }) => (
+              <TabIcon
+                icon={icons.home}
+                color={color}
+                name="Home"
+                focused={focused}
+              />
             ),
-          }}
-        />
-        <Tabs.Screen
-          name="Profile"
-          options={{
-            tabBarLabel: "Profile",
-            tabBarIcon: () => <Ionicons name="profile" />,
           }}
         />
         <Tabs.Screen
           name="notification"
           options={{
-            tabBarLabel: "Notification",
-            tabBarIcon: () => <Ionicons name="notification" />,
+            title: "Notification",
+            headerShown: false,
+            tabBarIcon: ({ color, focused }) => (
+              <TabIcon
+                icon={icons.notification}
+                color={color}
+                name="Home"
+                focused={focused}
+              />
+            ),
+          }}
+        />
+        <Tabs.Screen
+          name="profile"
+          options={{
+            title: "Profile",
+            headerShown: false,
+            tabBarIcon: ({ color, focused }) => (
+              <TabIcon
+                icon={icons.profile}
+                color={color}
+                name="Home"
+                focused={focused}
+              />
+            ),
           }}
         />
       </Tabs>

@@ -6,7 +6,11 @@ import CustomButton from "../components/CustomButton";
 
 import { images } from "../constants";
 import { Redirect, router } from "expo-router";
+import { useGlobalContext } from "@/context/GlobalProvider";
 export default function Index() {
+  const { isLoading, isLoggedIn } = useGlobalContext();
+
+  if (!isLoading && isLoggedIn) return <Redirect href="/home" />;
   // return <Redirect href={"/home"} />;
 
   return (
