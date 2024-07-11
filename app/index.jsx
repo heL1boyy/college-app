@@ -19,19 +19,13 @@ export default function Index() {
         <View className=" w-full justify-center items-center min-h-[85vh] px-4">
           <Image
             source={images.logo1}
-            className="w-[130px] h-[84px]"
+            className="w-[200px] h-[150px]"
             resizeMode="contain"
           />
-          <Image
-            source={images.cards}
-            className="max-w-[380px] w-full h-[300px] "
-            resizeMode="contain"
-          />
-
           <View className="relative mt-5 py-1">
-            <Text className="text-white text-center text-3xl font-rbold ">
-              Discover Endless Possibitlies with
-              <Text className="text-orange-600"> Aora</Text>
+            <Text className="text-black text-center text-3xl font-rbold ">
+              Welcome To
+              <Text className="text-[#161697]"> CMA</Text>
             </Text>
 
             <Image
@@ -40,16 +34,19 @@ export default function Index() {
               resizeMode="contain"
             />
           </View>
-
-          <Text className=" text-sm font-rregular text-gray-100 mt-7 text-center">
-            Where creativity meets innovation : embark on a jounary of limitless
-            exploration with Aora
+          <Text className=" text-sm font-rregular mt-2 text-center">
+            Let Access All Work From Here
           </Text>
+          <Image
+            source={images.screenimg1}
+            className="max-w-[380px] w-full h-[370px] "
+            resizeMode="contain"
+          />
 
           <CustomButton
             title="Continue with Email "
             handlePress={() => router.push("/sign-in")}
-            containerStyles="w-full mt-7"
+            containerStyles="w-full mt-7 border-[#161697]"
           />
         </View>
       </ScrollView>

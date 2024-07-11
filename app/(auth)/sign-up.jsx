@@ -39,36 +39,41 @@ const SignUp = () => {
     }
   };
   return (
-    <SafeAreaView className=" bg-slate-900 h-full">
+    <SafeAreaView className="bg-white  h-full">
       <ScrollView>
-        <View className="w-full justify-center min-h-[85vh] px-4 my-6">
-          <Image
-            source={images.logo}
-            resizeMode=" contain "
-            className="w-[115px] h-[35px] "
-          />
-          <Text className="text-white text-2xl font-rsemibold mt-10  ">
-            Sign Up to App
-          </Text>
+        <View className="w-full justify-center   min-h-[85vh] px-4 ">
+          <View className="items-center">
+            <Image
+              source={images.logo1}
+              className="w-[200px] h-[150px]"
+              resizeMode="contain"
+            />
+            <Text className="text-[#161697] text-2xl font-rsemibold   ">
+              Sign Up to App
+            </Text>
+          </View>
 
           <FormField
             title="Username"
             value={form.username}
             handleChangeText={(e) => setForm({ ...form, username: e })}
-            otherStyles="mt-10"
+            otherStyles="mt-5"
+            placeholder="Enter username"
           />
           <FormField
             title="Email"
             value={form.email}
             handleChangeText={(e) => setForm({ ...form, email: e })}
-            otherStyles="mt-7"
+            otherStyles="mt-5"
             keyboardType="email-address"
+            placeholder="Enter email"
           />
           <FormField
             title="Password"
             value={form.password}
             handleChangeText={(e) => setForm({ ...form, password: e })}
-            otherStyles="mt-7"
+            otherStyles="mt-5"
+            placeholder="Enter password"
           />
 
           <CustomButton
@@ -77,7 +82,7 @@ const SignUp = () => {
             isLoading={isSubmitting}
           />
           <View className="justify-center pt-5 gap-2 flex-row ">
-            <Text className="text-lg text-gray-100 font-rregular">
+            <Text className="text-lg  font-rregular">
               Have an account already?
             </Text>
             <Link
@@ -86,6 +91,14 @@ const SignUp = () => {
             >
               Sign In
             </Link>
+          </View>
+
+          <View className="items-center">
+            <Image
+              source={images.signupimg}
+              className="max-w-[200px] w-full h-[200px] "
+              resizeMode="contain"
+            />
           </View>
         </View>
       </ScrollView>

@@ -3,11 +3,19 @@ import React from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useGlobalContext } from "@/context/GlobalProvider";
 import { icons } from "../../constants";
+import { signOut } from "../../lib/appwrite";
+import { router } from "expo-router";
 
 const Profile = () => {
   const { user, setUser, setIsLoggedIn } = useGlobalContext();
 
-  const logout = () => {};
+  const logout = async () => {
+    await signOut();
+    setUser(null);
+    setIsLoggedIn(false);
+
+    router.replace("/sign-in");
+  };
   return (
     <SafeAreaView>
       <FlatList
@@ -36,18 +44,19 @@ const Profile = () => {
               </View>
 
               <View>
-                <Text className="text-lg font-semibold">VR</Text>
-                <Text className="text-gray-600">210520201234</Text>
+                <Text className="text-lg font-semibold">{user.username}</Text>
+                <Text className="text-gray-600">{user.accountId}</Text>
               </View>
             </View>
             {/* info */}
-            <View className="p-6 bg-blue-200 rounded-lg  border shadow-2xl shadow-blue-600">
+            <View className="p-6 bg-green-200 rounded-lg ring-1 ring-offset-2  ring-orange-500 shadow-2xl  shadow-blue-500">
               <Text className="text-black mb-2">
                 <Text className="font-semibold">DEPARTMENT: </Text>
-                B.Tech. Information Technology
+                {user?.department}
               </Text>
               <Text className="text-black mb-2">
-                <Text className="font-semibold">SEMESTER: </Text>7
+                <Text className="font-semibold">SEMESTER: </Text>{" "}
+                {user.semester}
               </Text>
               <Text className="text-black mb-2">
                 <Text className="font-semibold">CURRENT CGPA: </Text>
@@ -55,14 +64,14 @@ const Profile = () => {
               </Text>
               <Text className="text-black">
                 <Text className="font-semibold">ACADEMIC YEAR: </Text>
-                2020 - 2024
+                {user.yearOfJoining}
               </Text>
             </View>
 
             {/* about */}
             <View className="flex-row justify-between items-center mt-6">
               <Text className="text-xl font-semibold">About</Text>
-              <TouchableOpacity onPress={logout}>
+              <TouchableOpacity>
                 <Text>Edit</Text>
               </TouchableOpacity>
             </View>
@@ -73,15 +82,15 @@ const Profile = () => {
                 <Text>Gender</Text>
               </View>
               <View className="flex ">
-                <Text className="mb-2">1st Jan 2002</Text>
-                <Text>MALE</Text>
+                <Text className="mb-2">{user.dateOfBirth}</Text>
+                <Text>{user.gender}</Text>
               </View>
             </View>
 
             {/* contact details */}
             <View className="flex-row justify-between items-center ">
               <Text className="text-xl font-semibold">Contact</Text>
-              <TouchableOpacity onPress={logout}>
+              <TouchableOpacity>
                 <Text>Edit</Text>
               </TouchableOpacity>
             </View>
@@ -93,9 +102,9 @@ const Profile = () => {
                 <Text>Address</Text>
               </View>
               <View className="flex ">
-                <Text className="mb-2">9813646792</Text>
-                <Text className="mb-2">hellboy@gmail.com</Text>
-                <Text>Ikhalakhu , Patan</Text>
+                <Text className="mb-2">{user.contactNumber}</Text>
+                <Text className="mb-2">{user.email}</Text>
+                <Text>I{user.address}</Text>
               </View>
             </View>
           </View>
