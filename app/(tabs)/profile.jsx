@@ -49,7 +49,7 @@ const Profile = () => {
               </View>
             </View>
             {/* info */}
-            <View className="p-6 bg-green-200 rounded-lg ring-1 ring-offset-2  ring-orange-500 shadow-2xl  shadow-blue-500">
+            <View className="p-6 bg-gradient-to-r from-indigo-500 from-10% via-sky-500 via-30% to-emerald-500 to-90% rounded-lg ring-1 ring-offset-2  ring-orange-500 shadow-2xl  shadow-blue-500">
               <Text className="text-black mb-2">
                 <Text className="font-semibold">DEPARTMENT: </Text>
                 {user?.department}
