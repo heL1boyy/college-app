@@ -14,14 +14,14 @@ const Profile = () => {
     setUser(null);
     setIsLoggedIn(false);
 
-    router.replace("/sign-in");
+    router.replace("../index");
   };
   return (
     <SafeAreaView>
       <FlatList
-        // data={[{ id: 1 }]}
-        // keyExtractor={(item) => item.$id}
-        // renderItem={({ item }) => <Text className=" text-3xl"> {item.id}</Text>}
+        data={[{ id: 1 }]}
+        keyExtractor={(item) => item.$id}
+        renderItem={({ item }) => <Text className=" text-3xl"> {item.id}</Text>}
         className="h-full bg-white"
         ListHeaderComponent={() => (
           <View className="p-4">
@@ -44,19 +44,19 @@ const Profile = () => {
               </View>
 
               <View>
-                <Text className="text-lg font-semibold">{user.username}</Text>
-                <Text className="text-gray-600">{user.accountId}</Text>
+                <Text className="text-lg font-semibold">{user?.username}</Text>
+                <Text className="text-gray-600">{user?.accountId}</Text>
               </View>
             </View>
             {/* info */}
-            <View className="p-6 bg-gradient-to-r from-indigo-500 from-10% via-sky-500 via-30% to-emerald-500 to-90% rounded-lg ring-1 ring-offset-2  ring-orange-500 shadow-2xl  shadow-blue-500">
+            <View className="p-6 bg-orange-100 rounded-xl">
               <Text className="text-black mb-2">
                 <Text className="font-semibold">DEPARTMENT: </Text>
                 {user?.department}
               </Text>
               <Text className="text-black mb-2">
                 <Text className="font-semibold">SEMESTER: </Text>{" "}
-                {user.semester}
+                {user?.semester}
               </Text>
               <Text className="text-black mb-2">
                 <Text className="font-semibold">CURRENT CGPA: </Text>
@@ -64,47 +64,50 @@ const Profile = () => {
               </Text>
               <Text className="text-black">
                 <Text className="font-semibold">ACADEMIC YEAR: </Text>
-                {user.yearOfJoining}
+                {user?.yearOfJoining}
               </Text>
             </View>
 
             {/* about */}
-            <View className="flex-row justify-between items-center mt-6">
-              <Text className="text-xl font-semibold">About</Text>
-              <TouchableOpacity>
-                <Text>Edit</Text>
-              </TouchableOpacity>
-            </View>
-
-            <View className="flex-row py-4 gap-4">
-              <View className="flex ">
-                <Text className="mb-2">Date of Birth</Text>
-                <Text>Gender</Text>
+            <View className="bg-blue-100 p-4 rounded-xl mt-2">
+              <View className="flex-row justify-between items-center ">
+                <Text className="text-xl font-semibold">About</Text>
+                <TouchableOpacity>
+                  <Text>Edit</Text>
+                </TouchableOpacity>
               </View>
-              <View className="flex ">
-                <Text className="mb-2">{user.dateOfBirth}</Text>
-                <Text>{user.gender}</Text>
+              <View className="flex-row py-4 gap-4">
+                <View className="flex ">
+                  <Text className="mb-2">Date of Birth</Text>
+                  <Text>Gender</Text>
+                </View>
+                <View className="flex ">
+                  <Text className="mb-2">{user?.dateOfBirth}</Text>
+                  <Text>{user?.gender}</Text>
+                </View>
               </View>
             </View>
 
             {/* contact details */}
-            <View className="flex-row justify-between items-center ">
-              <Text className="text-xl font-semibold">Contact</Text>
-              <TouchableOpacity>
-                <Text>Edit</Text>
-              </TouchableOpacity>
-            </View>
-
-            <View className="flex-row py-4 gap-4">
-              <View className="flex ">
-                <Text className="mb-2">Contact no</Text>
-                <Text className="mb-2">Email</Text>
-                <Text>Address</Text>
+            <View className="bg-blue-100 p-4 rounded-xl mt-2">
+              <View className="flex-row justify-between items-center ">
+                <Text className="text-xl font-semibold">Contact</Text>
+                <TouchableOpacity>
+                  <Text>Edit</Text>
+                </TouchableOpacity>
               </View>
-              <View className="flex ">
-                <Text className="mb-2">{user.contactNumber}</Text>
-                <Text className="mb-2">{user.email}</Text>
-                <Text>I{user.address}</Text>
+
+              <View className="flex-row py-4 gap-4">
+                <View className="flex ">
+                  <Text className="mb-2">Contact no</Text>
+                  <Text className="mb-2">Email</Text>
+                  <Text>Address</Text>
+                </View>
+                <View className="flex ">
+                  <Text className="mb-2">{user?.contactNumber}</Text>
+                  <Text className="mb-2">{user?.email}</Text>
+                  <Text>I{user?.address}</Text>
+                </View>
               </View>
             </View>
           </View>

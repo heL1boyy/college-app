@@ -16,7 +16,7 @@ export default function Index() {
   return (
     <SafeAreaView className=" bg-white h-full">
       <ScrollView contentContainerStyle={{ height: "100%" }}>
-        <View className=" w-full justify-center items-center min-h-[85vh] px-4">
+        <View className=" w-full justify-center items-center min-h-[85vh] px-4  mt-10">
           <Image
             source={images.logo1}
             className="w-[200px] h-[150px]"
@@ -39,7 +39,7 @@ export default function Index() {
           </Text>
           <Image
             source={images.screenimg1}
-            className="max-w-[380px] w-full h-[370px] "
+            className="max-w-[380px] w-full h-[370px]  "
             resizeMode="contain"
           />
 

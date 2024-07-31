@@ -26,11 +26,11 @@ const SignIn = () => {
 
     try {
       await signIn(form.email, form.password);
+
+      //set to global state
       const result = await getCurrentUser();
       setUser(result);
       setIsLoggedIn(true);
-
-      //set to global state
 
       Alert.alert("Scucess ", "user signed in successfully");
 
@@ -44,7 +44,7 @@ const SignIn = () => {
   return (
     <SafeAreaView className="bg-white h-full">
       <ScrollView>
-        <View className="w-full justify-center  min-h-[85vh] px-4 ">
+        <View className="w-full justify-center  min-h-[85vh] px-4 mt-14">
           <View className="items-center">
             <Image
               source={images.logo1}
@@ -64,18 +64,19 @@ const SignIn = () => {
             placeholder="Enter Your Email"
           />
           <FormField
+            title="Password"
             value={form.password}
             handleChangeText={(e) => setForm({ ...form, password: e })}
             otherStyles="mt-5"
-            placeholder="Enter Your Password"
+            placeholder="Enter password"
           />
-          <Text className="mt-2">Forget password</Text>
+          {/* <Text className="mt-2">Forget password</Text> */}
 
           <CustomButton
             title="Sign-in"
             handlePress={sumbit}
             isLoading={isSubmitting}
-            containerStyles="w-full mt-2 border-[#161697]"
+            containerStyles="w-full mt-5 border-[#161697]"
           />
           <View className="justify-center pt-3 gap-2 flex-row ">
             <Text className="text-lg  font-rregular">Don't have account</Text>

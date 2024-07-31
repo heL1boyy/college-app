@@ -2,8 +2,6 @@ import React from "react";
 import { Tabs } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
 
-import { Colors } from "../../constants/Colors";
-
 import { icons } from "../../constants";
 import { View, Image, Text } from "react-native";
 
@@ -31,7 +29,6 @@ const TabsLayout = () => {
       <Tabs
         screenOptions={{
           tabBarShowLabel: false,
-          tabBarActiveTintColor: Colors,
         }}
       >
         <Tabs.Screen
