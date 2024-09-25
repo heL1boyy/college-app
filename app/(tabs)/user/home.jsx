@@ -13,12 +13,15 @@ import HorizontalScrollView from "../../../components/HorizontalScrollView";
 import Header from "../../../components/HomeComponents/header";
 import Class from "../../../components/HomeComponents/class";
 import Attendance from "../../../components/HomeComponents/attendance";
+import { useGlobalContext } from "@/context/GlobalProvider";
 
 const Home = () => {
+  const { user } = useGlobalContext();
+
   return (
     <SafeAreaView className="bg-main_background mb-14">
       <ScrollView showsVerticalScrollIndicator={false}>
-        <Header />
+        <Header user={user} />
         <View className="px-5 pt-1 pb-3">
           <SearchInput />
         </View>

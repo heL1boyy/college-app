@@ -1,11 +1,16 @@
 import { View, Text, TouchableOpacity, TextInput, Button } from "react-native";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { updateUserFieldByAccountId } from "../../lib/appwrite"; // Updated to match your function
 
-const AboutSection = ({ item }) => {
+const AboutSection = ({ item = {} }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [dateOfBirth, setDateOfBirth] = useState(item.dateOfBirth || "");
   const [gender, setGender] = useState(item.gender || "");
+
+  useEffect(() => {
+    setDateOfBirth(item.dateOfBirth || "");
+    setGender(item.gender || "");
+  }, [item]);
 
   const handleEdit = () => {
     setIsEditing(!isEditing);
@@ -13,6 +18,7 @@ const AboutSection = ({ item }) => {
 
   const handleSave = async () => {
     try {
+      if (!item.accountId) throw new Error("No account ID found.");
       // Log accountId and updatedData
       console.log("Account ID:", item.accountId);
       console.log("Updated Data:", { dateOfBirth, gender });
@@ -60,8 +66,10 @@ const AboutSection = ({ item }) => {
             </>
           ) : (
             <>
-              <Text className="mb-2">{dateOfBirth}</Text>
-              <Text>{gender}</Text>
+              <Text className="mb-2">
+                {dateOfBirth ? dateOfBirth : "Enter your date of birth"}
+              </Text>
+              <Text>{gender ? gender : "Enter your gender"}</Text>
             </>
           )}
         </View>

@@ -4,7 +4,7 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import { Colors } from "../../constants/Colors";
 import { Link, router } from "expo-router";
 
-const Header = () => {
+const Header = ({ user }) => {
   return (
     <View className="flex flex-row items-center justify-between w-full p-5">
       <View className="w-[78%]">
@@ -12,7 +12,7 @@ const Header = () => {
           Welcome Back
         </Text>
         <Text className="text-xl tracking-widest font-psemibold text-primary">
-          Sagan
+          {user?.username}
         </Text>
       </View>
       <View className="flex flex-row items-center justify-between w-[22%]">

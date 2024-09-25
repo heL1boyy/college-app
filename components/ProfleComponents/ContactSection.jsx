@@ -1,13 +1,19 @@
 import { View, Text, TouchableOpacity, TextInput, Button } from "react-native";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { updateUserFieldByAccountId } from "../../lib/appwrite";
 
-const ContactSection = ({ item }) => {
+const ContactSection = ({ item = {} }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [contactNumber, setContactNumber] = useState(item.contactNumber || "");
   const [email, setEmail] = useState(item.email || "");
   const [address, setAddress] = useState(item.address || "");
 
+  useEffect(() => {
+    // Update fields when item changes
+    setContactNumber(item.contactNumber || "");
+    setEmail(item.email || "");
+    setAddress(item.address || "");
+  }, [item]);
   const handleEdit = () => {
     setIsEditing(!isEditing);
   };
@@ -72,9 +78,11 @@ const ContactSection = ({ item }) => {
             </>
           ) : (
             <>
-              <Text className="mb-2">{contactNumber}</Text>
-              <Text className="mb-2">{email}</Text>
-              <Text>{address}</Text>
+              <Text className="mb-2">
+                {contactNumber ? contactNumber : "Enter your number"}
+              </Text>
+              <Text className="mb-2">{email ? email : "Enter your email"}</Text>
+              <Text>{address || "Enter your address"}</Text>
             </>
           )}
         </View>

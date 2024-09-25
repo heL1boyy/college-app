@@ -80,7 +80,7 @@ const SignUp = () => {
             title="Sign Up"
             handlePress={sumbit}
             isLoading={isSubmitting}
-            // containerStyles="w-full mt-5 border-[#161697] min-h-[62px]"
+            containerStyles="w-full mt-5 border-[#161697] min-h-[62px]"
           />
           <View className="justify-center pt-5 gap-2 flex-row ">
             <Text className="text-lg  font-rregular">

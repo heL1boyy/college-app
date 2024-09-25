@@ -17,7 +17,7 @@ const Profile = () => {
     <SafeAreaView>
       <FlatList
         data={[user]}
-        keyExtractor={(index) => index.toString()}
+        keyExtractor={(index) => index}
         className="h-full bg-white"
         ListHeaderComponent={() => (
           <HeaderComponent icons={icons} users={user} />
