@@ -1,6 +1,6 @@
 import { View, Text, TouchableOpacity } from "react-native";
 import React from "react";
-import { isLoading } from "expo-font";
+// import { isLoading } from "expo-font";
 
 const CustomButton = ({
   title,
@@ -13,7 +13,7 @@ const CustomButton = ({
     <TouchableOpacity
       onPress={handlePress}
       activeOpacity={0.7}
-      className={`border mt-7 rounded-full min-h-[62px] items-center justify-center ${containerStyles} 
+      className={`border-[1px]  rounded-full  items-center justify-center ${containerStyles} 
       ${isLoading ? "opacity-50" : ""}`}
       disabled={isLoading}
     >

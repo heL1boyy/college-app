@@ -111,7 +111,7 @@ const SignIn = () => {
             title="Sign-in"
             handlePress={submit}
             isLoading={isSubmitting}
-            containerStyles="w-full mt-5 border-[#161697]"
+            containerStyles="w-full mt-5 border-[#161697] min-h-[62px]"
           />
           <View className="justify-center pt-3 gap-2 flex-row">
             <Text className="text-lg font-regular">Don't have an account?</Text>

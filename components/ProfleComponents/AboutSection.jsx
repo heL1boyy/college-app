@@ -39,7 +39,7 @@ const AboutSection = ({ item }) => {
       <View className="flex-row py-4 gap-4">
         <View className="flex">
           <Text className="mb-2">Date of Birth</Text>
-          <Text>Gender</Text>
+          <Text className={`${isEditing ? "mt-2" : ""}`}>Gender</Text>
         </View>
         <View className="flex">
           {isEditing ? (

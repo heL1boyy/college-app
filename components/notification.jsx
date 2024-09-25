@@ -6,9 +6,9 @@ const Notification = () => {
   return (
     <SafeAreaView>
       <FlatList
-        // data={[{ id: 1 }]}
-        // keyExtractor={(item) => item.$id}
-        // renderItem={({ item }) => <Text className=" text-3xl"> {item.id}</Text>}
+        data={[{ id: 1 }]}
+        keyExtractor={(item) => item.$id}
+        renderItem={({ item }) => <Text className=" text-3xl"> {item.id}</Text>}
         ListHeaderComponent={() => (
           <View className=" my-6 px-4 space-x-6">
             <View className=" justify-between items-start  mb-6">
