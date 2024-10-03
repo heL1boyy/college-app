@@ -17,7 +17,6 @@ import { useGlobalContext } from "@/context/GlobalProvider";
 
 const Home = () => {
   const { user } = useGlobalContext();
-
   return (
     <SafeAreaView className="bg-main_background mb-14">
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -25,35 +24,6 @@ const Home = () => {
         <View className="px-5 pt-1 pb-3">
           <SearchInput />
         </View>
-
-        {/* Tools */}
-        {/* <View className="flex-row items-center justify-between px-5 pb-5">
-          <View className="flex-col items-center justify-center">
-            <View className="p-5 rounded-lg bg-slate-300">
-              <AntDesign name="filetext1" size={24} color="black" />
-            </View>
-            <Text className="mt-3 text-sm font-pmedium">NOTES</Text>
-          </View>
-          <View className="flex-col items-center justify-center">
-            <View className="p-5 rounded-lg bg-slate-300">
-              <FontAwesome name="calculator" size={24} color="black" />
-            </View>
-            <Text className="mt-3 text-sm font-pmedium">CGPA</Text>
-          </View>
-          <View className="flex-col items-center justify-center">
-            <View className="p-5 rounded-lg bg-slate-300">
-              <FontAwesome name="table" size={24} color="black" />
-            </View>
-            <Text className="mt-3 text-sm font-pmedium">RESULTS</Text>
-          </View>
-          <View className="flex-col items-center justify-center">
-            <View className="p-5 rounded-lg bg-slate-300">
-              <AntDesign name="filetext1" size={24} color="black" />
-            </View>
-            <Text className="mt-3 text-sm font-pmedium">NOTES</Text>
-          </View>
-        </View> */}
-
         <Class />
 
         <View className="p-5">
