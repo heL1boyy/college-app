@@ -3,12 +3,13 @@ import React from "react";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { Colors } from "../../constants/Colors";
 import { Link, router } from "expo-router";
+import { useGlobalContext } from "@/context/GlobalProvider";
 
 const Header = ({ user }) => {
   return (
     <View className="flex flex-row items-center justify-between w-full p-5">
       <View className="w-[78%]">
-        <Text className="text-sm tracking-widest font-pmedium text-red">
+        <Text className="text-sm tracking-widest font-pmedium text-primary">
           Welcome Back
         </Text>
         <Text className="text-xl tracking-widest font-psemibold text-primary">
@@ -16,7 +17,7 @@ const Header = ({ user }) => {
         </Text>
       </View>
       <View className="flex flex-row items-center justify-between w-[22%]">
-        <TouchableOpacity onPress={() => router.push("home/notification")}>
+        <TouchableOpacity onPress={() => router.push("/notification")}>
           <Ionicons name="notifications" size={24} color={Colors.primary} />
         </TouchableOpacity>
         <TouchableOpacity onPress={() => router.push("")}>

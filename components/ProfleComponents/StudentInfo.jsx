@@ -3,20 +3,20 @@ import React from "react";
 
 const StudentInfo = ({ item }) => {
   return (
-    <View className="p-6 bg-orange-100 rounded-xl">
-      <Text className="text-black mb-2">
-        <Text className="font-semibold">DEPARTMENT: </Text>
+    <View className="p-5 mb-6 bg-slate-200 rounded-xl">
+      <Text className="mb-3 tracking-wider text-black">
+        <Text className="font-rmedium">DEPARTMENT: </Text>
         {item?.department}
       </Text>
-      <Text className="text-black mb-2">
-        <Text className="font-semibold">SEMESTER: </Text> {item?.semester}
+      <Text className="mb-3 tracking-wider text-black">
+        <Text className="font-rmedium">SEMESTER: </Text> {item?.semester}
       </Text>
-      <Text className="text-black mb-2">
-        <Text className="font-semibold">CURRENT CGPA: </Text>
-        7.5
+      <Text className="mb-3 tracking-wider text-black">
+        <Text className="font-rmedium">CURRENT CGPA: </Text>
+        4.0
       </Text>
-      <Text className="text-black">
-        <Text className="font-semibold">ACADEMIC YEAR: </Text>
+      <Text className="tracking-wider text-black">
+        <Text className="font-rmedium">ACADEMIC YEAR: </Text>
         {item?.yearOfJoining}
       </Text>
     </View>

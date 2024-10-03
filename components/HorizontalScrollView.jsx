@@ -9,18 +9,17 @@ const HorizontalScrollView = () => {
     { id: "2", date: "8:20 AM - 9:10 AM", title: "Distributed System" },
     { id: "3", date: "9:10 AM - 10:50 AM", title: "Mobile Programming" },
   ];
-
   return (
     <ScrollView
       horizontal
       // pagingEnabled
       showsHorizontalScrollIndicator={false}
-      className="flex-1 gap-4"
+      className="mt-4"
     >
       {items.map((item) => (
         <View
           key={item.id}
-          className="flex-col items-start justify-center p-4 rounded-lg bg-slate-200"
+          className="flex-col items-start justify-center p-4 mr-2 rounded-lg bg-slate-200"
         >
           <Text className="text-sm tracking-wide text-primary font-pmedium">
             {item.date}

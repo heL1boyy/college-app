@@ -77,9 +77,9 @@ const HeaderComponent = ({ icons, users }) => {
   };
 
   return (
-    <View className="p-4">
-      <View className="flex-row justify-between items-center mb-6">
-        <Text className="text-2xl font-semibold">My Profile</Text>
+    <View>
+      <View className="flex-row items-center justify-between p-5">
+        <Text className="text-xl tracking-widest font-psemibold text-primary">My Profile</Text>
         <TouchableOpacity onPress={logout}>
           <Image
             source={icons.logout} // replace with your icon URI
@@ -89,12 +89,12 @@ const HeaderComponent = ({ icons, users }) => {
         </TouchableOpacity>
       </View>
 
-      <View className="flex-row items-center">
-        <View className="rounded-full w-20 h-20 mr-4">
+      <View className="flex-row items-center px-5 py-2">
+        <View className="w-20 h-20 mr-4 rounded-full">
           {/* Show either the current avatar or the newly selected avatar */}
           <Image
             source={{ uri: newAvatar || users?.avatar }}
-            className="rounded-full w-20 h-20"
+            className="w-20 h-20 rounded-full"
           />
         </View>
         <View className="flex-1">
@@ -103,38 +103,37 @@ const HeaderComponent = ({ icons, users }) => {
             <TextInput
               value={newUsername}
               onChangeText={setNewUsername}
-              className="border border-gray-300 rounded-lg p-2"
+              className="p-2 border border-gray-300 rounded-lg"
             />
           ) : (
             <>
-              <Text className="text-lg font-semibold">{users?.username}</Text>
-              <Text className="text-gray-600">{users?.accountId}</Text>
+              <Text className="text-lg font-semibold tracking-wide">{users?.username}</Text>
+              <Text className="mt-1 text-sm tracking-wide text-gray-600">{users?.accountId}</Text>
             </>
           )}
         </View>
 
-        <View className="flex-row items-center space-x-2">
+        <View className="flex-col ml-4 space-y-2">
           {editMode ? (
             <>
-              <TouchableOpacity onPress={handleSave} className="ml-2">
-                <View className="bg-blue-500 rounded-full p-2">
-                  <Text className="text-white">
-                    {isSaving ? "Saving..." : "Save"}
-                  </Text>
+              <TouchableOpacity onPress={handleCancel}>
+                <View className="px-4 py-2 rounded-lg bg-slate-600">
+                  <Text className="text-center text-white">Cancel</Text>
                 </View>
               </TouchableOpacity>
-              <TouchableOpacity onPress={handleCancel} className="ml-2">
-                <View className="bg-gray-500 rounded-full p-2">
-                  <Text className="text-white">Cancel</Text>
+              <TouchableOpacity onPress={handleSave} >
+                <View className="px-4 py-2 rounded-lg bg-primary">
+                  <Text className="text-center text-white">
+                    {isSaving ? "Saving..." : "Save"}
+                  </Text>
                 </View>
               </TouchableOpacity>
             </>
           ) : (
             <TouchableOpacity
               onPress={() => setEditMode(true)}
-              className="ml-2"
             >
-              <View className="bg-blue-500 rounded-full p-2">
+              <View className="px-4 py-2 rounded-lg bg-primary">
                 <Text className="text-white">Edit</Text>
               </View>
             </TouchableOpacity>
@@ -143,9 +142,9 @@ const HeaderComponent = ({ icons, users }) => {
       </View>
 
       {editMode && (
-        <View className="mt-4">
+        <View className="my-2 ml-5">
           <TouchableOpacity onPress={pickImage}>
-            <Text className="text-blue-500">Change Avatar</Text>
+            <Text className="text-primary">Change Avatar</Text>
           </TouchableOpacity>
         </View>
       )}

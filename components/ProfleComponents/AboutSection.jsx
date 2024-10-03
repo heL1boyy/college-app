@@ -35,29 +35,29 @@ const AboutSection = ({ item = {} }) => {
   };
 
   return (
-    <View className="bg-blue-100 p-4 rounded-xl mt-2">
-      <View className="flex-row justify-between items-center">
-        <Text className="text-xl font-semibold">About</Text>
+    <View className="p-5 mb-6 bg-slate-200 rounded-xl">
+      <View className="flex-row items-center justify-between">
+        <Text className="text-lg font-rmedium">About</Text>
         <TouchableOpacity onPress={handleEdit}>
-          <Text>{isEditing ? "Cancel" : "Edit"}</Text>
+          <Text className="text-sm font-rmedium text-primary">{isEditing ? "Cancel" : "Edit"}</Text>
         </TouchableOpacity>
       </View>
-      <View className="flex-row py-4 gap-4">
+      <View className="flex-row gap-4 pt-4">
         <View className="flex">
-          <Text className="mb-2">Date of Birth</Text>
-          <Text className={`${isEditing ? "mt-2" : ""}`}>Gender</Text>
+          <Text className="mb-3 tracking-wider font-rregular">Date of Birth:</Text>
+          <Text className={`font-rregular tracking-wider ${isEditing ? "mt-2" : ""}`}>Gender:</Text>
         </View>
         <View className="flex">
           {isEditing ? (
             <>
               <TextInput
-                className="border border-gray-300 px-1 mb-2 rounded"
+                className="px-2 mt-[-2px] mb-3 border border-gray-300 rounded"
                 value={dateOfBirth}
                 onChangeText={setDateOfBirth}
                 placeholder="Enter date of birth"
               />
               <TextInput
-                className="border border-gray-300 px-1 mb-2 rounded"
+                className="px-2 mb-3 border border-gray-300 rounded"
                 value={gender}
                 onChangeText={setGender}
                 placeholder="Enter gender"
@@ -66,10 +66,12 @@ const AboutSection = ({ item = {} }) => {
             </>
           ) : (
             <>
-              <Text className="mb-2">
+              <Text className="mb-4 tracking-wider ">{dateOfBirth}</Text>
+              <Text className="tracking-wider">{gender}</Text>
+              {/* <Text className="mb-2">
                 {dateOfBirth ? dateOfBirth : "Enter your date of birth"}
               </Text>
-              <Text>{gender ? gender : "Enter your gender"}</Text>
+              <Text>{gender ? gender : "Enter your gender"}</Text> */}
             </>
           )}
         </View>

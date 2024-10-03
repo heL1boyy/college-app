@@ -7,16 +7,13 @@ const Attendance = () => {
     <View className="p-5 mb-6">
       <View className="flex flex-row items-center justify-between">
         <Text className="text-lg font-pmedium">Attendance</Text>
-        <TouchableOpacity onPress={() => router.push("home/attendance")}>
+        <TouchableOpacity onPress={() => router.push("/(tabs)/user/attendance")}>
           <Text className="text-sm font-pmedium text-primary">
             View in Detail
           </Text>
         </TouchableOpacity>
       </View>
-      <TouchableOpacity
-        onPress={() => router.push("home/attendance")}
-        className="w-full px-5 py-4 mt-4 rounded-lg bg-slate-200"
-      >
+      <View className="w-full px-5 py-4 mt-4 rounded-lg bg-slate-200">
         <View className="flex-row items-center justify-between">
           <Text className="mt-2 mb-3 text-sm tracking-widest text-primary font-pmedium w-[70%]">
             Subjects
@@ -65,7 +62,7 @@ const Attendance = () => {
             76%
           </Text>
         </View>
-      </TouchableOpacity>
+      </View>
     </View>
   );
 };

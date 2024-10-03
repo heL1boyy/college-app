@@ -36,40 +36,38 @@ const ContactSection = ({ item = {} }) => {
     }
   };
   return (
-    <View className="bg-blue-100 p-4 rounded-xl mt-2">
-      <View className="flex-row justify-between items-center ">
-        <Text className="text-xl font-semibold">Contact</Text>
+    <View className="p-5 mb-6 bg-slate-200 rounded-xl">
+      <View className="flex-row items-center justify-between ">
+        <Text className="text-lg font-rmedium">Contact</Text>
         <TouchableOpacity onPress={handleEdit}>
-          <Text>{isEditing ? "Cancel" : "Edit"}</Text>
+          <Text className="text-sm font-rmedium text-primary">{isEditing ? "Cancel" : "Edit"}</Text>
         </TouchableOpacity>
       </View>
-
-      <View className="flex-row py-4 gap-4">
+      <View className="flex-row gap-4 pt-4">
         <View className="flex ">
-          <Text className="mb-2">Contact no</Text>
-          <Text className={`mb-2 ${isEditing ? "mt-2" : ""}`}>Email</Text>
-          <Text className={`mb-2 ${isEditing ? "mt-2" : ""}`}>Address</Text>
+          <Text className="mb-3 tracking-wider font-rregular">Contact No:</Text>
+          <Text className={`font-rregular tracking-wider mb-3 ${isEditing ? "mt-2" : ""}`}>Email:</Text>
+          <Text className={`font-rregular tracking-wider ${isEditing ? "mt-2" : ""}`}>Address:</Text>
         </View>
-
         <View className="flex ">
           {isEditing ? (
             <>
               <TextInput
-                className="border border-gray-300 px-1 mb-2 rounded"
+                className="px-2 mt-[-2px] mb-3 border border-gray-300 rounded"
                 value={contactNumber}
                 onChangeText={setContactNumber}
                 placeholder="Enter Contact number"
                 keyboardType="numeric"
               />
               <TextInput
-                className="border border-gray-300 px-1 mb-2 rounded"
+                className="px-2 mb-3 border border-gray-300 rounded"
                 value={email}
                 onChangeText={setEmail}
                 placeholder="Enter email"
                 keyboardType="email-address"
               />
               <TextInput
-                className="border border-gray-300 px-1 mb-2 rounded"
+                className="px-2 mb-3 border border-gray-300 rounded"
                 value={address}
                 onChangeText={setAddress}
                 placeholder="Enter address"
@@ -78,11 +76,14 @@ const ContactSection = ({ item = {} }) => {
             </>
           ) : (
             <>
-              <Text className="mb-2">
+              <Text className="mb-4 tracking-wider">{contactNumber}</Text>
+              <Text className="mb-4 tracking-wider">{email}</Text>
+              <Text className="tracking-wider">{address}</Text>
+              {/* <Text className="mb-2">
                 {contactNumber ? contactNumber : "Enter your number"}
               </Text>
               <Text className="mb-2">{email ? email : "Enter your email"}</Text>
-              <Text>{address || "Enter your address"}</Text>
+              <Text>{address || "Enter your address"}</Text> */}
             </>
           )}
         </View>

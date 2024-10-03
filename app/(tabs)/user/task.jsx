@@ -16,13 +16,13 @@ const Task = () => {
   ];
   return (
     <SafeAreaView className="bg-main_background mb-14">
-      <ScrollView>
-        <View className="p-5">
-          <Text className="text-xl tracking-widest font-psemibold">Task</Text>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <View className="px-5 pt-5 pb-0">
+          <Text className="text-xl tracking-widest font-psemibold text-primary">Assignments</Text>
         </View>
         <View className="px-5 mb-10">
           {taskdata.map((task) => (
-            <View className="w-full p-5 mt-2 rounded-lg bg-slate-200">
+            <View className="w-full p-5 mt-6 rounded-lg bg-slate-200">
               <View
                 key={task.id}
                 className="flex-row items-center justify-between"
@@ -55,9 +55,9 @@ const Task = () => {
                   <CustomButton
                     title="Upload File"
                     // handlePress={ () => router.push('/login') }
-                    containerStyles="bg-third border-[#34d8b9] rounded-lg px-4  mt-4 "
+                    containerStyles="bg-slate-200 rounded-lg px-4 mt-4"
                     textStyles={
-                      "text-white text-sm font-pmedium tracking-widest"
+                      "text-primary text-sm font-pmedium tracking-widest"
                     }
                   />
                   <CustomButton
