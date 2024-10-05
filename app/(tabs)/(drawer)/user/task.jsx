@@ -4,8 +4,8 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { StatusBar } from "expo-status-bar";
 import Octicons from "@expo/vector-icons/Octicons";
 import Ionicons from "@expo/vector-icons/Ionicons";
-import CustomButton from "../../../components/CustomButton";
-import { Colors } from "../../../constants/Colors";
+import CustomButton from "../../../../components/CustomButton";
+import { Colors } from "../../../../constants/Colors";
 
 const Task = () => {
   const taskdata = [

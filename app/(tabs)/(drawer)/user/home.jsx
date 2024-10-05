@@ -3,17 +3,18 @@ import React from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { StatusBar } from "expo-status-bar";
 import { Link, router } from "expo-router";
-import SearchInput from "../../../components/SearchInput";
+import SearchInput from "../../../../components/SearchInput";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import Octicons from "@expo/vector-icons/Octicons";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
-import { Colors } from "../../../constants/Colors";
-import HorizontalScrollView from "../../../components/HorizontalScrollView";
-import Header from "../../../components/HomeComponents/header";
-import Class from "../../../components/HomeComponents/class";
-import Attendance from "../../../components/HomeComponents/attendance";
+import { Colors } from "../../../../constants/Colors";
+import HorizontalScrollView from "../../../../components/HorizontalScrollView";
+import Header from "../../../../components/HomeComponents/header";
+import Class from "../../../../components/HomeComponents/class";
+import Attendance from "../../../../components/HomeComponents/attendance";
 import { useGlobalContext } from "@/context/GlobalProvider";
+import 'react-native-gesture-handler'
 
 const Home = () => {
   const { user } = useGlobalContext();

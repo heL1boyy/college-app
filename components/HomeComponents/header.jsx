@@ -4,8 +4,13 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import { Colors } from "../../constants/Colors";
 import { Link, router } from "expo-router";
 import { useGlobalContext } from "@/context/GlobalProvider";
+import 'react-native-gesture-handler'
+import { useNavigation } from '@react-navigation/native';
 
 const Header = ({ user }) => {
+
+  const navigation = useNavigation();
+
   return (
     <View className="flex flex-row items-center justify-between w-full p-5">
       <View className="w-[78%]">
@@ -20,12 +25,13 @@ const Header = ({ user }) => {
         <TouchableOpacity onPress={() => router.push("/notification")}>
           <Ionicons name="notifications" size={24} color={Colors.primary} />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => router.push("")}>
+        <TouchableOpacity onPress={() => navigation.openDrawer()}>
           <Ionicons name="menu" size={30} color={Colors.primary} />
         </TouchableOpacity>
       </View>
     </View>
   );
+
 };
 
 export default Header;

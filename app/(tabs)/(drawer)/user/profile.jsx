@@ -2,12 +2,13 @@ import { View, Text, FlatList, Image, TouchableOpacity, ScrollView } from "react
 import React, { useEffect, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useGlobalContext } from "@/context/GlobalProvider";
-import { icons } from "../../../constants";
+// import { icons } from "../../../constants";
+import { icons } from "../../../../constants";
 
-import StudentInfo from "../../../components/ProfleComponents/StudentInfo";
-import AboutSection from "../../../components/ProfleComponents/AboutSection";
-import ContactSection from "../../../components/ProfleComponents/ContactSection";
-import HeaderComponent from "../../../components/ProfleComponents/HeaderComponent";
+import StudentInfo from "../../../../components/ProfleComponents/StudentInfo";
+import AboutSection from "../../../../components/ProfleComponents/AboutSection";
+import ContactSection from "../../../../components/ProfleComponents/ContactSection";
+import HeaderComponent from "../../../../components/ProfleComponents/HeaderComponent";
 
 const Profile = () => {
   const { user } = useGlobalContext();
