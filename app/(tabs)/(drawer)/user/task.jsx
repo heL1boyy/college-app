@@ -25,23 +25,15 @@ const Task = () => {
             <View className="w-full p-5 mt-6 rounded-lg bg-slate-200">
               <View
                 key={task.id}
-                className="flex-row items-center justify-between"
+              // className="flex-row items-center justify-between"
               >
-                <View className=" flex-row justify-start items-center h-full w-[10%]">
-                  <Octicons name="dot-fill" size={26} color={Colors.primary} />
-                </View>
-                <View className="w-[90%]">
-                  <Text className="text-sm tracking-widest text-primary font-pmedium">
-                    {task.subject}
-                  </Text>
-                  <Text className="mt-3 text-sm font-pregular">Task Name</Text>
-                </View>
+                <Text className="text-sm tracking-widest text-primary font-pmedium">
+                  {task.subject}
+                </Text>
+                <Text className="mt-3 text-sm font-pregular">Task Name</Text>
               </View>
-              <View className="flex-row items-center justify-between">
-                <View className=" flex-row justify-center items-center h-full w-[10%]">
-                  {/* <Octicons name="dot-fill" size={26} color={Colors.primary} /> */}
-                </View>
-                <View className="w-[90%]">
+              <View>
+                <View>
                   <View className="flex-row items-center justify-start gap-1 mt-3">
                     <Ionicons
                       name="time-outline"

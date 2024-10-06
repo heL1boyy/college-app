@@ -1,4 +1,4 @@
-import { View, Text, ScrollView } from "react-native";
+import { View, Text, ScrollView, TouchableOpacity } from "react-native";
 import React from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { StatusBar } from "expo-status-bar";
@@ -6,10 +6,7 @@ import { Link, router } from "expo-router";
 import SearchInput from "../../../../components/SearchInput";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import Octicons from "@expo/vector-icons/Octicons";
-import AntDesign from "@expo/vector-icons/AntDesign";
-import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { Colors } from "../../../../constants/Colors";
-import HorizontalScrollView from "../../../../components/HorizontalScrollView";
 import Header from "../../../../components/HomeComponents/header";
 import Class from "../../../../components/HomeComponents/class";
 import Attendance from "../../../../components/HomeComponents/attendance";
@@ -29,28 +26,24 @@ const Home = () => {
 
         <View className="p-5">
           <View className="flex flex-row items-center justify-between">
-            <Text className="text-lg font-pmedium">Pending Tasks</Text>
-            <Link href="/task" className="text-sm font-pmedium text-primary">
-              See All
-            </Link>
+            <Text className="text-lg font-pmedium">
+              Pending Tasks
+            </Text>
+            <TouchableOpacity onPress={() => router.push("/user/task")} >
+              <Text className="text-sm font-pmedium text-primary">
+                See All
+              </Text>
+            </TouchableOpacity>
           </View>
           <View className="w-full p-5 mt-4 rounded-lg bg-slate-200">
-            <View className="flex-row items-center justify-between">
-              <View className=" flex-row justify-start items-center h-full w-[10%]">
-                <Octicons name="dot-fill" size={26} color={Colors.primary} />
-              </View>
-              <View className="w-[90%]">
-                <Text className="text-sm tracking-widest text-primary font-pmedium">
-                  Mobile Programming
-                </Text>
-                <Text className="mt-3 text-sm font-pregular">Task Name</Text>
-              </View>
+            <View>
+              <Text className="text-sm tracking-widest text-primary font-pmedium">
+                Mobile Programming
+              </Text>
+              <Text className="mt-3 text-sm font-pregular">Task Name</Text>
             </View>
-            <View className="flex-row items-center justify-between">
-              <View className=" flex-row justify-center items-center h-full w-[10%]">
-                {/* <Octicons name="dot-fill" size={26} color={Colors.primary} /> */}
-              </View>
-              <View className="w-[90%]">
+            <View>
+              <View>
                 <View className="flex-row items-center justify-start gap-1 mt-3">
                   <Ionicons
                     name="time-outline"

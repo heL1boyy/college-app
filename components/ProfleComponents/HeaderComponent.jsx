@@ -10,6 +10,8 @@ import {
 import * as ImagePicker from "expo-image-picker";
 import { useGlobalContext } from "../../context/GlobalProvider";
 import { uploadImage, updateUserFieldByAccountId } from "../../lib/appwrite";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { Colors } from '../../constants/Colors';
 
 const HeaderComponent = ({ icons, users }) => {
   const { logout } = useGlobalContext();
@@ -81,11 +83,7 @@ const HeaderComponent = ({ icons, users }) => {
       <View className="flex-row items-center justify-between p-5">
         <Text className="text-xl tracking-widest font-psemibold text-primary">My Profile</Text>
         <TouchableOpacity onPress={logout}>
-          <Image
-            source={icons.logout} // replace with your icon URI
-            resizeMode="contain"
-            className="w-6 h-6"
-          />
+          <MaterialCommunityIcons name="logout" size={24} color={Colors.primary} />
         </TouchableOpacity>
       </View>
 
