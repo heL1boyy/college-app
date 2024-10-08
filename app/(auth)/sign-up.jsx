@@ -39,7 +39,7 @@ const SignUp = () => {
     }
   };
   return (
-    <SafeAreaView className="bg-white  h-full">
+    <SafeAreaView className="h-full bg-white">
       <ScrollView>
         <View className="w-full justify-center   min-h-[85vh] px-4 mt-14">
           <View className="items-center">
@@ -58,7 +58,7 @@ const SignUp = () => {
             value={form.username}
             handleChangeText={(e) => setForm({ ...form, username: e })}
             otherStyles="mt-5"
-            placeholder="Enter username"
+            placeholder="Enter Username"
           />
           <FormField
             title="Email"
@@ -66,29 +66,29 @@ const SignUp = () => {
             handleChangeText={(e) => setForm({ ...form, email: e })}
             otherStyles="mt-5"
             keyboardType="email-address"
-            placeholder="Enter email"
+            placeholder="Enter Email"
           />
           <FormField
             title="Password"
             value={form.password}
             handleChangeText={(e) => setForm({ ...form, password: e })}
             otherStyles="mt-5"
-            placeholder="Enter password"
+            placeholder="Enter Password"
           />
 
           <CustomButton
             title="Sign Up"
             handlePress={sumbit}
             isLoading={isSubmitting}
-            containerStyles="w-full mt-5 border-[#161697] min-h-[62px]"
+            containerStyles="w-full mt-6 border-[#161697] min-h-[56px] bg-white"
           />
-          <View className="justify-center pt-5 gap-2 flex-row ">
-            <Text className="text-lg  font-rregular">
+          <View className="flex-row justify-center gap-2 pt-5 ">
+            <Text className="text-lg font-rregular">
               Have an account already?
             </Text>
             <Link
               href="/sign-in"
-              className="text-lg font-rsemibold text-orange-500"
+              className="text-lg text-primary font-rsemibold"
             >
               Sign In
             </Link>

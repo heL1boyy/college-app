@@ -199,10 +199,10 @@ const Home = () => {
         data={userData} // Add more items as needed
         keyExtractor={(index) => index.toString()} // Ensure keys are unique and strings
         ListHeaderComponent={() => (
-          <View className="my-6 px-4 space-x-6">
+          <View className="px-4 my-6 space-x-6">
             <View className="flex-row mb-6 bg-red-200 rounded-xl">
-              <View className="justify-between items-start  p-4">
-                <Text className="font-rmedium text-sm">
+              <View className="items-start justify-between p-4">
+                <Text className="text-sm font-rmedium">
                   {isLoggedIn ? "Hello" : "Welcome Back"}
                 </Text>
                 <Text className="text-2xl font-rsemibold">
@@ -210,7 +210,7 @@ const Home = () => {
                 </Text>
               </View>
               <TouchableOpacity
-                className=" rounded-full p-2 bg-black"
+                className="p-2 bg-black rounded-full "
                 onPress={() => {}}
                 activeOpacity={0.7}
               >
@@ -239,7 +239,7 @@ const Home = () => {
             /> */}
 
             {/* <TouchableOpacity
-              className=" rounded-full p-2 bg-green-200 w-20 h-20 self-center "
+              className="self-center w-20 h-20 p-2 bg-green-200 rounded-full "
               onPress={() => filepicker()}
               activeOpacity={0.7}
             >
@@ -271,7 +271,7 @@ const Home = () => {
             {/* for the image upload  */}
             <TouchableOpacity
               onPress={() => pickAndUploadImage()}
-              className="rounded-full bg-orange-200 w-24 h-24 justify-center self-center"
+              className="self-center justify-center w-24 h-24 bg-orange-200 rounded-full"
             >
               {!image ? (
                 <Text className="text-center ">upload image</Text>
@@ -289,14 +289,14 @@ const Home = () => {
               <TextInput
                 onChangeText={handleTitleChange}
                 placeholder="title"
-                className=" bg-gray-400 p-2 rounded-md border-2"
+                className="p-2 bg-gray-400 border-2 rounded-md "
               />
             </View>
 
             <TouchableOpacity
               disabled={loading}
               onPress={() => addImageAndTitle()}
-              className=" p-3 bg-orange-500"
+              className="p-3 bg-orange-500 "
             >
               {loading ? (
                 <ActivityIndicator size={"large"} color={"white"} />

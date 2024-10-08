@@ -78,7 +78,7 @@ const SignIn = () => {
   };
 
   return (
-    <SafeAreaView className="bg-white h-full">
+    <SafeAreaView className="h-full bg-white">
       <ScrollView>
         <View className="w-full justify-center min-h-[85vh] px-4 mt-14">
           <View className="items-center">
@@ -108,16 +108,16 @@ const SignIn = () => {
           />
 
           <CustomButton
-            title="Sign-in"
+            title="Sign-In"
             handlePress={submit}
             isLoading={isSubmitting}
-            containerStyles="w-full mt-5 border-[#161697] min-h-[62px]"
+            containerStyles="w-full mt-6 border-[#161697] min-h-[54px] bg-white"
           />
-          <View className="justify-center pt-3 gap-2 flex-row">
+          <View className="flex-row justify-center gap-2 pt-3">
             <Text className="text-lg font-regular">Don't have an account?</Text>
             <Link
               href="/sign-up"
-              className="text-lg font-semibold text-orange-500"
+              className="text-lg font-semibold text-primary"
             >
               Sign Up
             </Link>

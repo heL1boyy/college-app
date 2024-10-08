@@ -22,6 +22,16 @@ const Home = () => {
         <View className="px-5 pt-1 pb-3">
           <SearchInput />
         </View>
+
+        <View className="flex-row items-center justify-between p-5">
+          <TouchableOpacity onPress={() => { router.push("/admin/dashboard") }} >
+            <Text className="underline text-primary">Go To Admin Dashboard</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => { router.push("/admin/dashboard") }} >
+            <Text className="underline text-primary">Go To Teacher Dashboard</Text>
+          </TouchableOpacity>
+        </View>
+
         <Class />
 
         <View className="p-5">
