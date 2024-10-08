@@ -39,6 +39,7 @@ import * as ImagePicker from "expo-image-picker";
 // Initialize Firebase
 
 const Home = () => {
+
   const { user, isLoggedIn } = useGlobalContext();
   const [userData, setUserData] = useState([]);
 
@@ -58,11 +59,12 @@ const Home = () => {
       console.log("Error fetching data: ", error);
     }
   };
+
   useEffect(() => {
     getUserData();
   }, []);
 
-  const submit = () => {};
+  const submit = () => { };
   const [uploading, setUploading] = useState(false);
   const [uploadProgress, setUploadProgress] = useState(0);
   const [uploadedUrl, setUploadedUrl] = useState("");
@@ -193,52 +195,61 @@ const Home = () => {
       // Handle errors accordingly
     }
   };
+
   return (
     <SafeAreaView>
       <FlatList
         data={userData} // Add more items as needed
         keyExtractor={(index) => index.toString()} // Ensure keys are unique and strings
+
         ListHeaderComponent={() => (
-          <View className="px-4 my-6 space-x-6">
-            <View className="flex-row mb-6 bg-red-200 rounded-xl">
-              <View className="items-start justify-between p-4">
-                <Text className="text-sm font-rmedium">
-                  {isLoggedIn ? "Hello" : "Welcome Back"}
+          <View className="p-5">
+            <View className="flex-row items-center justify-between rounded-xl">
+              <View>
+                <Text className="text-sm tracking-widest font-pmedium text-primary">
+                  {isLoggedIn ? "Welcome Back" : "Hello"}
                 </Text>
-                <Text className="text-2xl font-rsemibold">
+                <Text className="text-xl tracking-widest font-psemibold text-primary">
                   {user ? user.username : "Guest"}
                 </Text>
               </View>
-              <TouchableOpacity
-                className="p-2 bg-black rounded-full "
-                onPress={() => {}}
+
+              {/* <TouchableOpacity
+                className="px-4 py-2 bg-black rounded-lg "
+                onPress={() => { }}
                 activeOpacity={0.7}
               >
-                {/* Add content or icon for the button */}
+                <Text className="text-white">Text Here</Text>
               </TouchableOpacity>
 
               {userData.map((user, index) => {
-                <Text key={index}> {JSON.stringify(user)}</Text>;
-              })}
+                <Text className="bg-amber-400" key={index}>
+                  {JSON.stringify(user)}
+                </Text>;
+              })} */}
+
             </View>
           </View>
         )}
+
         renderItem={({ item, index }) => (
-          <View key={index.toString()} className="px-4">
-            <Image
-              source={{ uri: item.image }}
-              className=" h-[150px] w-[200px]"
-            />
+          <View key={index.toString()} className="p-5">
+            <View className="bg-green-400">
+              <Image
+                source={{ uri: item.image }}
+                className="w-20 h-20 rounded-full"
+              />
+              <Text>
+                {item.username}
+              </Text>
 
-            <Text> {item.username}</Text>
-
-            {/* <FormField
+              {/* <FormField
               title="Title"
               otherStyles="mt-5"
               placeholder="Enter title"
             /> */}
 
-            {/* <TouchableOpacity
+              {/* <TouchableOpacity
               className="self-center w-20 h-20 p-2 bg-green-200 rounded-full "
               onPress={() => filepicker()}
               activeOpacity={0.7}
@@ -246,18 +257,21 @@ const Home = () => {
            
             </TouchableOpacity> */}
 
-            <CustomButton
-              title="submit"
-              handlePress={submit}
-              // isLoading={isSubmitting}
-              containerStyles="w-full mt-5 border-[#161697]"
-            />
+              <CustomButton
+                title="Submit"
+                handlePress={submit}
+                // isLoading={isSubmitting}
+                containerStyles="w-full mt-6 min-h-[56px]"
+              />
+            </View>
 
-            <View style={styles.container}>
-              <Button
+            <View className="flex items-center justify-center mt-5 bg-red">
+              <CustomButton
                 title="Upload Document"
                 onPress={pickAndUploadDocument}
                 disabled={uploading}
+                containerStyles="mt-6 bg-primary"
+                textStyles="text-white"
               />
               {uploading && (
                 <View style={styles.uploadInfo}>
@@ -269,55 +283,50 @@ const Home = () => {
             </View>
 
             {/* for the image upload  */}
-            <TouchableOpacity
-              onPress={() => pickAndUploadImage()}
-              className="self-center justify-center w-24 h-24 bg-orange-200 rounded-full"
-            >
-              {!image ? (
-                <Text className="text-center ">upload image</Text>
-              ) : (
-                <Image
-                  source={{ uri: image }}
-                  className="w-full h-full rounded-full "
-                />
-              )}
-            </TouchableOpacity>
-
             {/* title for that image  */}
 
-            <View>
-              <TextInput
-                onChangeText={handleTitleChange}
-                placeholder="title"
-                className="p-2 bg-gray-400 border-2 rounded-md "
-              />
+            <View className="mt-5 bg-orange">
+              <TouchableOpacity
+                onPress={() => pickAndUploadImage()}
+              >
+                {!image ? (
+                  <Text className="w-32 px-4 py-2 text-center text-white rounded-lg bg-primary">Upload Image</Text>
+                ) : (
+                  <Image
+                    source={{ uri: image }}
+                    className="w-full h-full rounded-full"
+                  />
+                )}
+              </TouchableOpacity>
+              <View className="flex-row items-center justify-between">
+                <TextInput
+                  onChangeText={handleTitleChange}
+                  placeholder="Title"
+                  className="p-2 my-2 bg-gray-200 border-2 rounded-md w-60"
+                />
+                <TouchableOpacity
+                  disabled={loading}
+                  onPress={() => addImageAndTitle()}
+                >
+                  {loading ? (
+                    <ActivityIndicator size={"large"} color={"white"} />
+                  ) : (
+                    <Text className="px-4 py-2 text-center text-white rounded-lg bg-primary">Add Title</Text>
+                  )}
+                </TouchableOpacity>
+              </View>
             </View>
 
-            <TouchableOpacity
-              disabled={loading}
-              onPress={() => addImageAndTitle()}
-              className="p-3 bg-orange-500 "
-            >
-              {loading ? (
-                <ActivityIndicator size={"large"} color={"white"} />
-              ) : (
-                <Text> add </Text>
-              )}
-            </TouchableOpacity>
+
           </View>
         )}
       />
     </SafeAreaView>
   );
+
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-    padding: 20,
-  },
   uploadInfo: {
     marginTop: 20,
     alignItems: "center",
