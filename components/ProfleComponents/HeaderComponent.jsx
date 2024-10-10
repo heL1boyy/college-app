@@ -83,7 +83,7 @@ const HeaderComponent = ({ icons, users }) => {
       <View className="flex-row items-center justify-between p-5">
         <Text className="text-xl tracking-widest font-psemibold text-primary">My Profile</Text>
         <TouchableOpacity onPress={logout}>
-          <MaterialCommunityIcons name="logout" size={24} color={Colors.primary} />
+          <MaterialCommunityIcons name="logout" size={24} color={Colors.third} />
         </TouchableOpacity>
       </View>
 
