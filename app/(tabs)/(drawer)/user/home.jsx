@@ -27,7 +27,7 @@ const Home = () => {
           <TouchableOpacity onPress={() => { router.push("/admin/dashboard") }} >
             <Text className="underline text-primary">Go To Admin Dashboard</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => { router.push("/admin/dashboard") }} >
+          <TouchableOpacity onPress={() => { router.push("/teacher/teacherDashboard") }} >
             <Text className="underline text-primary">Go To Teacher Dashboard</Text>
           </TouchableOpacity>
         </View>

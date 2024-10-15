@@ -1,17 +1,22 @@
+
 import React from "react";
 import { Tabs } from "expo-router";
+import TabBar from "../../../components/TabBar";
 
 const AdminLayout = () => {
   return (
-    <Tabs
-      screenOptions={{
-        tabBarShowLabel: false,
-      }}
-    >
+    <Tabs tabBar={(props) => <TabBar {...props} />}>
       <Tabs.Screen
-        name="dashboard"
+        name="adminDashboard"
         options={{
           title: "Dashboard",
+          headerShown: false,
+        }}
+      />
+      <Tabs.Screen
+        name="adminProfile"
+        options={{
+          title: "Profile",
           headerShown: false,
         }}
       />

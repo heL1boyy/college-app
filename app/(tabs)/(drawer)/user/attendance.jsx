@@ -1,3 +1,4 @@
+
 import { View, Text, ScrollView } from "react-native";
 import React from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -6,15 +7,18 @@ import { TouchableOpacity } from "react-native";
 import { router } from "expo-router";
 
 const Attendance = () => {
+
   return (
+
     <SafeAreaView className="bg-main_background">
-      <ScrollView>
-        <View className="p-5">
-          <Text className="text-xl tracking-widest font-psemibold text-primary">
-            Attendance
-          </Text>
-        </View>
-        <View className="px-5">
+
+      <View className="p-5">
+        <Text className="text-xl tracking-widest font-psemibold text-primary">
+          Attendance
+        </Text>
+      </View>
+
+      <View className="px-5">
           <TouchableOpacity
             onPress={() => router.push('user/attendance')}
             className="w-full px-5 py-4 mt-1 rounded-lg bg-slate-200">
@@ -64,7 +68,7 @@ const Attendance = () => {
             </View>
           </TouchableOpacity>
         </View>
-      </ScrollView>
+
       <StatusBar backgroundColor="#f5f5f5" style="light" />
     </SafeAreaView>
   );

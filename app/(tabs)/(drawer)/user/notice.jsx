@@ -72,6 +72,7 @@ const Notice = () => {
           renderItem={({ item }) => <NoticeItem item={item} />}
           keyExtractor={(item) => item.id.toString()}
           className="px-5 mt-1 mb-4"
+          showsVerticalScrollIndicator={false}
         />
       </ScrollView>
     </SafeAreaView>

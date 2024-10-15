@@ -1,3 +1,4 @@
+
 import {
   View,
   Text,
@@ -38,7 +39,7 @@ import * as ImagePicker from "expo-image-picker";
 
 // Initialize Firebase
 
-const Home = () => {
+const AdminDashboard = () => {
 
   const { user, isLoggedIn } = useGlobalContext();
   const [userData, setUserData] = useState([]);
@@ -333,4 +334,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Home;
+export default AdminDashboard;

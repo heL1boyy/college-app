@@ -15,30 +15,29 @@ const Profile = () => {
   // console.log("User object:", user);
   return (
     <SafeAreaView className="bg-main_background mb-14">
-      <ScrollView showsVerticalScrollIndicator={false}>
-        <FlatList
-          data={[user]}
-          keyExtractor={(index) => index}
-          className="h-full bg-main_background"
-          ListHeaderComponent={() => (
-            <HeaderComponent icons={icons} users={user} />
-          )}
-          //main components rendering
-          renderItem={({ item, index }) => (
-            <View key={index} className="p-4">
-              {/* student info */}
-              <StudentInfo item={item} />
+      <FlatList
+        data={[user]}
+        keyExtractor={(index) => index}
+        className="h-full bg-main_background"
+        showsVerticalScrollIndicator={false}
+        ListHeaderComponent={() => (
+          <HeaderComponent icons={icons} users={user} />
+        )}
+        //main components rendering
+        renderItem={({ item, index }) => (
+          <View key={index} className="p-4">
+            {/* student info */}
+            <StudentInfo item={item} />
 
-              {/* about */}
-              <AboutSection item={item} />
+            {/* about */}
+            <AboutSection item={item} />
 
-              {/* contact details */}
+            {/* contact details */}
 
-              <ContactSection item={item} />
-            </View>
-          )}
-        />
-      </ScrollView>
+            <ContactSection item={item} />
+          </View>
+        )}
+      />
     </SafeAreaView>
   );
 };

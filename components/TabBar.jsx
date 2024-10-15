@@ -1,3 +1,4 @@
+
 import {
   View,
   Text,
@@ -6,6 +7,7 @@ import {
   Animated,
   Easing,
 } from "react-native";
+
 import React, { useEffect, useRef } from "react";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import AntDesign from "@expo/vector-icons/AntDesign";
@@ -22,18 +24,39 @@ const TabBar = ({ state, descriptors, navigation }) => {
     home: (props) => (
       <Ionicons name="home" size={30} color="black" {...props} />
     ),
+    adminDashboard: (props) => (
+      <Ionicons name="home" size={30} color="black" {...props} />
+    ),
+    teacherDashboard: (props) => (
+      <Ionicons name="home" size={30} color="black" {...props} />
+    ),
     attendance: (props) => (
+      <Foundation name="graph-bar" size={30} color="black" {...props} />
+    ),
+    attendances: (props) => (
       <Foundation name="graph-bar" size={30} color="black" {...props} />
     ),
     // attendance: (props) => <SimpleLineIcons name="graph" size={30} color="black" {...props} />,
     task: (props) => (
       <Feather name="book-open" size={30} color="black" {...props} />
     ),
+    tasks: (props) => (
+      <Feather name="book-open" size={30} color="black" {...props} />
+    ),
     // task: (props) => <FontAwesome5 name="book-open" size={30} color="black" {...props} />,
     notice: (props) => (
       <MaterialIcons name="library-books" size={30} color="black" {...props} />
     ),
+    notices: (props) => (
+      <MaterialIcons name="library-books" size={30} color="black" {...props} />
+    ),
     profile: (props) => (
+      <Ionicons name="person" size={30} color="black" {...props} />
+    ),
+    adminProfile: (props) => (
+      <Ionicons name="person" size={30} color="black" {...props} />
+    ),
+    teacherProfile: (props) => (
       <Ionicons name="person" size={30} color="black" {...props} />
     ),
   };
@@ -69,8 +92,8 @@ const TabBar = ({ state, descriptors, navigation }) => {
           options.tabBarLabel !== undefined
             ? options.tabBarLabel
             : options.title !== undefined
-            ? options.title
-            : route.name;
+              ? options.title
+              : route.name;
 
         if (["_sitemap", "+not-found"].includes(route.name)) return null;
 
@@ -144,11 +167,12 @@ const TabBar = ({ state, descriptors, navigation }) => {
             </Animated.View>
 
             {/* <Text style={{
-                  color: isFocused ? 'white' : 'black',
-                  fontSize: 14
-              }}>
-                {label}
-              </Text> */}
+              color: isFocused ? whiteColor : "black",
+              fontSize: 14
+            }}>
+              {label}
+            </Text> */}
+
           </TouchableOpacity>
         );
       })}

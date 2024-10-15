@@ -5,10 +5,11 @@ const Tablayout = () => {
   return (
     <>
       <Stack>
-        <Stack.Screen name="admin" options={{ headerShown: false }} />
-        <Stack.Screen name="user" options={{ headerShown: false }} />
-        <Stack.Screen name="notification" options={{ headerShown: false }} />
         <Stack.Screen name="(drawer)" options={{ headerShown: false }} />
+        {/* <Stack.Screen name="user" options={{ headerShown: false }} /> */}
+        <Stack.Screen name="admin" options={{ headerShown: false }} />
+        <Stack.Screen name="teacher" options={{ headerShown: false }} />
+        <Stack.Screen name="notification" options={{ headerShown: false }} />
       </Stack>
     </>
   );
