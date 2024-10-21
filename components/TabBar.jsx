@@ -18,6 +18,7 @@ import Feather from "@expo/vector-icons/Feather";
 import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
 import Octicons from "@expo/vector-icons/Octicons";
 import Foundation from "@expo/vector-icons/Foundation";
+import { FontAwesome6, Fontisto } from "@expo/vector-icons";
 
 const TabBar = ({ state, descriptors, navigation }) => {
   const icons = {
@@ -29,6 +30,18 @@ const TabBar = ({ state, descriptors, navigation }) => {
     ),
     teacherDashboard: (props) => (
       <Ionicons name="home" size={30} color="black" {...props} />
+    ),
+    // students: (props) => (
+    //   <FontAwesome6 name="people-line" size={30} color="black" {...props} />
+    // ),
+    students: (props) => (
+      <FontAwesome6 name="people-group" size={30} color="black" {...props} />
+    ),
+    teachers: (props) => (
+      <FontAwesome5 name="chalkboard-teacher" size={28} color="black" {...props} />
+    ),
+    teachers: (props) => (
+      <FontAwesome6 name="person-chalkboard" size={30} color="black" {...props} />
     ),
     attendance: (props) => (
       <Foundation name="graph-bar" size={30} color="black" {...props} />

@@ -29,11 +29,11 @@ const Notification = () => {
                                 key={notification.id}
                                 className="flex-col items-start justify-center p-4 rounded-lg bg-slate-200"
                             >
-                                <Text className="text-sm tracking-wide font-pmedium text-primary">
-                                    {notification.notificationDate}
-                                </Text>
-                                <Text className="mt-3 text-sm tracking-widest text-justify font-pregular">
+                                <Text className="text-sm tracking-widest text-justify font-pregular">
                                     {notification.title}
+                                </Text>
+                                <Text className="mt-3 text-sm tracking-wide font-pmedium text-primary">
+                                    {notification.notificationDate}
                                 </Text>
                             </View>
                         </View>

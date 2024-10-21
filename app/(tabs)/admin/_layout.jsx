@@ -14,6 +14,20 @@ const AdminLayout = () => {
         }}
       />
       <Tabs.Screen
+        name="students"
+        options={{
+          title: "Students",
+          headerShown: false,
+        }}
+      />
+      <Tabs.Screen
+        name="teachers"
+        options={{
+          title: "Teachers",
+          headerShown: false,
+        }}
+      />
+      <Tabs.Screen
         name="adminProfile"
         options={{
           title: "Profile",

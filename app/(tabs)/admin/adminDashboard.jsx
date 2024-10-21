@@ -36,6 +36,9 @@ import {
 
 import * as DocumentPicker from "expo-document-picker";
 import * as ImagePicker from "expo-image-picker";
+import { Ionicons } from "@expo/vector-icons";
+import { Colors } from "../../../constants/Colors";
+import { Link, router } from "expo-router";
 
 // Initialize Firebase
 
@@ -204,18 +207,23 @@ const AdminDashboard = () => {
         keyExtractor={(index) => index.toString()} // Ensure keys are unique and strings
 
         ListHeaderComponent={() => (
-          <View className="p-5">
-            <View className="flex-row items-center justify-between rounded-xl">
-              <View>
-                <Text className="text-sm tracking-widest font-pmedium text-primary">
-                  {isLoggedIn ? "Welcome Back" : "Hello"}
-                </Text>
-                <Text className="text-xl tracking-widest font-psemibold text-primary">
-                  {user ? user.username : "Guest"}
-                </Text>
-              </View>
 
-              {/* <TouchableOpacity
+          <View className="flex-row items-center justify-between p-5 rounded-xl">
+
+            <View>
+              <Text className="text-sm tracking-widest font-pmedium text-primary">
+                {isLoggedIn ? "Welcome Back" : "Hello"}
+              </Text>
+              <Text className="text-xl tracking-widest font-psemibold text-primary">
+                {user ? user.username : "Guest"}
+              </Text>
+            </View>
+
+            <TouchableOpacity onPress={() => router.push("/notification")}>
+              <Ionicons name="notifications" size={24} color={Colors.primary} />
+            </TouchableOpacity>
+
+            {/* <TouchableOpacity
                 className="px-4 py-2 bg-black rounded-lg "
                 onPress={() => { }}
                 activeOpacity={0.7}
@@ -229,7 +237,6 @@ const AdminDashboard = () => {
                 </Text>;
               })} */}
 
-            </View>
           </View>
         )}
 
