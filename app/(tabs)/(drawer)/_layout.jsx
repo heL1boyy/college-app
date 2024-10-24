@@ -52,11 +52,11 @@ const CustomDrawerContent = (props) => {
                     </View>
                     <View className="px-1 mt-2">
                         <DrawerItem
-                            icon={({ color, size }) => (<MaterialIcons name="menu-book" size={24} color={pathname == "/notes" ? "#fff" : "#6734d8"} />)}
+                            icon={({ color, size }) => (<MaterialIcons name="menu-book" size={24} color={pathname == "/note" ? "#fff" : "#6734d8"} />)}
                             label={"Notes"}
-                            labelStyle={[styles.navItemLabel, { color: pathname == "/notes" ? "#fff" : "#6734d8" }]}
-                            style={{ backgroundColor: pathname == "/notes" ? "#6734d8" : "#fff" }}
-                            onPress={() => { router.push('/notes') }}
+                            labelStyle={[styles.navItemLabel, { color: pathname == "/note" ? "#fff" : "#6734d8" }]}
+                            style={{ backgroundColor: pathname == "/note" ? "#6734d8" : "#fff" }}
+                            onPress={() => { router.push('/note') }}
                         />
                     </View>
                     <View className="px-1 mt-2">
@@ -104,7 +104,7 @@ const DrawerLayout = () => {
             }}
         >
             <Drawer.Screen
-                name='notes'
+                name='note'
                 options={{
                     headerShown: true,
                     headerTitle: "Notes"

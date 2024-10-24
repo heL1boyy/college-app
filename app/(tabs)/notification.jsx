@@ -23,8 +23,8 @@ const Notification = () => {
                     </Text>
                 </View>
                 <View className="px-5 mt-1">
-                    {notifications.map((notification) => (
-                        <View className="mb-6">
+                    {notifications.map((notification, idx) => (
+                        <View key={idx} className="mb-6">
                             <View
                                 key={notification.id}
                                 className="flex-col items-start justify-center p-4 rounded-lg bg-slate-200"

@@ -67,13 +67,37 @@ const Notice = () => {
             Notices
           </Text>
         </View>
-        <FlatList
+        <View className="mb-4">
+          {notices.map((notice) => (
+            <View
+              className="p-4 mx-5 mb-6 rounded-lg bg-slate-200"
+              key={notice.id}
+            >
+              <Text className="text-sm tracking-wide font-pmedium text-primary">
+                {notice.noticeDate}
+              </Text>
+              <Text className="mt-2 text-sm tracking-widest text-justify font-pregular">
+                {notice.title}
+              </Text>
+              {!notice.imageUrl ? (
+                () => { }
+              ) : (
+                <Image
+                  source={{ uri: notice.imageUrl }}
+                  className="w-full mt-3 h-80"
+                  resizeMode='contain'
+                />
+              )}
+            </View>
+          ))}
+        </View>
+        {/* <FlatList
           data={notices}
           renderItem={({ item }) => <NoticeItem item={item} />}
           keyExtractor={(item) => item.id.toString()}
           className="px-5 mt-1 mb-4"
           showsVerticalScrollIndicator={false}
-        />
+        /> */}
       </ScrollView>
     </SafeAreaView>
   );

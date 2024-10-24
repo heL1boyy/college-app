@@ -4,7 +4,7 @@ import React from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { ScrollView } from 'react-native-gesture-handler'
 
-const Notes = () => {
+const Note = () => {
     return (
         <SafeAreaView className="bg-main_background">
             <ScrollView showsVerticalScrollIndicator={false}>
@@ -16,4 +16,4 @@ const Notes = () => {
     )
 }
 
-export default Notes
+export default Note

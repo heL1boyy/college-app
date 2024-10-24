@@ -21,8 +21,8 @@ const Task = () => {
           <Text className="text-xl tracking-widest font-psemibold text-primary">Assignments</Text>
         </View>
         <View className="px-5 mb-10">
-          {taskdata.map((task) => (
-            <View className="w-full p-5 mt-6 rounded-lg bg-slate-200">
+          {taskdata.map((task, idx) => (
+            <View key={idx} className="w-full p-5 mt-6 rounded-lg bg-slate-200">
               <View
                 key={task.id}
               // className="flex-row items-center justify-between"

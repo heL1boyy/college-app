@@ -1,10 +1,20 @@
+
 import { View, Text, TouchableOpacity } from "react-native";
 import React from "react";
 import { router } from "expo-router";
 
 const Attendance = () => {
+
+  const attendanceList = [
+    { subject: "Distributed System", percentage: "74%" },
+    { subject: "Applied Economics", percentage: "100%" },
+    { subject: "Mobile Programming", percentage: "92%" },
+    { subject: "Network Programming", percentage: "86%" },
+    { subject: "Advanced Java Programming", percentage: "76%" },
+  ]
+
   return (
-    <View className="p-5 mb-6">
+    <View className="p-5 mb-5">
       <View className="flex flex-row items-center justify-between">
         <Text className="text-lg font-pmedium">Attendance</Text>
         <TouchableOpacity onPress={() => router.push("/(tabs)/user/attendance")}>
@@ -22,49 +32,23 @@ const Attendance = () => {
             Attendance
           </Text>
         </View>
-        <View className="flex-row items-center justify-between">
-          <Text className="my-2 text-sm tracking-wider font-pmedium w-[70%]">
-            Distributed System
-          </Text>
-          <Text className="my-2 text-sm tracking-wider font-pmedium w-[30%] text-center">
-            74%
-          </Text>
-        </View>
-        <View className="flex-row items-center justify-between">
-          <Text className="my-2 text-sm tracking-wider font-pmedium w-[70%]">
-            Applied Economics
-          </Text>
-          <Text className="my-2 text-sm tracking-wider font-pmedium w-[30%] text-center">
-            100%
-          </Text>
-        </View>
-        <View className="flex-row items-center justify-between">
-          <Text className="my-2 text-sm tracking-wider font-pmedium w-[70%]">
-            Mobile Programming
-          </Text>
-          <Text className="my-2 text-sm tracking-wider font-pmedium w-[30%] text-center">
-            92%
-          </Text>
-        </View>
-        <View className="flex-row items-center justify-between">
-          <Text className="my-2 text-sm tracking-wider font-pmedium w-[70%]">
-            Network Programming
-          </Text>
-          <Text className="my-2 text-sm tracking-wider font-pmedium w-[30%] text-center">
-            86%
-          </Text>
-        </View>
-        <View className="flex-row items-center justify-between">
-          <Text className="my-2 text-sm tracking-wider font-pmedium w-[70%]">
-            Advanced Java Programming
-          </Text>
-          <Text className="my-2 text-sm tracking-wider font-pmedium w-[30%] text-center">
-            76%
-          </Text>
-        </View>
+        {attendanceList.map((attendance, index) => (
+          <View
+            key={index}
+            className="flex-row items-center justify-between"
+          >
+            <Text className="my-2 text-sm tracking-wider font-pmedium w-[70%]">
+              {attendance.subject}
+            </Text>
+            <Text className="my-2 text-sm tracking-wider font-pmedium w-[30%] text-center">
+              {attendance.percentage}
+            </Text>
+          </View>
+        ))}
       </View>
     </View>
   );
+
 };
 
 export default Attendance;

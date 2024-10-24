@@ -33,8 +33,8 @@ const Tasks = () => {
           />
         </View>
         <View className="px-5 mt-1 mb-10">
-          {taskdata.map((task) => (
-            <View className="w-full p-5 mt-6 rounded-lg bg-slate-200">
+          {taskdata.map((task, idx) => (
+            <View key={idx} className="w-full p-5 mt-6 rounded-lg bg-slate-200">
               <View
                 key={task.id}
               // className="flex-row items-center justify-between"
