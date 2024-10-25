@@ -6,8 +6,8 @@ import { TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { Colors } from '../../../constants/Colors';
 import { router } from 'expo-router';
-// import 'react-native-gesture-handler'
-// import { useNavigation } from '@react-navigation/native';
+import 'react-native-gesture-handler'
+import { useNavigation } from '@react-navigation/native';
 
 const TeacherDashboard = ({ user }) => {
   // const navigation = useNavigation();
@@ -16,10 +16,10 @@ const TeacherDashboard = ({ user }) => {
       <ScrollView showsVerticalScrollIndicator={false}>
         <View className="flex flex-row items-center justify-between w-full p-5">
           <View className="w-[78%]">
-            <Text className="text-base tracking-widest font-rregular text-primary">
+            <Text className="text-base tracking-widest font-rregular">
               Welcome Back
             </Text>
-            <Text className="text-xl tracking-widest font-psemibold text-primary">
+            <Text className="mt-1 text-xl tracking-widest font-psemibold text-primary">
               {/* {user?.username} */}
               Sagan Shrestha
             </Text>

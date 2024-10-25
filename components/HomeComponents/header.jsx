@@ -1,3 +1,4 @@
+
 import { View, Text, TouchableOpacity } from "react-native";
 import React from "react";
 import Ionicons from "@expo/vector-icons/Ionicons";
@@ -14,10 +15,10 @@ const Header = ({ user }) => {
   return (
     <View className="flex flex-row items-center justify-between w-full p-5">
       <View className="w-[78%]">
-        <Text className="text-sm tracking-widest font-pmedium text-primary">
+        <Text className="text-sm tracking-widest font-pmedium">
           Welcome Back
         </Text>
-        <Text className="text-xl tracking-widest font-psemibold text-primary">
+        <Text className="mt-1 text-xl tracking-widest font-psemibold text-primary">
           {user?.username}
         </Text>
       </View>

@@ -16,9 +16,10 @@ import { useGlobalContext } from "../../../context/GlobalProvider";
 const CustomDrawerContent = (props) => {
 
     const pathname = usePathname();
-    useEffect(() => {
-        console.log(pathname)
-    }, [pathname])
+    
+    // useEffect(() => {
+    //     console.log(pathname)
+    // }, [pathname])
 
     const { logout } = useGlobalContext();
 
@@ -95,32 +96,32 @@ const DrawerLayout = () => {
             drawerContent={(props) => <CustomDrawerContent {...props} />}
             screenOptions={{
                 headerShown: false,
-                headerStyle: { backgroundColor: "#f5f5f5" },
-                headerTintColor: "#6734d8",
-                headerRight: () => <DrawerToggleButton tintColor='#6734d8' />,
-                headerLeft: () => { },
-                headerTitleStyle: [styles.drawerLabel],
-                headerRightContainerStyle: [styles.headerRightStyle]
+                // headerStyle: { backgroundColor: "#f5f5f5" },
+                // headerTintColor: "#6734d8",
+                // headerRight: () => <DrawerToggleButton tintColor='#6734d8' />,
+                // headerLeft: () => { },
+                // headerTitleStyle: [styles.drawerLabel],
+                // headerRightContainerStyle: [styles.headerRightStyle]
             }}
         >
             <Drawer.Screen
                 name='note'
                 options={{
-                    headerShown: true,
+                    headerShown: false,
                     headerTitle: "Notes"
                 }}
             />
             <Drawer.Screen
                 name='result'
                 options={{
-                    headerShown: true,
+                    headerShown: false,
                     headerTitle: "Results"
                 }}
             />
             <Drawer.Screen
                 name='cgpa'
                 options={{
-                    headerShown: true,
+                    headerShown: false,
                     headerTitle: "CGPA Calculator"
                 }}
             />

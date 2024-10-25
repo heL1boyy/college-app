@@ -18,7 +18,7 @@ const Attendance = () => {
   ]
 
   return (
-    <SafeAreaView className="bg-main_background">
+    <SafeAreaView className="h-full bg-main_background">
       <View className="p-5">
         <Text className="text-xl tracking-widest font-psemibold text-primary">
           Attendance
@@ -27,7 +27,7 @@ const Attendance = () => {
       {attendanceList.map((attendance, index) => (
         <View
           key={index}
-          className="px-5 mb-5"
+          className="px-5 mb-6"
         >
           <TouchableOpacity
             onPress={() => router.push('/attendances/' + attendance.subject)}

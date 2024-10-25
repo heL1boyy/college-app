@@ -211,10 +211,10 @@ const AdminDashboard = () => {
           <View className="flex-row items-center justify-between p-5 rounded-xl">
 
             <View>
-              <Text className="text-sm tracking-widest font-pmedium text-primary">
+              <Text className="text-sm tracking-widest font-pmedium">
                 {isLoggedIn ? "Welcome Back" : "Hello"}
               </Text>
-              <Text className="text-xl tracking-widest font-psemibold text-primary">
+              <Text className="mt-1 text-xl tracking-widest font-psemibold text-primary">
                 {user ? user.username : "Guest"}
               </Text>
             </View>

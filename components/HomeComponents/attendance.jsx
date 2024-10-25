@@ -28,7 +28,7 @@ const Attendance = () => {
           <Text className="mt-2 mb-3 text-sm tracking-widest text-primary font-pmedium w-[70%]">
             Subjects
           </Text>
-          <Text className="mt-2 mb-3 text-sm tracking-widest text-primary font-pmedium w-[30%] text-center">
+          <Text className="mt-2 mb-3 text-sm tracking-widest text-primary font-pmedium w-[30%] text-right">
             Attendance
           </Text>
         </View>
@@ -40,7 +40,7 @@ const Attendance = () => {
             <Text className="my-2 text-sm tracking-wider font-pmedium w-[70%]">
               {attendance.subject}
             </Text>
-            <Text className="my-2 text-sm tracking-wider font-pmedium w-[30%] text-center">
+            <Text className="my-2 text-sm tracking-wider font-pmedium w-[30%] text-right">
               {attendance.percentage}
             </Text>
           </View>
