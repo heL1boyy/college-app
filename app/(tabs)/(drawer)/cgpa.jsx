@@ -13,7 +13,7 @@ const CGPAClaculator = () => {
     const navigation = useNavigation()
 
     return (
-        <SafeAreaView className="bg-main_background">
+        <SafeAreaView className="h-full bg-main_background">
             <ScrollView showsVerticalScrollIndicator={false}>
                 <View className="flex flex-row items-center justify-between p-5">
                     <Text className="mt-1 text-xl tracking-widest font-psemibold text-primary">

@@ -61,7 +61,7 @@ const NoticeItem = ({ item }) => (
 
 const Notices = () => {
   return (
-    <SafeAreaView className="mb-16 bg-main_background">
+    <SafeAreaView className="mb-14 bg-main_background">
       <ScrollView showsVerticalScrollIndicator={false}>
         <View className="flex-row items-center justify-between p-5 mb-2">
           <Text className="text-xl tracking-widest font-psemibold text-primary">
@@ -77,28 +77,30 @@ const Notices = () => {
           />
         </View>
 
-        {notice.map((notices) => (
-          <View
-            className="p-4 mx-5 mb-6 rounded-lg bg-slate-200"
-            key={notices.id}
-          >
-            <Text className="text-sm tracking-wide font-pmedium text-primary">
-              {notices.noticeDate}
-            </Text>
-            <Text className="mt-2 text-sm tracking-widest text-justify font-pregular">
-              {notices.title}
-            </Text>
-            {!notices.imageUrl ? (
-              () => { }
-            ) : (
-              <Image
-                source={{ uri: notices.imageUrl }}
-                className="w-full mt-3 h-80"
-                resizeMode='contain'
-              />
-            )}
-          </View>
-        ))}
+        <View className="mb-4">
+          {notice.map((notices) => (
+            <View
+              className="p-4 mx-5 mb-6 rounded-lg bg-slate-200"
+              key={notices.id}
+            >
+              <Text className="text-sm tracking-wide font-pmedium text-primary">
+                {notices.noticeDate}
+              </Text>
+              <Text className="mt-2 text-sm tracking-widest text-justify font-pregular">
+                {notices.title}
+              </Text>
+              {!notices.imageUrl ? (
+                () => { }
+              ) : (
+                <Image
+                  source={{ uri: notices.imageUrl }}
+                  className="w-full mt-3 h-80"
+                  resizeMode='contain'
+                />
+              )}
+            </View>
+          ))}
+        </View>
 
         {/* <FlatList
           data={notice}
