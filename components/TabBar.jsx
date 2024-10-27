@@ -31,37 +31,37 @@ const TabBar = ({ state, descriptors, navigation }) => {
     teacherDashboard: (props) => (
       <Ionicons name="home" size={30} color="black" {...props} />
     ),
-    // students: (props) => (
-    //   <FontAwesome6 name="people-line" size={30} color="black" {...props} />
-    // ),
     students: (props) => (
       <FontAwesome6 name="people-group" size={30} color="black" {...props} />
     ),
     teachers: (props) => (
-      <FontAwesome5 name="chalkboard-teacher" size={28} color="black" {...props} />
+      <FontAwesome6 name="person-chalkboard" size={30} color="black" {...props} />
     ),
     teachers: (props) => (
-      <FontAwesome6 name="person-chalkboard" size={30} color="black" {...props} />
+      <FontAwesome5 name="chalkboard-teacher" size={30} color="black" {...props} />
     ),
     attendance: (props) => (
       <Foundation name="graph-bar" size={30} color="black" {...props} />
     ),
+    // attendance: (props) => <SimpleLineIcons name="graph" size={30} color="black" {...props} />,
     attendances: (props) => (
       <Foundation name="graph-bar" size={30} color="black" {...props} />
     ),
-    // attendance: (props) => <SimpleLineIcons name="graph" size={30} color="black" {...props} />,
     task: (props) => (
       <Feather name="book-open" size={30} color="black" {...props} />
     ),
+    // task: (props) => <FontAwesome5 name="book-open" size={30} color="black" {...props} />,
     tasks: (props) => (
       <Feather name="book-open" size={30} color="black" {...props} />
     ),
-    // task: (props) => <FontAwesome5 name="book-open" size={30} color="black" {...props} />,
     notice: (props) => (
       <MaterialIcons name="library-books" size={30} color="black" {...props} />
     ),
     notices: (props) => (
       <MaterialIcons name="library-books" size={30} color="black" {...props} />
+    ),
+    results: (props) => (
+      <Entypo name="bar-graph" size={30} color="black" {...props} />
     ),
     profile: (props) => (
       <Ionicons name="person" size={30} color="black" {...props} />

@@ -28,6 +28,13 @@ const AdminLayout = () => {
         }}
       />
       <Tabs.Screen
+        name="results"
+        options={{
+          title: "Resutls",
+          headerShown: false,
+        }}
+      />
+      <Tabs.Screen
         name="adminProfile"
         options={{
           title: "Profile",
