@@ -19,7 +19,7 @@ const Tasks = () => {
   return (
     <SafeAreaView className="bg-main_background mb-14">
       <ScrollView showsVerticalScrollIndicator={false}>
-        <View className="flex-row items-center justify-between px-5 mt-5">
+        <View className="flex-row items-center justify-between p-6">
           <Text className="text-xl tracking-widest font-psemibold text-primary">
             Tasks
           </Text>
@@ -32,9 +32,9 @@ const Tasks = () => {
             }
           />
         </View>
-        <View className="px-5 mt-1 mb-10">
+        <View className="px-6 my-2">
           {taskdata.map((task, idx) => (
-            <View key={idx} className="w-full p-5 mt-6 rounded-lg bg-slate-200">
+            <View key={idx} className="w-full p-5 mb-8 rounded-lg bg-slate-200">
               <View
                 key={task.id}
               // className="flex-row items-center justify-between"

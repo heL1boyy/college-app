@@ -14,6 +14,13 @@ const TeacherLayout = () => {
                 }}
             />
             <Tabs.Screen
+                name="notes"
+                options={{
+                    title: "Notes",
+                    headerShown: false,
+                }}
+            />
+            <Tabs.Screen
                 name="attendances"
                 options={{
                     title: "Attendance",

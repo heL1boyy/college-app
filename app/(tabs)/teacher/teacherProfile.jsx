@@ -7,7 +7,7 @@ const TeacherProfile = () => {
   return (
     <SafeAreaView className="bg-main_background mb-14">
       <ScrollView showsVerticalScrollIndicator={false}>
-        <View className="p-5">
+        <View className="p-6">
           <Text className="text-xl tracking-widest font-psemibold text-primary">Teacher Profile</Text>
         </View>
       </ScrollView>

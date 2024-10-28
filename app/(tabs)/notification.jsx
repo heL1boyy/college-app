@@ -20,12 +20,12 @@ const Notification = () => {
     return (
         <SafeAreaView className="bg-main_background">
             <ScrollView showsVerticalScrollIndicator={false}>
-                <View className="p-5">
+                <View className="p-6">
                     <Text className="text-xl tracking-widest font-psemibold text-primary">
                         Notifications
                     </Text>
                 </View>
-                <View className="px-5 mt-1">
+                <View className="px-6">
                     {notifications.map((notification, idx) => (
                         <View key={idx} className="mb-6">
                             <View

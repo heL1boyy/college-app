@@ -63,7 +63,7 @@ const Notices = () => {
   return (
     <SafeAreaView className="mb-14 bg-main_background">
       <ScrollView showsVerticalScrollIndicator={false}>
-        <View className="flex-row items-center justify-between p-5 mb-2">
+        <View className="flex-row items-center justify-between p-6">
           <Text className="text-xl tracking-widest font-psemibold text-primary">
             Notices
           </Text>
@@ -77,10 +77,10 @@ const Notices = () => {
           />
         </View>
 
-        <View className="mb-4">
+        <View className="my-2">
           {notice.map((notices) => (
             <View
-              className="p-4 mx-5 mb-6 rounded-lg bg-slate-200"
+              className="p-4 mx-6 mb-8 rounded-lg bg-slate-200"
               key={notices.id}
             >
               <Text className="text-sm tracking-wide font-pmedium text-primary">

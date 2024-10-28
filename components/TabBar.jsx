@@ -47,6 +47,9 @@ const TabBar = ({ state, descriptors, navigation }) => {
     attendances: (props) => (
       <Foundation name="graph-bar" size={30} color="black" {...props} />
     ),
+    notes: (props) => (
+      <MaterialIcons name="menu-book" size={30} color="black" {...props} />
+    ),
     task: (props) => (
       <Feather name="book-open" size={30} color="black" {...props} />
     ),
@@ -202,7 +205,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "#6734d8",
     paddingTop: 4,
-    paddingHorizontal: 8,
+    paddingHorizontal: 10,
     // shadowColor: 'black',
     // shadowOffset: { width: 0, height: 10 },
     // shadowRadius: 10,
