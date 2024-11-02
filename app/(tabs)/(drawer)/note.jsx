@@ -33,7 +33,7 @@ const Note = () => {
                 {noteBySubject.map((note, index) => (
                     <TouchableOpacity
                         key={index}
-                        onPress={() => router.push('/notes/' + note.subject)}
+                        onPress={() => router.push('/userRoutes/notes/' + note.subject)}
                         className="px-5 py-4 mb-6 rounded-lg bg-slate-200"
                     >
                         <Text className="my-2 text-sm tracking-wider font-pmedium">

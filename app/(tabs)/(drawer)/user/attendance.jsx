@@ -30,7 +30,7 @@ const Attendance = () => {
           className="px-5 mb-6"
         >
           <TouchableOpacity
-            onPress={() => router.push('/attendances/' + attendance.subject)}
+            onPress={() => router.push('/userRoutes/attendances/' + attendance.subject)}
             className="w-full px-5 py-4 mt-1 rounded-lg bg-slate-200"
           >
             <View className="flex-row items-center justify-between">

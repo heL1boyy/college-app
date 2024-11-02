@@ -80,7 +80,7 @@ const Notice = () => {
                 {notice.title}
               </Text>
               {!notice.imageUrl ? (
-                () => { }
+                ()=>{}
               ) : (
                 <Image
                   source={{ uri: notice.imageUrl }}

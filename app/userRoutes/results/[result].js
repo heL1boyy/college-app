@@ -3,7 +3,8 @@ import { View, Text, ScrollView } from 'react-native'
 import React, { useEffect } from 'react'
 import { useLocalSearchParams, useNavigation } from 'expo-router'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import CustomButton from '../../components/CustomButton'
+// import CustomButton from '../../../components/CustomButton'
+import CustomButton from '../../../components/CustomButton'
 
 const ResultBySubject = () => {
 

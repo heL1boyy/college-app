@@ -36,7 +36,7 @@ const Results = () => {
                     {resultBySemester.map((result, index) => (
                         <TouchableOpacity
                             key={index}
-                            onPress={() => router.push('/results/' + result.semester)}
+                            onPress={() => router.push('/userRoutes/results/' + result.semester)}
                             className="px-5 py-4 mb-6 rounded-lg bg-slate-200"
                         >
                             <Text className="my-2 text-sm tracking-wider font-pmedium">
