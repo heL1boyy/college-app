@@ -23,7 +23,7 @@ const ResultBySubject = () => {
     useEffect(() => {
         navigation.setOptions({
             headerTitle: result,
-            headerShown: true
+            headerShown: false
         })
     })
 

@@ -2,8 +2,8 @@
 import { View, Text, ScrollView } from 'react-native'
 import React from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import CustomButton from '../../../components/CustomButton'
 import { TouchableOpacity } from 'react-native'
+import { router } from 'expo-router'
 
 const Notes = () => {
 
@@ -27,7 +27,7 @@ const Notes = () => {
                     {noteBySubject.map((note, index) => (
                         <TouchableOpacity
                             key={index}
-                            // onPress={() => router.push('/notes/' + note.subject)}
+                            onPress={() => router.push('/teacherRoutes/notes/' + note.subject)}
                             className="px-5 py-4 mb-8 rounded-lg bg-slate-200"
                         >
                             <Text className="my-2 text-sm tracking-wider font-pmedium">
