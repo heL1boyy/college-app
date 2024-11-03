@@ -3,6 +3,7 @@ import { View, Text, ScrollView, Image } from 'react-native'
 import React from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { TouchableOpacity } from 'react-native'
+import { router } from 'expo-router'
 
 const Students = () => {
 
@@ -23,13 +24,16 @@ const Students = () => {
             <SafeAreaView className="bg-main_background mb-14">
                   <ScrollView showsVerticalScrollIndicator={false}>
                         <View className="p-5">
-                              <Text className="text-xl tracking-widest font-psemibold text-primary">Students</Text>
+                              <Text className="text-xl tracking-widest font-psemibold text-primary">
+                                    Students
+                              </Text>
                         </View>
                         <View className="px-5 py-2">
                               {studentList.map((student, index) => (
                                     <TouchableOpacity
                                           key={index}
                                           className="flex flex-row items-center justify-start p-5 mb-8 rounded-lg bg-slate-200"
+                                          onPress={() => router.push('/adminRoutes/students/' + student.name)}
                                     >
                                           <View>
                                                 <Image
