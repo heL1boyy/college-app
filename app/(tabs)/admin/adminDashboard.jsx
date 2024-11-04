@@ -39,6 +39,7 @@ import * as ImagePicker from "expo-image-picker";
 import { Ionicons } from "@expo/vector-icons";
 import { Colors } from "../../../constants/Colors";
 import { Link, router } from "expo-router";
+import { StatusBar } from "expo-status-bar";
 
 // Initialize Firebase
 
@@ -208,7 +209,7 @@ const AdminDashboard = () => {
 
         ListHeaderComponent={() => (
 
-          <View className="flex-row items-center justify-between p-5 rounded-xl">
+          <View className="flex-row items-center justify-between p-6 rounded-xl">
 
             <View>
               <Text className="text-sm tracking-widest font-pmedium">
@@ -241,7 +242,7 @@ const AdminDashboard = () => {
         )}
 
         renderItem={({ item, index }) => (
-          <View key={index.toString()} className="p-5">
+          <View key={index.toString()} className="p-6">
             <View className="bg-green-400">
               <Image
                 source={{ uri: item.image }}
@@ -329,6 +330,7 @@ const AdminDashboard = () => {
           </View>
         )}
       />
+      <StatusBar backgroundColor="#000" />
     </SafeAreaView>
   );
 

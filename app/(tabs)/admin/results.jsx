@@ -4,6 +4,7 @@ import React from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { TouchableOpacity } from 'react-native'
 import { router } from 'expo-router'
+import { StatusBar } from 'expo-status-bar'
 
 const Results = () => {
 
@@ -21,12 +22,12 @@ const Results = () => {
     return (
         <SafeAreaView className="bg-main_background mb-14">
             <ScrollView showsVerticalScrollIndicator={false}>
-                <View className="flex flex-row items-center justify-between p-5">
+                <View className="flex flex-row items-center justify-between p-6">
                     <Text className="text-xl tracking-widest font-psemibold text-primary">
                         Results
                     </Text>
                 </View>
-                <View className="px-5 py-2">
+                <View className="px-6 pt-1 pb-2">
                     {resultBySemester.map((result, index) => (
                         <TouchableOpacity
                             key={index}
@@ -39,6 +40,7 @@ const Results = () => {
                         </TouchableOpacity>
                     ))}
                 </View>
+                <StatusBar backgroundColor="#000" />
             </ScrollView>
         </SafeAreaView>
     )
