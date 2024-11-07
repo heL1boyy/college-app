@@ -38,7 +38,7 @@ const TabBar = ({ state, descriptors, navigation }) => {
       <FontAwesome6 name="person-chalkboard" size={30} color="black" {...props} />
     ),
     teachers: (props) => (
-      <FontAwesome5 name="chalkboard-teacher" size={30} color="black" {...props} />
+      <FontAwesome5 name="chalkboard-teacher" size={28} color="black" {...props} />
     ),
     attendance: (props) => (
       <Foundation name="graph-bar" size={30} color="black" {...props} />

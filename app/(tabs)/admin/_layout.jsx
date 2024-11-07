@@ -21,6 +21,13 @@ const AdminLayout = () => {
         }}
       />
       <Tabs.Screen
+        name="results"
+        options={{
+          title: "Resutls",
+          headerShown: false,
+        }}
+      />
+      <Tabs.Screen
         name="teachers"
         options={{
           title: "Teachers",
@@ -28,9 +35,9 @@ const AdminLayout = () => {
         }}
       />
       <Tabs.Screen
-        name="results"
+        name="notices"
         options={{
-          title: "Resutls",
+          title: "Notices",
           headerShown: false,
         }}
       />

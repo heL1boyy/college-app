@@ -1,6 +1,6 @@
 
-import { View, Text, ScrollView, Image } from 'react-native'
-import React from 'react'
+import { View, Text, ScrollView, Image, TextInput } from 'react-native'
+import React, { useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { TouchableOpacity } from 'react-native'
 import { router } from 'expo-router'
@@ -8,6 +8,12 @@ import { StatusBar } from 'expo-status-bar'
 import CustomButton from '../../../components/CustomButton'
 
 const Students = () => {
+
+      const [editMode, setEditMode] = useState(false)
+
+      const handleCancel = () => {
+            setEditMode(false);
+      };
 
       const studentList = [
             { id: "077/BCA/025", name: "Sagan Shrestha", imageURI: "https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" },
@@ -23,15 +29,71 @@ const Students = () => {
       return (
             <SafeAreaView className="bg-main_background mb-14">
                   <ScrollView showsVerticalScrollIndicator={false}>
-                        <View className="flex flex-row items-center justify-between p-6">
+                        <View className="p-6">
                               <Text className="text-xl tracking-widest font-psemibold text-primary">
                                     Students
                               </Text>
-                              <CustomButton
-                                    title="Add Student"
-                                    containerStyles="w-auto bg-primary rounded-lg px-5"
-                                    textStyles={"text-white text-sm font-pmedium tracking-widest"}
-                              />
+                        </View>
+                        <View className="flex-col mx-6 mb-6 space-y-4">
+                              {editMode ? (
+                                    <>
+                                          <View className="p-6 mb-2 rounded-lg bg-slate-200">
+                                                <View className="flex-row items-center mb-6">
+                                                      <Text className="tracking-wider font-rmedium w-[20%]">Name:</Text>
+                                                      <TextInput
+                                                            className="w-[80%] px-3 py-1 border border-gray-500 rounded-lg"
+                                                      />
+                                                </View>
+                                                <View className="flex-row items-center mb-6">
+                                                      <Text className="tracking-wider font-rmedium w-[36%]">Department:</Text>
+                                                      <TextInput
+                                                            className="w-[64%] px-3 py-1 border border-gray-500 rounded-lg"
+                                                      />
+                                                </View>
+                                                <View className="flex-row items-center mb-6">
+                                                      <Text className="tracking-wider font-rmedium w-[44%]">Academic Year:</Text>
+                                                      <TextInput
+                                                            className="w-[56%] px-3 py-1 border border-gray-500 rounded-lg"
+                                                      />
+                                                </View>
+                                                <View className="flex-row items-center mb-6">
+                                                      <Text className="tracking-wider font-rmedium w-[24%]">Roll No:</Text>
+                                                      <TextInput
+                                                            className="w-[76%] px-3 py-1 border border-gray-500 rounded-lg"
+                                                      />
+                                                </View>
+                                                <View className="flex-row items-center mb-6">
+                                                      <Text className="tracking-wider font-rmedium w-[20%]">Email:</Text>
+                                                      <TextInput
+                                                            className="w-[80%] px-3 py-1 border border-gray-500 rounded-lg"
+                                                      />
+                                                </View>
+                                                <View className="flex-row items-center">
+                                                      <Text className="tracking-wider font-rmedium w-[26%]">Contact:</Text>
+                                                      <TextInput
+                                                            className="w-[74%] px-3 py-1 border border-gray-500 rounded-lg"
+                                                      />
+                                                </View>
+                                          </View>
+                                          <TouchableOpacity onPress={handleCancel}>
+                                                <Text className="py-4 tracking-widest text-center text-white rounded-lg bg-slate-600 font-rmedium">Cancel</Text>
+                                          </TouchableOpacity>
+                                          <TouchableOpacity
+                                          // onPress={handleSave}
+                                          >
+                                                <Text className="py-4 tracking-widest text-center text-white rounded-lg bg-primary font-rmedium">
+                                                      {/* {isSaving ? "Saving..." : "Save"} */}
+                                                      Add Student
+                                                </Text>
+                                          </TouchableOpacity>
+                                    </>
+                              ) : (
+                                    <TouchableOpacity
+                                          onPress={() => setEditMode(true)}
+                                    >
+                                          <Text className="py-4 tracking-widest text-center text-white rounded-lg bg-primary font-rmedium">Add Student</Text>
+                                    </TouchableOpacity>
+                              )}
                         </View>
                         <View className="px-6 py-2">
                               {studentList.map((student, index) => (
