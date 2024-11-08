@@ -7,10 +7,9 @@ import { Ionicons } from '@expo/vector-icons';
 import { Colors } from '../../../constants/Colors';
 import { router } from 'expo-router';
 import 'react-native-gesture-handler'
-import { useNavigation } from '@react-navigation/native';
+import { StatusBar } from 'expo-status-bar';
 
-const TeacherDashboard = ({ user }) => {
-  // const navigation = useNavigation();
+const TeacherDashboard = () => {
   return (
     <SafeAreaView className="bg-main_background mb-14">
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -20,7 +19,6 @@ const TeacherDashboard = ({ user }) => {
               Welcome Back
             </Text>
             <Text className="mt-1 text-xl tracking-widest font-psemibold text-primary">
-              {/* {user?.username} */}
               Sagan Shrestha
             </Text>
           </View>
@@ -28,11 +26,9 @@ const TeacherDashboard = ({ user }) => {
             <TouchableOpacity onPress={() => router.push("/notification")}>
               <Ionicons name="notifications" size={24} color={Colors.primary} />
             </TouchableOpacity>
-            {/* <TouchableOpacity onPress={() => navigation.openDrawer()}>
-              <Ionicons name="menu" size={30} color={Colors.primary} />
-            </TouchableOpacity> */}
           </View>
         </View>
+        <StatusBar backgroundColor="black" />
       </ScrollView>
     </SafeAreaView>
   )

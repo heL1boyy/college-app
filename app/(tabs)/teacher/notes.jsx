@@ -4,6 +4,7 @@ import React from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { TouchableOpacity } from 'react-native'
 import { router } from 'expo-router'
+import { StatusBar } from 'expo-status-bar'
 
 const Notes = () => {
 
@@ -36,6 +37,7 @@ const Notes = () => {
                         </TouchableOpacity>
                     ))}
                 </View>
+                <StatusBar backgroundColor="black" />
             </ScrollView>
         </SafeAreaView>
     )

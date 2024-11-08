@@ -5,6 +5,7 @@ import { useLocalSearchParams, useNavigation } from 'expo-router'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import CustomButton from '../../../components/CustomButton'
 import { TouchableOpacity } from 'react-native'
+import { StatusBar } from 'expo-status-bar'
 
 const ParticularNote = () => {
 
@@ -62,6 +63,7 @@ const ParticularNote = () => {
                         </TouchableOpacity>
                     ))}
                 </View>
+                <StatusBar backgroundColor="black" />
             </ScrollView>
         </SafeAreaView>
     )
