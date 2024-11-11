@@ -8,12 +8,12 @@ const Class = () => {
     { id: "3", date: "9:10 AM - 10:50 AM", title: "Mobile Programming" },
   ];
   return (
-    <View className="p-5">
-      <Text className="text-lg font-pmedium">Today's Class</Text>
+    <View className="p-6">
+      <Text className="text-lg font-pmedium">Today's Classes</Text>
       {items.map((item) => (
         <View
           key={item.id}
-          className="flex-col items-start justify-center p-4 mt-4 rounded-lg bg-slate-200"
+          className="flex-col items-start justify-center p-4 mt-5 rounded-lg bg-slate-200"
         >
           <View className="flex-row items-center justify-between">
             <View className=" flex-row justify-center items-center h-full w-[12%]">
