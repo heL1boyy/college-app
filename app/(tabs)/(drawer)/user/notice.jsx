@@ -1,3 +1,4 @@
+
 import { Text, View, ScrollView, Image, StyleSheet } from "react-native";
 import React from "react";
 import { StatusBar } from "expo-status-bar";
@@ -62,15 +63,15 @@ const Notice = () => {
   return (
     <SafeAreaView className="mb-14 bg-main_background">
       <ScrollView showsVerticalScrollIndicator={false}>
-        <View className="p-5">
+        <View className="p-6">
           <Text className="text-xl tracking-widest font-psemibold text-primary">
             Notices
           </Text>
         </View>
-        <View className="mb-4">
+        <View className="mb-2">
           {notices.map((notice) => (
             <View
-              className="p-4 mx-5 mb-6 rounded-lg bg-slate-200"
+              className="p-4 mx-6 mt-1 mb-8 rounded-lg bg-slate-200"
               key={notice.id}
             >
               <Text className="text-sm tracking-wide font-pmedium text-primary">
@@ -80,7 +81,7 @@ const Notice = () => {
                 {notice.title}
               </Text>
               {!notice.imageUrl ? (
-                ()=>{}
+                () => { }
               ) : (
                 <Image
                   source={{ uri: notice.imageUrl }}
@@ -98,6 +99,7 @@ const Notice = () => {
           className="px-5 mt-1 mb-4"
           showsVerticalScrollIndicator={false}
         /> */}
+        <StatusBar backgroundColor="#000" />
       </ScrollView>
     </SafeAreaView>
   );

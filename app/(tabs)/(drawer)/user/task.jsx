@@ -1,3 +1,4 @@
+
 import { StyleSheet, Text, View, ScrollView } from "react-native";
 import React from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -17,12 +18,12 @@ const Task = () => {
   return (
     <SafeAreaView className="bg-main_background mb-14">
       <ScrollView showsVerticalScrollIndicator={false}>
-        <View className="px-5 pt-5 pb-0">
+        <View className="p-6">
           <Text className="text-xl tracking-widest font-psemibold text-primary">Assignments</Text>
         </View>
-        <View className="px-5 mb-10">
+        <View className="px-6 mt-1 mb-2">
           {taskdata.map((task, idx) => (
-            <View key={idx} className="w-full p-5 mt-6 rounded-lg bg-slate-200">
+            <View key={idx} className="w-full p-5 mb-8 rounded-lg bg-slate-200">
               <View
                 key={task.id}
               // className="flex-row items-center justify-between"
@@ -64,7 +65,7 @@ const Task = () => {
           ))}
         </View>
       </ScrollView>
-      <StatusBar backgroundColor="#f5f5f5" />
+      <StatusBar backgroundColor="#000" />
     </SafeAreaView>
   );
 };

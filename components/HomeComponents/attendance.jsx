@@ -14,7 +14,7 @@ const Attendance = () => {
   ]
 
   return (
-    <View className="p-5 mb-5">
+    <View className="px-6 mt-8 mb-10">
       <View className="flex flex-row items-center justify-between">
         <Text className="text-lg font-pmedium">Attendance</Text>
         <TouchableOpacity onPress={() => router.push("/(tabs)/user/attendance")}>

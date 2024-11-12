@@ -13,7 +13,7 @@ const Header = ({ user }) => {
   const navigation = useNavigation();
 
   return (
-    <View className="flex flex-row items-center justify-between w-full p-5">
+    <View className="flex flex-row items-center justify-between w-full p-6">
       <View className="w-[78%]">
         <Text className="text-sm tracking-widest font-pmedium">
           Welcome Back

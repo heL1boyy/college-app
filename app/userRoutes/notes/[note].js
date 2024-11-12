@@ -34,17 +34,17 @@ const NoteBySubject = () => {
     return (
         <SafeAreaView className="bg-main_background">
             <ScrollView showsVerticalScrollIndicator={false}>
-                <View className="p-5">
+                <View className="p-6">
                     <Text className="text-xl tracking-widest font-psemibold text-primary">
                         {note}
                     </Text>
                 </View>
-                <View className="px-5 py-2">
+                <View className="px-6 mt-1">
                     {noteList.map((note, index) => (
                         <TouchableOpacity
                             key={index}
                             // onPress={}
-                            className="px-5 py-4 mb-6 rounded-lg bg-slate-200"
+                            className="px-5 py-4 mb-8 rounded-lg bg-slate-200"
                         >
                             <Text className="my-2 text-sm tracking-wider font-pmedium">
                                 Chapter: {note.unitID}

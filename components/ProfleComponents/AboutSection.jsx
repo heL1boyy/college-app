@@ -1,6 +1,7 @@
 import { View, Text, TouchableOpacity, TextInput, Button } from "react-native";
 import React, { useState, useEffect } from "react";
 import { updateUserFieldByAccountId } from "../../lib/appwrite"; // Updated to match your function
+import CustomButton from "../CustomButton";
 
 const AboutSection = ({ item = {} }) => {
   const [isEditing, setIsEditing] = useState(false);
@@ -35,47 +36,55 @@ const AboutSection = ({ item = {} }) => {
   };
 
   return (
-    <View className="p-5 mb-6 bg-slate-200 rounded-xl">
-      <View className="flex-row items-center justify-between">
-        <Text className="text-lg font-rmedium">About</Text>
-        <TouchableOpacity onPress={handleEdit}>
-          <Text className="text-sm font-rmedium text-primary">{isEditing ? "Cancel" : "Edit"}</Text>
-        </TouchableOpacity>
-      </View>
-      <View className="flex-row gap-4 pt-4">
-        <View className="flex">
-          <Text className="mb-3 tracking-wider font-rregular">Date of Birth:</Text>
+    <View className="p-5 mb-8 rounded-lg bg-slate-200">
+      
+      <View className="flex-row items-start">
+        <View className="w-[36%]">
+          <Text className="mb-4 tracking-wider font-rregular">Date of Birth:</Text>
           <Text className={`font-rregular tracking-wider ${isEditing ? "mt-2" : ""}`}>Gender:</Text>
         </View>
-        <View className="flex">
+        <View className="w-[64%]">
           {isEditing ? (
             <>
               <TextInput
-                className="px-2 mt-[-2px] mb-3 border border-gray-300 rounded"
+                className="px-2 mt-[-2px] mb-4 border border-gray-300 rounded"
                 value={dateOfBirth}
                 onChangeText={setDateOfBirth}
                 placeholder="Enter date of birth"
               />
               <TextInput
-                className="px-2 mb-3 border border-gray-300 rounded"
+                className="px-2 mb-4 border border-gray-300 rounded"
                 value={gender}
                 onChangeText={setGender}
                 placeholder="Enter gender"
               />
-              <Button title="Save" onPress={handleSave} />
+              <CustomButton
+                title="Save Details"
+                // onPress={handleSave}
+                containerStyles={"py-2 border rounded-lg border-[#f5f5f5] bg-blue-500"}
+                textStyles={"text-base text-center text-white"}
+              />
             </>
           ) : (
             <>
-              <Text className="mb-4 tracking-wider ">{dateOfBirth}</Text>
+              <Text className="mb-5 tracking-wider ">{dateOfBirth}</Text>
               <Text className="tracking-wider">{gender}</Text>
-              {/* <Text className="mb-2">
-                {dateOfBirth ? dateOfBirth : "Enter your date of birth"}
-              </Text>
-              <Text>{gender ? gender : "Enter your gender"}</Text> */}
             </>
           )}
         </View>
       </View>
+
+      <View className="mt-4">
+        <TouchableOpacity
+          onPress={handleEdit}
+          className="py-2 border rounded-lg border-primary"
+        >
+          <Text className="text-base text-center text-primary">
+            {isEditing ? "Cancel" : "Edit Details"}
+          </Text>
+        </TouchableOpacity>
+      </View>
+
     </View>
   );
 };

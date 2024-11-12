@@ -8,7 +8,7 @@ const Class = () => {
     { id: "3", date: "9:10 AM - 10:50 AM", title: "Mobile Programming" },
   ];
   return (
-    <View className="p-6">
+    <View className="px-6 my-4">
       <Text className="text-lg font-pmedium">Today's Classes</Text>
       {items.map((item) => (
         <View

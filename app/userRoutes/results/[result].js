@@ -30,13 +30,13 @@ const ResultBySubject = () => {
     return (
         <SafeAreaView className="h-full bg-main_background">
             <ScrollView showsHorizontalScrollIndicator={false}>
-                <View className="p-5">
+                <View className="p-6">
                     <Text className="mt-1 text-xl tracking-widest font-psemibold text-primary">
                         {result} Result
                     </Text>
                     <CustomButton
                         title="View Result"
-                        containerStyles="bg-primary rounded-lg py-4 mt-6"
+                        containerStyles="bg-primary rounded-lg py-4 mt-8"
                         textStyles="text-white text-sm font-pmedium tracking-widest"
                         // handlePress={}
                     />

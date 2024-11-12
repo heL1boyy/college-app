@@ -11,6 +11,7 @@ import PendingTask from "../../../../components/HomeComponents/PendingTask";
 import Attendance from "../../../../components/HomeComponents/Attendance";
 import { useGlobalContext } from "@/context/GlobalProvider";
 import 'react-native-gesture-handler'
+import Notice from "../../../../components/HomeComponents/Notice";
 
 const Home = () => {
   const { user } = useGlobalContext();
@@ -18,11 +19,11 @@ const Home = () => {
     <SafeAreaView className="bg-main_background mb-14">
       <ScrollView showsVerticalScrollIndicator={false}>
         <Header user={user} />
-        <View className="px-5 pt-1 pb-3">
+        <View className="px-6 pt-1 pb-3">
           <SearchInput />
         </View>
 
-        <View className="flex-row items-center justify-between p-5">
+        <View className="flex-row items-center justify-between px-6 mt-4 mb-2">
           <TouchableOpacity onPress={() => { router.push("/admin/adminDashboard") }} >
             <Text className="underline text-primary">Go To Admin Dashboard</Text>
           </TouchableOpacity>
@@ -33,8 +34,9 @@ const Home = () => {
 
         <Class />
         <PendingTask />
+        <Notice />
         <Attendance />
-        <StatusBar backgroundColor="#f5f5f5" style="light" />
+        <StatusBar backgroundColor="#000" />
       </ScrollView>
     </SafeAreaView>
   );

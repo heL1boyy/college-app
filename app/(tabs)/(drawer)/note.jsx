@@ -21,7 +21,7 @@ const Note = () => {
 
     return (
         <SafeAreaView className="h-full bg-main_background">
-            <View className="flex flex-row items-center justify-between p-5">
+            <View className="flex flex-row items-center justify-between p-6">
                 <Text className="mt-1 text-xl tracking-widest font-psemibold text-primary">
                     Notes
                 </Text>
@@ -29,12 +29,12 @@ const Note = () => {
                     <Ionicons name="menu" size={30} color={Colors.primary} />
                 </TouchableOpacity>
             </View>
-            <View className="px-5 mt-2">
+            <View className="px-6 mt-2">
                 {noteBySubject.map((note, index) => (
                     <TouchableOpacity
                         key={index}
                         onPress={() => router.push('/userRoutes/notes/' + note.subject)}
-                        className="px-5 py-4 mb-6 rounded-lg bg-slate-200"
+                        className="px-5 py-4 mb-8 rounded-lg bg-slate-200"
                     >
                         <Text className="my-2 text-sm tracking-wider font-pmedium">
                             {note.subject}

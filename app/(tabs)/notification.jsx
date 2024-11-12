@@ -27,7 +27,7 @@ const Notification = () => {
                 </View>
                 <View className="px-6">
                     {notifications.map((notification, idx) => (
-                        <View key={idx} className="mb-6">
+                        <View key={idx} className="mb-8">
                             <View
                                 key={notification.id}
                                 className="flex-col items-start justify-center p-4 rounded-lg bg-slate-200"
@@ -43,7 +43,7 @@ const Notification = () => {
                     ))}
                 </View>
             </ScrollView>
-            <StatusBar backgroundColor="#f5f5f5" style="light" />
+            <StatusBar backgroundColor="#000" />
         </SafeAreaView>
     );
 

@@ -12,18 +12,18 @@ const PendingTask = () => {
         { id: 1, subject: "Networking Programming", endDate: "08/06/2024", taskName: "Task Name" }
     ];
     return (
-        <View className="p-5">
+        <View className="px-6 mt-4">
             <View className="flex flex-row items-center justify-between">
                 <Text className="text-lg font-pmedium">
                     Pending Tasks
                 </Text>
                 <TouchableOpacity onPress={() => router.push("/user/task")} >
                     <Text className="text-sm font-pmedium text-primary">
-                        See All
+                        View All
                     </Text>
                 </TouchableOpacity>
             </View>
-            <View className="w-full mt-4 rounded-lg bg-slate-200">
+            <View className="w-full mt-5 rounded-lg bg-slate-200">
                 {taskdata.map((task, idx) => (
                     <View key={idx} className="w-full p-5 rounded-lg bg-slate-200">
                         <View

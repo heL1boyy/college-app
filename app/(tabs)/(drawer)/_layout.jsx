@@ -69,15 +69,6 @@ const CustomDrawerContent = (props) => {
                             onPress={() => { router.push('/result') }}
                         />
                     </View>
-                    <View className="px-1 mt-2">
-                        <DrawerItem
-                            icon={({ color, size }) => (<Ionicons name="calculator" size={24} color={pathname == "/cgpa" ? "#fff" : "#6734d8"} />)}
-                            label={"CGPA Calculator"}
-                            labelStyle={[styles.navItemLabel, { color: pathname == "/cgpa" ? "#fff" : "#6734d8" }]}
-                            style={{ backgroundColor: pathname == "/cgpa" ? "#6734d8" : "#fff" }}
-                            onPress={() => { router.push('/cgpa') }}
-                        />
-                    </View>
                 </View>
             </DrawerContentScrollView>
             <View className="flex-row items-center p-5 border-t-2 border-primary">
@@ -116,13 +107,6 @@ const DrawerLayout = () => {
                 options={{
                     headerShown: false,
                     headerTitle: "Results"
-                }}
-            />
-            <Drawer.Screen
-                name='cgpa'
-                options={{
-                    headerShown: false,
-                    headerTitle: "CGPA Calculator"
                 }}
             />
         </Drawer>

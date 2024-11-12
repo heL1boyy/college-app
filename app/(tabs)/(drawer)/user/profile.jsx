@@ -9,6 +9,7 @@ import StudentInfo from "../../../../components/ProfleComponents/StudentInfo";
 import AboutSection from "../../../../components/ProfleComponents/AboutSection";
 import ContactSection from "../../../../components/ProfleComponents/ContactSection";
 import HeaderComponent from "../../../../components/ProfleComponents/HeaderComponent";
+import { StatusBar } from "expo-status-bar";
 
 const Profile = () => {
   const { user } = useGlobalContext();
@@ -25,7 +26,7 @@ const Profile = () => {
         )}
         //main components rendering
         renderItem={({ item, index }) => (
-          <View key={index} className="p-4">
+          <View key={index} className="p-6">
             {/* student info */}
             <StudentInfo item={item} />
 
@@ -38,6 +39,7 @@ const Profile = () => {
           </View>
         )}
       />
+      <StatusBar backgroundColor="#000" />
     </SafeAreaView>
   );
 };

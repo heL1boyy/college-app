@@ -80,28 +80,29 @@ const HeaderComponent = ({ icons, users }) => {
 
   return (
     <View>
-      <View className="flex-row items-center justify-between p-5">
+
+      <View className="flex-row items-center justify-between p-6">
         <Text className="text-xl tracking-widest font-psemibold text-primary">My Profile</Text>
         <TouchableOpacity onPress={logout}>
-          <MaterialCommunityIcons name="logout" size={24} color={Colors.third} />
+          <MaterialCommunityIcons name="logout" size={26} color={Colors.third} />
         </TouchableOpacity>
       </View>
 
-      <View className="flex-row items-center px-5 py-2">
-        <View className="w-20 h-20 mr-4 rounded-full">
+      <View className="flex-row items-center px-6 py-2">
+        <View className="w-[24%]">
           {/* Show either the current avatar or the newly selected avatar */}
           <Image
             source={{ uri: newAvatar || users?.avatar }}
             className="w-20 h-20 rounded-full"
           />
         </View>
-        <View className="flex-1">
+        <View className="ml-6 w-[68%]">
           {/* Toggle between displaying username or input field */}
           {editMode ? (
             <TextInput
               value={newUsername}
               onChangeText={setNewUsername}
-              className="p-2 border border-gray-300 rounded-lg"
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg"
             />
           ) : (
             <>
@@ -110,42 +111,37 @@ const HeaderComponent = ({ icons, users }) => {
             </>
           )}
         </View>
-
-        <View className="flex-col ml-4 space-y-2">
-          {editMode ? (
-            <>
-              <TouchableOpacity onPress={handleCancel}>
-                <View className="px-4 py-2 rounded-lg bg-slate-600">
-                  <Text className="text-center text-white">Cancel</Text>
-                </View>
-              </TouchableOpacity>
-              <TouchableOpacity onPress={handleSave} >
-                <View className="px-4 py-2 rounded-lg bg-primary">
-                  <Text className="text-center text-white">
-                    {isSaving ? "Saving..." : "Save"}
-                  </Text>
-                </View>
-              </TouchableOpacity>
-            </>
-          ) : (
-            <TouchableOpacity
-              onPress={() => setEditMode(true)}
-            >
-              <View className="px-4 py-2 rounded-lg bg-primary">
-                <Text className="text-white">Edit</Text>
-              </View>
-            </TouchableOpacity>
-          )}
-        </View>
       </View>
 
       {editMode && (
-        <View className="my-2 ml-5">
+        <View className="my-2 ml-6">
           <TouchableOpacity onPress={pickImage}>
             <Text className="text-primary">Change Avatar</Text>
           </TouchableOpacity>
         </View>
       )}
+
+      <View className="flex-col mx-6 mt-4 space-y-4">
+        {editMode ? (
+          <>
+            <TouchableOpacity onPress={handleCancel}>
+              <Text className="py-4 tracking-widest text-center text-white rounded-lg bg-slate-600 font-rmedium">Cancel</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={handleSave} >
+              <Text className="py-4 tracking-widest text-center text-white rounded-lg bg-primary font-rmedium">
+                {isSaving ? "Saving..." : "Save"}
+              </Text>
+            </TouchableOpacity>
+          </>
+        ) : (
+          <TouchableOpacity
+            onPress={() => setEditMode(true)}
+          >
+            <Text className="py-4 tracking-widest text-center text-white rounded-lg bg-primary font-rmedium">Edit</Text>
+          </TouchableOpacity>
+        )}
+      </View>
+
     </View>
   );
 };
