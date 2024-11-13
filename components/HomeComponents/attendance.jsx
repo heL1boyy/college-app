@@ -1,23 +1,23 @@
-
 import { View, Text, TouchableOpacity } from "react-native";
 import React from "react";
 import { router } from "expo-router";
 
 const Attendance = () => {
-
   const attendanceList = [
     { subject: "Distributed System", percentage: "74%" },
     { subject: "Applied Economics", percentage: "100%" },
     { subject: "Mobile Programming", percentage: "92%" },
     { subject: "Network Programming", percentage: "86%" },
     { subject: "Advanced Java Programming", percentage: "76%" },
-  ]
+  ];
 
   return (
     <View className="px-6 mt-8 mb-10">
       <View className="flex flex-row items-center justify-between">
         <Text className="text-lg font-pmedium">Attendance</Text>
-        <TouchableOpacity onPress={() => router.push("/(tabs)/user/attendance")}>
+        <TouchableOpacity
+          onPress={() => router.push("/(tabs)/user/attendance")}
+        >
           <Text className="text-sm font-pmedium text-primary">
             View in Detail
           </Text>
@@ -33,10 +33,7 @@ const Attendance = () => {
           </Text>
         </View>
         {attendanceList.map((attendance, index) => (
-          <View
-            key={index}
-            className="flex-row items-center justify-between"
-          >
+          <View key={index} className="flex-row items-center justify-between">
             <Text className="my-2 text-sm tracking-wider font-pmedium w-[70%]">
               {attendance.subject}
             </Text>
@@ -48,7 +45,6 @@ const Attendance = () => {
       </View>
     </View>
   );
-
 };
 
 export default Attendance;

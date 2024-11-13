@@ -5,7 +5,7 @@ import { images } from "../../constants";
 import FormField from "../../components/FormField";
 import CustomButton from "../../components/CustomButton";
 import { Link, router } from "expo-router";
-import { getCurrentUser, signIn as userSignIn } from "../../lib/appwrite";
+import { getCurrentUser, signIn as userSignIn } from "../../lib/FirebaseConfig";
 import { useGlobalContext } from "@/context/GlobalProvider";
 import {
   getFirestore,
@@ -109,7 +109,7 @@ const SignIn = () => {
 
           <CustomButton
             title="Sign-In"
-            handlePress={submit}
+            onPress={submit}
             isLoading={isSubmitting}
             containerStyles="w-full mt-6 border-[#161697] min-h-[54px] bg-white"
           />

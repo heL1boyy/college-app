@@ -9,32 +9,36 @@ import {
 } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import { useGlobalContext } from "../../context/GlobalProvider";
-import { uploadImage, updateUserFieldByAccountId } from "../../lib/appwrite";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { Colors } from '../../constants/Colors';
+import { Colors } from "../../constants/Colors";
 
-const HeaderComponent = ({ icons, users }) => {
-  const { logout } = useGlobalContext();
+const HeaderComponent = ({ users }) => {
+  const { logout, updateUser, updateAvatar } = useGlobalContext();
   const [editMode, setEditMode] = useState(false);
   const [newUsername, setNewUsername] = useState(users?.username || "");
-  const [newAvatar, setNewAvatar] = useState(users?.avatar || null);
+  const [newAvatar, setNewAvatar] = useState(users?.profileImageUrl || null);
   const [isSaving, setIsSaving] = useState(false);
 
   // Store the original values to revert when canceling
   const originalUsername = users?.username;
-  const originalAvatar = users?.avatar;
+  const originalAvatar = users?.profileImageUrl;
 
   // Function to pick an image from the gallery
   const pickImage = async () => {
-    let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      allowsEditing: true,
-      aspect: [1, 1], // Square aspect ratio for avatar
-      quality: 1,
-    });
+    try {
+      let result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        allowsEditing: true,
+        aspect: [1, 1], // Square aspect ratio for avatar
+        quality: 1,
+      });
 
-    if (!result.canceled) {
-      setNewAvatar(result.assets[0].uri);
+      if (!result.canceled) {
+        setNewAvatar(result.assets[0].uri);
+      }
+    } catch (error) {
+      console.error("Error picking image:", error.message);
+      Alert.alert("Error", "Failed to pick image. Please try again.");
     }
   };
 
@@ -47,19 +51,17 @@ const HeaderComponent = ({ icons, users }) => {
 
     setIsSaving(true); // Start saving process
     try {
+      // Upload new avatar if changed
       let avatarUrl = originalAvatar;
-
-      // If a new avatar is selected, upload it to Appwrite storage
       if (newAvatar !== originalAvatar) {
-        const { imageUrl } = await uploadImage(newAvatar); // Upload image to Appwrite
-        avatarUrl = imageUrl; // Get the new avatar URL
+        await updateAvatar(newAvatar); // This updates the avatar using context method
+        avatarUrl = newAvatar; // Update local state for immediate UI change
       }
 
-      // Update the user document in Appwrite database
-      await updateUserFieldByAccountId(users.accountId, {
-        username: newUsername,
-        avatar: avatarUrl,
-      });
+      // Update the username if changed
+      if (newUsername !== originalUsername) {
+        await updateUser({ username: newUsername }); // Update username using context method
+      }
 
       Alert.alert("Success", "Profile updated successfully!");
       setEditMode(false); // Exit edit mode after saving
@@ -73,18 +75,23 @@ const HeaderComponent = ({ icons, users }) => {
 
   // Function to cancel edits and revert to original data
   const handleCancel = () => {
-    setNewUsername(originalUsername); // Revert username
-    setNewAvatar(originalAvatar); // Revert avatar
-    setEditMode(false); // Exit edit mode
+    setNewUsername(originalUsername);
+    setNewAvatar(originalAvatar);
+    setEditMode(false);
   };
 
   return (
     <View>
-
       <View className="flex-row items-center justify-between p-6">
-        <Text className="text-xl tracking-widest font-psemibold text-primary">My Profile</Text>
+        <Text className="text-xl tracking-widest font-psemibold text-primary">
+          My Profile
+        </Text>
         <TouchableOpacity onPress={logout}>
-          <MaterialCommunityIcons name="logout" size={26} color={Colors.third} />
+          <MaterialCommunityIcons
+            name="logout"
+            size={26}
+            color={Colors.third}
+          />
         </TouchableOpacity>
       </View>
 
@@ -92,12 +99,15 @@ const HeaderComponent = ({ icons, users }) => {
         <View className="w-[24%]">
           {/* Show either the current avatar or the newly selected avatar */}
           <Image
-            source={{ uri: newAvatar || users?.avatar }}
+            source={{
+              uri: newAvatar
+                ? users?.profileImageUrl
+                : "https://via.placeholder.com/150",
+            }}
             className="w-20 h-20 rounded-full"
           />
         </View>
         <View className="ml-6 w-[68%]">
-          {/* Toggle between displaying username or input field */}
           {editMode ? (
             <TextInput
               value={newUsername}
@@ -106,8 +116,12 @@ const HeaderComponent = ({ icons, users }) => {
             />
           ) : (
             <>
-              <Text className="text-lg font-semibold tracking-wide">{users?.username}</Text>
-              <Text className="mt-1 text-sm tracking-wide text-gray-600">{users?.accountId}</Text>
+              <Text className="text-lg font-semibold tracking-wide">
+                {users?.username}
+              </Text>
+              <Text className="mt-1 text-sm tracking-wide text-gray-600">
+                {users?.uid || "User ID not available"}
+              </Text>
             </>
           )}
         </View>
@@ -125,23 +139,24 @@ const HeaderComponent = ({ icons, users }) => {
         {editMode ? (
           <>
             <TouchableOpacity onPress={handleCancel}>
-              <Text className="py-4 tracking-widest text-center text-white rounded-lg bg-slate-600 font-rmedium">Cancel</Text>
+              <Text className="py-4 tracking-widest text-center text-white rounded-lg bg-slate-600 font-rmedium">
+                Cancel
+              </Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={handleSave} >
+            <TouchableOpacity onPress={handleSave}>
               <Text className="py-4 tracking-widest text-center text-white rounded-lg bg-primary font-rmedium">
                 {isSaving ? "Saving..." : "Save"}
               </Text>
             </TouchableOpacity>
           </>
         ) : (
-          <TouchableOpacity
-            onPress={() => setEditMode(true)}
-          >
-            <Text className="py-4 tracking-widest text-center text-white rounded-lg bg-primary font-rmedium">Edit</Text>
+          <TouchableOpacity onPress={() => setEditMode(true)}>
+            <Text className="py-4 tracking-widest text-center text-white rounded-lg bg-primary font-rmedium">
+              Edit
+            </Text>
           </TouchableOpacity>
         )}
       </View>
-
     </View>
   );
 };

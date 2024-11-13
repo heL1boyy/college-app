@@ -1,12 +1,11 @@
 import { View, Text, ScrollView, Image, Alert } from "react-native";
 import React, { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
-
 import { images } from "../../constants";
 import FormField from "../../components/FormField";
 import CustomButton from "../../components/CustomButton";
 import { Link, router } from "expo-router";
-import { createUser } from "../../lib/appwrite";
+import { createUser } from "../../lib/FirebaseConfig"; // Use your Firebase function here
 import { useGlobalContext } from "@/context/GlobalProvider";
 
 const SignUp = () => {
@@ -19,36 +18,40 @@ const SignUp = () => {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const sumbit = async () => {
-    if (!form.username === "" || !form.email === "" || !form.password === "") {
-      Alert.alert("Error ", "Please fill in all the fields ");
+  const submit = async () => {
+    // Validate form inputs
+    if (form.username === "" || form.email === "" || form.password === "") {
+      Alert.alert("Error", "Please fill in all the fields");
+      return;
     }
+
     setIsSubmitting(true);
 
     try {
-      const result = await createUser(form.email, form.password, form.username);
-      setUser(result);
-      setIsLoggedIn(true);
-      //set to global state
+      const result = await createUser(form.email, form.password, form);
+      setUser(result); // Set user data in global context
+      setIsLoggedIn(true); // Mark user as logged in
 
+      // Navigate to home screen
       router.replace("user/home");
     } catch (error) {
-      Alert.alert("error ", error.message);
+      Alert.alert("Error", error.message);
     } finally {
-      setIsSubmitting(false);
+      setIsSubmitting(false); // Ensure this is always called
     }
   };
+
   return (
     <SafeAreaView className="h-full bg-white">
       <ScrollView>
-        <View className="w-full justify-center   min-h-[85vh] px-4 mt-14">
+        <View className="w-full justify-center min-h-[85vh] px-4 mt-14">
           <View className="items-center">
             <Image
               source={images.logo1}
               className="w-[200px] h-[150px]"
               resizeMode="contain"
             />
-            <Text className="text-[#161697] text-2xl font-rsemibold   ">
+            <Text className="text-[#161697] text-2xl font-semibold">
               Sign Up to App
             </Text>
           </View>
@@ -78,7 +81,7 @@ const SignUp = () => {
 
           <CustomButton
             title="Sign Up"
-            handlePress={sumbit}
+            onPress={submit}
             isLoading={isSubmitting}
             containerStyles="w-full mt-6 border-[#161697] min-h-[56px] bg-white"
           />

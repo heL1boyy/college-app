@@ -1,4 +1,3 @@
-
 import {
   View,
   Text,
@@ -44,7 +43,6 @@ import { StatusBar } from "expo-status-bar";
 // Initialize Firebase
 
 const AdminDashboard = () => {
-
   const { user, isLoggedIn } = useGlobalContext();
   const [userData, setUserData] = useState([]);
 
@@ -69,7 +67,7 @@ const AdminDashboard = () => {
     getUserData();
   }, []);
 
-  const submit = () => { };
+  const submit = () => {};
   const [uploading, setUploading] = useState(false);
   const [uploadProgress, setUploadProgress] = useState(0);
   const [uploadedUrl, setUploadedUrl] = useState("");
@@ -206,11 +204,8 @@ const AdminDashboard = () => {
       <FlatList
         data={userData} // Add more items as needed
         keyExtractor={(index) => index.toString()} // Ensure keys are unique and strings
-
         ListHeaderComponent={() => (
-
           <View className="flex-row items-center justify-between p-6 rounded-xl">
-
             <View>
               <Text className="text-sm tracking-widest font-pmedium">
                 {isLoggedIn ? "Welcome Back" : "Hello"}
@@ -237,10 +232,8 @@ const AdminDashboard = () => {
                   {JSON.stringify(user)}
                 </Text>;
               })} */}
-
           </View>
         )}
-
         renderItem={({ item, index }) => (
           <View key={index.toString()} className="p-6">
             <View className="bg-green-400">
@@ -248,9 +241,7 @@ const AdminDashboard = () => {
                 source={{ uri: item.image }}
                 className="w-20 h-20 rounded-full"
               />
-              <Text>
-                {item.username}
-              </Text>
+              <Text>{item.username}</Text>
 
               {/* <FormField
               title="Title"
@@ -268,7 +259,7 @@ const AdminDashboard = () => {
 
               <CustomButton
                 title="Submit"
-                handlePress={submit}
+                onPress={submit}
                 // isLoading={isSubmitting}
                 containerStyles="w-full mt-6 min-h-[56px]"
               />
@@ -295,11 +286,11 @@ const AdminDashboard = () => {
             {/* title for that image  */}
 
             <View className="mt-5 bg-orange">
-              <TouchableOpacity
-                onPress={() => pickAndUploadImage()}
-              >
+              <TouchableOpacity onPress={() => pickAndUploadImage()}>
                 {!image ? (
-                  <Text className="w-32 px-4 py-2 text-center text-white rounded-lg bg-primary">Upload Image</Text>
+                  <Text className="w-32 px-4 py-2 text-center text-white rounded-lg bg-primary">
+                    Upload Image
+                  </Text>
                 ) : (
                   <Image
                     source={{ uri: image }}
@@ -320,20 +311,19 @@ const AdminDashboard = () => {
                   {loading ? (
                     <ActivityIndicator size={"large"} color={"white"} />
                   ) : (
-                    <Text className="px-4 py-2 text-center text-white rounded-lg bg-primary">Add Title</Text>
+                    <Text className="px-4 py-2 text-center text-white rounded-lg bg-primary">
+                      Add Title
+                    </Text>
                   )}
                 </TouchableOpacity>
               </View>
             </View>
-
-
           </View>
         )}
       />
       <StatusBar backgroundColor="#000" />
     </SafeAreaView>
   );
-
 };
 
 const styles = StyleSheet.create({

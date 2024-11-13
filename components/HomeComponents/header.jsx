@@ -1,15 +1,13 @@
-
 import { View, Text, TouchableOpacity } from "react-native";
 import React from "react";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { Colors } from "../../constants/Colors";
 import { Link, router } from "expo-router";
-import { useGlobalContext } from "@/context/GlobalProvider";
-import 'react-native-gesture-handler'
-import { useNavigation } from '@react-navigation/native';
+// import { useGlobalContext } from "@/context/GlobalProvider";
+import "react-native-gesture-handler";
+import { useNavigation } from "@react-navigation/native";
 
 const Header = ({ user }) => {
-
   const navigation = useNavigation();
 
   return (
@@ -32,7 +30,6 @@ const Header = ({ user }) => {
       </View>
     </View>
   );
-
 };
 
 export default Header;

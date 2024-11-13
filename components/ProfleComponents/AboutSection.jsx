@@ -1,9 +1,11 @@
 import { View, Text, TouchableOpacity, TextInput, Button } from "react-native";
 import React, { useState, useEffect } from "react";
-import { updateUserFieldByAccountId } from "../../lib/appwrite"; // Updated to match your function
+// import { updateUserFields } from "../../lib/FirebaseConfig"; // Updated to match your function
 import CustomButton from "../CustomButton";
+import { useGlobalContext } from "../../context/GlobalProvider";
 
 const AboutSection = ({ item = {} }) => {
+  const { updateUser } = useGlobalContext();
   const [isEditing, setIsEditing] = useState(false);
   const [dateOfBirth, setDateOfBirth] = useState(item.dateOfBirth || "");
   const [gender, setGender] = useState(item.gender || "");
@@ -19,13 +21,13 @@ const AboutSection = ({ item = {} }) => {
 
   const handleSave = async () => {
     try {
-      if (!item.accountId) throw new Error("No account ID found.");
+      if (!item.uid) throw new Error("No account ID found.");
       // Log accountId and updatedData
-      console.log("Account ID:", item.accountId);
+      console.log("Account ID:", item.uid);
       console.log("Updated Data:", { dateOfBirth, gender });
 
       // Update user details
-      await updateUserFieldByAccountId(item.accountId, {
+      await updateUser(item.uid, {
         dateOfBirth,
         gender,
       });
@@ -37,11 +39,18 @@ const AboutSection = ({ item = {} }) => {
 
   return (
     <View className="p-5 mb-8 rounded-lg bg-slate-200">
-      
       <View className="flex-row items-start">
         <View className="w-[36%]">
-          <Text className="mb-4 tracking-wider font-rregular">Date of Birth:</Text>
-          <Text className={`font-rregular tracking-wider ${isEditing ? "mt-2" : ""}`}>Gender:</Text>
+          <Text className="mb-4 tracking-wider font-rregular">
+            Date of Birth:
+          </Text>
+          <Text
+            className={`font-rregular tracking-wider ${
+              isEditing ? "mt-2" : ""
+            }`}
+          >
+            Gender:
+          </Text>
         </View>
         <View className="w-[64%]">
           {isEditing ? (
@@ -60,8 +69,10 @@ const AboutSection = ({ item = {} }) => {
               />
               <CustomButton
                 title="Save Details"
-                // onPress={handleSave}
-                containerStyles={"py-2 border rounded-lg border-[#f5f5f5] bg-blue-500"}
+                onPress={handleSave}
+                containerStyles={
+                  "py-2 border rounded-lg border-[#f5f5f5] bg-blue-500"
+                }
                 textStyles={"text-base text-center text-white"}
               />
             </>
@@ -84,7 +95,6 @@ const AboutSection = ({ item = {} }) => {
           </Text>
         </TouchableOpacity>
       </View>
-
     </View>
   );
 };
