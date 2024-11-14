@@ -1,39 +1,28 @@
 import { StyleSheet, Text, View, ScrollView } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { StatusBar } from "expo-status-bar";
 import Octicons from "@expo/vector-icons/Octicons";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import CustomButton from "../../../../components/CustomButton";
 import { Colors } from "../../../../constants/Colors";
-
+import { fetchTasks } from "../../../../lib/FirebaseConfig";
 const Task = () => {
-  const taskdata = [
-    {
-      id: 1,
-      subject: "Networking Programming",
-      endDate: "08/06/2024",
-      taskName: "Task Name",
-    },
-    {
-      id: 2,
-      subject: "Mobile Programming ",
-      endDate: "08/06/2024",
-      taskName: "Task Name",
-    },
-    {
-      id: 3,
-      subject: "Applied Ecocnomics",
-      endDate: "08/06/2024",
-      taskName: "Task Name",
-    },
-    {
-      id: 4,
-      subject: "Distributed System",
-      endDate: "08/06/2024",
-      taskName: "Task Name",
-    },
-  ];
+  const [tasks, setTasks] = useState([]);
+
+  useEffect(() => {
+    const getTasks = async () => {
+      try {
+        const fetchedTasks = await fetchTasks();
+        setTasks(fetchedTasks);
+      } catch (error) {
+        console.error("Failed to fetch tasks:", error);
+      }
+    };
+
+    getTasks();
+  }, []);
+
   return (
     <SafeAreaView className="bg-main_background mb-14">
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -43,7 +32,7 @@ const Task = () => {
           </Text>
         </View>
         <View className="px-6 mt-1 mb-2">
-          {taskdata.map((task, idx) => (
+          {tasks.map((task, idx) => (
             <View key={idx} className="w-full p-5 mb-8 rounded-lg bg-slate-200">
               <View
                 key={task.id}
@@ -53,7 +42,7 @@ const Task = () => {
                   {task.subject}
                 </Text>
                 <Text className="mt-3 text-sm font-pregular">
-                  {task.taskName}
+                  {task.taskDetails}
                 </Text>
                 <View className="flex-row items-center justify-start gap-1 mt-3">
                   <Ionicons
@@ -62,7 +51,7 @@ const Task = () => {
                     color={Colors.third}
                   />
                   <Text className="mt-2 text-xs font-pregular text-red">
-                    {task.endDate}
+                    {task.dueDate}
                   </Text>
                 </View>
                 <CustomButton

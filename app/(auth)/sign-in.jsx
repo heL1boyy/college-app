@@ -65,7 +65,8 @@ const SignIn = () => {
           setUser({ ...adminDoc, isAdmin: true });
           setIsLoggedIn(true);
           Alert.alert("Success", "Admin signed in successfully");
-          router.replace("/admin/dashboard");
+
+          router.push("/admin/adminDashboard");
         } else {
           throw new Error("User does not have admin privileges");
         }
