@@ -12,6 +12,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { TouchableOpacity } from "react-native";
 import { router } from "expo-router";
 import { StatusBar } from "expo-status-bar";
+
 import {
   addTeacherWithSubcollections,
   fetchTeachers,
@@ -196,7 +197,7 @@ const Teachers = () => {
             ) : (
               teachers.map((teacher) => (
                 <TouchableOpacity
-                  key={teacher.id}
+                  key={teacher.uid}
                   className="flex flex-row items-center justify-start p-5 mb-8 rounded-lg bg-slate-200"
                   onPress={() =>
                     router.push("/adminRoutes/teachers/" + teacher.name)
@@ -212,7 +213,7 @@ const Teachers = () => {
                       {teacher.name}
                     </Text>
                     <Text className="mt-3 text-sm tracking-wide text-black font-rregular">
-                      {teacher.subject}
+                      {teacher.contact}
                     </Text>
                   </View>
                 </TouchableOpacity>

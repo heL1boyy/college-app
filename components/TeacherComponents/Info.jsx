@@ -9,15 +9,15 @@ const Info = () => {
   const { user } = useGlobalContext();
 
   const [editMode, setEditMode] = useState(false);
-  const [newUsername, setNewUsername] = useState(user?.username || "");
+  const [newUsername, setNewUsername] = useState(user?.name || "");
   const [newAvatar, setNewAvatar] = useState(user?.avatar || null);
   const [isSaving, setIsSaving] = useState(false);
-  const originalUsername = user?.username;
+  const originalUsername = user?.name;
   const originalAvatar = user?.avatar;
 
   const [isEditing, setIsEditing] = useState(false);
-  const [username, setUsername] = useState(user.username || "");
-  const [email, setEmail] = useState(user.email || "");
+  const [username, setUsername] = useState(user?.name || "");
+  const [email, setEmail] = useState(user?.email || "");
 
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -43,7 +43,7 @@ const Info = () => {
         const { imageUrl } = await uploadImage(newAvatar);
         avatarUrl = imageUrl;
       }
-      await updateUserFieldByAccountId(user.accountId, {
+      await updateUser(user.uid, {
         username: newUsername,
         avatar: avatarUrl,
       });
@@ -69,7 +69,9 @@ const Info = () => {
         <View className="flex-row items-center">
           <View className="w-[24%]">
             <Image
-              source={{ uri: newAvatar || user?.avatar }}
+              source={{
+                uri: newAvatar ? newAvatar : "https://via.placeholder.com/150",
+              }}
               className="w-20 h-20 rounded-full"
             />
           </View>
@@ -83,10 +85,10 @@ const Info = () => {
             ) : (
               <>
                 <Text className="text-lg font-semibold tracking-wide">
-                  {user?.username}
+                  {user?.name}
                 </Text>
                 <Text className="mt-1 text-sm tracking-wide text-gray-600">
-                  {user?.accountId}
+                  {user?.uid}
                 </Text>
               </>
             )}

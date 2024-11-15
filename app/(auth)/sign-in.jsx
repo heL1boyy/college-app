@@ -7,13 +7,9 @@ import CustomButton from "../../components/CustomButton";
 import { Link, router } from "expo-router";
 import { getCurrentUser, signIn as userSignIn } from "../../lib/FirebaseConfig";
 import { useGlobalContext } from "@/context/GlobalProvider";
-import {
-  getFirestore,
-  collection,
-  query,
-  where,
-  getDocs,
-} from "firebase/firestore";
+
+import { db } from "../../lib/FirebaseConfig";
+import { collection, query, where, getDocs } from "firebase/firestore";
 
 const SignIn = () => {
   const { setUser, setIsLoggedIn } = useGlobalContext();
@@ -34,49 +30,63 @@ const SignIn = () => {
 
     try {
       const isEmail = form.identifier.includes("@");
+
+      // Teacher Login: Check if identifier is an email
       if (isEmail) {
-        // User Login
-        await userSignIn(form.identifier, form.password);
-
-        // Set to global state
-        const result = await getCurrentUser();
-        setUser(result);
-        setIsLoggedIn(true);
-
-        Alert.alert(
-          "Login Successful",
-          "You have been logged in  successfully.",
-          [{ text: "OK" }]
-        );
-        router.replace("/user/home");
-      } else {
-        // Admin Login
-        const db = getFirestore();
-        const q = query(
-          collection(db, "adminUsers"),
-          where("name", "==", form.identifier),
+        const qTeacher = query(
+          collection(db, "teachers"),
+          where("email", "==", form.identifier),
           where("password", "==", form.password)
         );
-        const querySnapshot = await getDocs(q);
+        const queryTeacherSnapshot = await getDocs(qTeacher);
 
-        if (querySnapshot.empty) {
-          throw new Error("Invalid username or password");
+        if (queryTeacherSnapshot.empty) {
+          throw new Error("Invalid email or password for teacher.");
         }
 
-        const adminDoc = querySnapshot.docs[0].data();
+        const teacherDoc = queryTeacherSnapshot.docs[0].data();
+        setUser({ ...teacherDoc, isAdmin: false });
+        setIsLoggedIn(true);
+        Alert.alert("Success", "Teacher signed in successfully");
 
-        if (adminDoc.isAdmin) {
-          setUser({ ...adminDoc, isAdmin: true });
-          setIsLoggedIn(true);
-          Alert.alert("Success", "Admin signed in successfully");
-
-          router.push("/admin/adminDashboard");
-        } else {
-          throw new Error("User does not have admin privileges");
-        }
+        router.push("/teacher/teacherDashboard"); // Navigate to teacher dashboard
+        return; // Exit after teacher login to prevent further checks
       }
+
+      // Admin Login (using username) if not a teacher
+      const qAdmin = query(
+        collection(db, "adminUsers"),
+        where("name", "==", form.identifier),
+        where("password", "==", form.password)
+      );
+      const queryAdminSnapshot = await getDocs(qAdmin);
+
+      if (queryAdminSnapshot.empty) {
+        throw new Error("Invalid username or password for admin.");
+      }
+
+      const adminDoc = queryAdminSnapshot.docs[0].data();
+      setUser({ ...adminDoc, isAdmin: true });
+      setIsLoggedIn(true);
+      Alert.alert("Success", "Admin signed in successfully");
+
+      router.push("/admin/adminDashboard"); // Navigate to admin dashboard
+
+      return;
     } catch (error) {
-      Alert.alert("Error", error.message);
+      // User Login: Use signIn function for regular user (email & password)
+      try {
+        const userCredential = await userSignIn(form.identifier, form.password);
+
+        // Successfully signed in as a regular user
+        setUser(userCredential);
+        setIsLoggedIn(true);
+        Alert.alert("Success", "You have been logged in successfully.");
+
+        router.push("/user/home"); // Navigate to user home
+      } catch (userError) {
+        Alert.alert("Error", userError.message); // This shows the error for user login
+      }
     } finally {
       setIsSubmitting(false);
     }

@@ -17,7 +17,7 @@ import { useEffect, useState } from "react";
 import FormField from "../../../components/FormField";
 import CustomButton from "../../../components/CustomButton";
 
-import { storage, database } from "../../../lib/FirebaseConfig";
+import { storage, db } from "../../../lib/FirebaseConfig";
 import {
   ref,
   uploadBytesResumable,
@@ -44,166 +44,12 @@ import { StatusBar } from "expo-status-bar";
 
 const AdminDashboard = () => {
   const { user, isLoggedIn } = useGlobalContext();
-  const [userData, setUserData] = useState([]);
-
-  const getUserData = async () => {
-    try {
-      const userQuery = query(collection(database, "users"));
-
-      const querySnapshot = await getDocs(userQuery);
-
-      const data = querySnapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      }));
-      console.log(data);
-      setUserData(data);
-    } catch (error) {
-      console.log("Error fetching data: ", error);
-    }
-  };
-
-  useEffect(() => {
-    getUserData();
-  }, []);
-
-  const submit = () => {};
-  const [uploading, setUploading] = useState(false);
-  const [uploadProgress, setUploadProgress] = useState(0);
-  const [uploadedUrl, setUploadedUrl] = useState("");
-  const [image, setImage] = useState(null);
-  const [title, setTitle] = useState("");
-  const [loading, setLoading] = useState(false);
-  // for  pdf upload
-  const pickAndUploadDocument = async () => {
-    try {
-      let result = await DocumentPicker.getDocumentAsync({
-        type: "application/pdf",
-      });
-
-      console.log("DocumentPicker result:", result);
-
-      if (!result.canceled && result.assets && result.assets.length > 0) {
-        const selectedFile = result.assets[0];
-        const fileUri = selectedFile.uri;
-        const fileName = selectedFile.name;
-
-        console.log("Document selected:", fileName);
-
-        setUploading(true);
-
-        // Create a reference to the file in Firebase Storage
-        const fileRef = ref(storage, `notes/${fileName}`);
-
-        // Convert the file to a blob
-        const response = await fetch(fileUri);
-        const blob = await response.blob();
-
-        // Start the file upload
-        const uploadTask = uploadBytesResumable(fileRef, blob);
-
-        // Monitor the upload progress
-        uploadTask.on(
-          "state_changed",
-          (snapshot) => {
-            const progress =
-              (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-            setUploadProgress(progress);
-            console.log(`Upload is ${progress}% done`);
-          },
-          (error) => {
-            setUploading(false);
-            console.error("Upload failed:", error);
-          },
-          async () => {
-            // Upload completed successfully
-            const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
-            setUploadedUrl(downloadURL);
-            setUploading(false);
-            console.log("File available at", downloadURL);
-
-            // Save metadata to Firestore in the "notes" collection
-            await addDoc(collection(database, "notes"), {
-              name: fileName,
-              url: downloadURL,
-              createdAt: new Date(),
-            });
-          }
-        );
-      } else {
-        console.log("Document picking cancelled or no file selected.");
-      }
-    } catch (error) {
-      setUploading(false);
-      console.error("Error picking document:", error);
-    }
-  };
-
-  // for image upload  and its title
-
-  const pickAndUploadImage = async () => {
-    let res = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      allowsEditing: true,
-      quality: 1,
-    });
-    if (!res.canceled && res.assets && res.assets.length > 0) {
-      // Set the selected image URI
-      setImage(res.assets[0].uri);
-      console.log("Selected image URI:", res.assets[0].uri);
-    } else {
-      console.log("Image picking cancelled.");
-    }
-  };
-
-  const addImageAndTitle = async () => {
-    if (!image || !title) {
-      alert("Please provide both title and image.");
-      return;
-    }
-
-    setLoading(true);
-    const fileName = Date.now().toString() + ".jpg";
-    const response = await fetch(image);
-    const blob = await response.blob();
-
-    const imageRef = ref(storage, "notices/" + fileName);
-
-    uploadBytes(imageRef, blob)
-      .then((snapshot) => {
-        console.log("file uploaded");
-      })
-      .then((res) => {
-        getDownloadURL(imageRef).then(async (downloadURL) => {
-          console.log(downloadURL);
-          addTitle(downloadURL);
-        });
-      });
-
-    setLoading(false);
-  };
-
-  const handleTitleChange = (text) => {
-    setTitle(text); // Directly set the text value to the title state
-  };
-
-  const addTitle = async (imageUrl) => {
-    try {
-      await setDoc(doc(database, "notices", Date.now().toString()), {
-        name: title,
-        imageUrl: imageUrl,
-      });
-    } catch (error) {
-      console.error("Error adding title:", error);
-      // Handle errors accordingly
-    }
-  };
 
   return (
     <SafeAreaView>
       <FlatList
-        data={userData} // Add more items as needed
-        keyExtractor={(index) => index.toString()} // Ensure keys are unique and strings
+        data={user} // Add more items as needed
+        keyExtractor={(index) => index.user.id()} // Ensure keys are unique and strings
         ListHeaderComponent={() => (
           <View className="flex-row items-center justify-between p-6 rounded-xl">
             <View>
@@ -211,7 +57,7 @@ const AdminDashboard = () => {
                 {isLoggedIn ? "Welcome Back" : "Hello"}
               </Text>
               <Text className="mt-1 text-xl tracking-widest font-psemibold text-primary">
-                {user ? user.username : "Guest"}
+                {user ? user.name : "Guest"}
               </Text>
             </View>
 
