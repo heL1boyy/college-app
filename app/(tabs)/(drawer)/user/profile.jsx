@@ -1,4 +1,11 @@
-import { View, Text, FlatList, Image, TouchableOpacity, ScrollView } from "react-native";
+import {
+  View,
+  Text,
+  FlatList,
+  Image,
+  TouchableOpacity,
+  ScrollView,
+} from "react-native";
 import React, { useEffect, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useGlobalContext } from "@/context/GlobalProvider";
@@ -17,28 +24,24 @@ const Profile = () => {
   return (
     <SafeAreaView className="bg-main_background mb-14">
       <FlatList
-        data={[user]}
-        keyExtractor={(index) => index}
+        data={user ? [user] : []} // Only pass the user if it exists
+        keyExtractor={(item, index) => index.toString()}
         className="h-full bg-main_background"
         showsVerticalScrollIndicator={false}
-        ListHeaderComponent={() => (
-          <HeaderComponent icons={icons} users={user} />
-        )}
-        //main components rendering
-        renderItem={({ item, index }) => (
-          <View key={index} className="p-6">
-            {/* student info */}
-            <StudentInfo item={item} />
-
-            {/* about */}
-            <AboutSection item={item} />
-
-            {/* contact details */}
-
-            <ContactSection item={item} />
-          </View>
-        )}
+        ListHeaderComponent={() =>
+          user && <HeaderComponent icons={icons} users={user} />
+        }
+        renderItem={({ item, index }) =>
+          item && ( // Only render sections if the item exists
+            <View key={index} className="p-6">
+              <StudentInfo item={item} />
+              <AboutSection item={item} />
+              <ContactSection item={item} />
+            </View>
+          )
+        }
       />
+
       <StatusBar backgroundColor="#000" />
     </SafeAreaView>
   );

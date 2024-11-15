@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import {
   Image,
   View,
@@ -13,17 +13,15 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Colors } from "../../constants/Colors";
 
 const HeaderComponent = ({ users }) => {
-  const { logout, updateUser, updateAvatar } = useGlobalContext();
+  const { logout, updateUser } = useGlobalContext();
   const [editMode, setEditMode] = useState(false);
   const [newUsername, setNewUsername] = useState(users?.username || "");
   const [newAvatar, setNewAvatar] = useState(users?.profileImageUrl || null);
   const [isSaving, setIsSaving] = useState(false);
 
-  // Store the original values to revert when canceling
   const originalUsername = users?.username;
   const originalAvatar = users?.profileImageUrl;
 
-  // Function to pick an image from the gallery
   const pickImage = async () => {
     try {
       let result = await ImagePicker.launchImageLibraryAsync({
@@ -42,29 +40,23 @@ const HeaderComponent = ({ users }) => {
     }
   };
 
-  // Function to save the updated username and avatar
   const handleSave = async () => {
     if (!newUsername || !newAvatar) {
       Alert.alert("Error", "Both username and avatar are required.");
       return;
     }
 
-    setIsSaving(true); // Start saving process
+    setIsSaving(true);
     try {
-      // Upload new avatar if changed
       let avatarUrl = originalAvatar;
       if (newAvatar !== originalAvatar) {
-        await updateAvatar(newAvatar); // This updates the avatar using context method
-        avatarUrl = newAvatar; // Update local state for immediate UI change
+        avatarUrl = newAvatar;
       }
 
-      // Update the username if changed
-      if (newUsername !== originalUsername) {
-        await updateUser({ username: newUsername }); // Update username using context method
-      }
+      // Call updateUser function from context to update global user data
+      await updateUser({ username: newUsername, profileImageUrl: avatarUrl });
 
-      Alert.alert("Success", "Profile updated successfully!");
-      setEditMode(false); // Exit edit mode after saving
+      setEditMode(false); // Exit edit mode
     } catch (error) {
       console.error("Error updating profile:", error.message);
       Alert.alert("Error", "Failed to update profile. Please try again.");
@@ -73,7 +65,6 @@ const HeaderComponent = ({ users }) => {
     }
   };
 
-  // Function to cancel edits and revert to original data
   const handleCancel = () => {
     setNewUsername(originalUsername);
     setNewAvatar(originalAvatar);
@@ -97,12 +88,9 @@ const HeaderComponent = ({ users }) => {
 
       <View className="flex-row items-center px-6 py-2">
         <View className="w-[24%]">
-          {/* Show either the current avatar or the newly selected avatar */}
           <Image
             source={{
-              uri: newAvatar
-                ? users?.profileImageUrl
-                : "https://via.placeholder.com/150",
+              uri: newAvatar ? newAvatar : "https://via.placeholder.com/150",
             }}
             className="w-20 h-20 rounded-full"
           />

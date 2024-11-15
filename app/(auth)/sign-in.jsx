@@ -43,7 +43,11 @@ const SignIn = () => {
         setUser(result);
         setIsLoggedIn(true);
 
-        Alert.alert("Success", "User signed in successfully");
+        Alert.alert(
+          "Login Successful",
+          "You have been logged in  successfully.",
+          [{ text: "OK" }]
+        );
         router.replace("/user/home");
       } else {
         // Admin Login

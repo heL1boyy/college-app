@@ -1,6 +1,6 @@
 import { View, Text, TouchableOpacity, TextInput, Button } from "react-native";
 import React, { useState, useEffect } from "react";
-// import { updateUserFields } from "../../lib/FirebaseConfig"; // Updated to match your function
+
 import CustomButton from "../CustomButton";
 import { useGlobalContext } from "../../context/GlobalProvider";
 
@@ -11,8 +11,11 @@ const AboutSection = ({ item = {} }) => {
   const [gender, setGender] = useState(item.gender || "");
 
   useEffect(() => {
-    setDateOfBirth(item.dateOfBirth || "");
-    setGender(item.gender || "");
+    // Safeguard check for item existence
+    if (item && typeof item === "object") {
+      setDateOfBirth(item.dateOfBirth || "");
+      setGender(item.gender || "");
+    }
   }, [item]);
 
   const handleEdit = () => {
@@ -21,17 +24,20 @@ const AboutSection = ({ item = {} }) => {
 
   const handleSave = async () => {
     try {
-      if (!item.uid) throw new Error("No account ID found.");
-      // Log accountId and updatedData
-      console.log("Account ID:", item.uid);
-      console.log("Updated Data:", { dateOfBirth, gender });
+      // Create updatedFields object with the fields to update
+      const updatedFields = {
+        dateOfBirth: dateOfBirth || "",
+        gender: gender || "",
+      };
 
-      // Update user details
-      await updateUser(item.uid, {
-        dateOfBirth,
-        gender,
-      });
-      setIsEditing(false); // Exit editing mode
+      // Ensure it logs properly for debugging
+      console.log("Updating user fields with:", updatedFields);
+
+      // Use updateUser without passing UID manually
+      await updateUser(updatedFields);
+
+      console.log("User details updated successfully");
+      setIsEditing(false); // Exit editing mode after successful save
     } catch (error) {
       console.error("Error updating user details:", error.message);
     }

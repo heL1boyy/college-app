@@ -12,7 +12,10 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { TouchableOpacity } from "react-native";
 import { router } from "expo-router";
 import { StatusBar } from "expo-status-bar";
-import { addTeacher, fetchTeachers } from "../../../lib/FirebaseConfig"; // Importing Firebase functions
+import {
+  addTeacherWithSubcollections,
+  fetchTeachers,
+} from "../../../lib/FirebaseConfig"; // Updated Import
 
 const Teachers = () => {
   const [editMode, setEditMode] = useState(false);
@@ -20,6 +23,8 @@ const Teachers = () => {
   const [subject, setSubject] = useState("");
   const [email, setEmail] = useState("");
   const [contact, setContact] = useState("");
+  const [taskTitle, setTaskTitle] = useState(""); // Task title input
+  const [taskDescription, setTaskDescription] = useState(""); // Task description input
   const [teachers, setTeachers] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -29,6 +34,8 @@ const Teachers = () => {
     setSubject("");
     setEmail("");
     setContact("");
+    setTaskTitle("");
+    setTaskDescription("");
   };
 
   const handleSave = async () => {
@@ -39,18 +46,31 @@ const Teachers = () => {
 
     const teacherData = {
       name,
-      subject,
       email,
       contact,
-      imageURI: "", // Add a default image URI if needed
+      imageURI: "", // Default image URI if needed
+    };
+
+    const subjectData = {
+      subjectName: subject,
+      // Add a description if required
+    };
+
+    const taskData = {
+      createdAt: "",
+      dueDate: "",
+      dueTime: "",
+      taskDetails,
+      taskName: "Initial Task",
+      status: "Pending", // Example task data
     };
 
     try {
-      // Call the existing addTeacher function in the Firebase config
-      await addTeacher(teacherData);
-      console.log("Teacher added successfully");
+      // Using addTeacherWithSubcollections function
+      await addTeacherWithSubcollections(teacherData, subjectData, taskData);
+      console.log("Teacher with subcollections added successfully");
 
-      handleCancel(); // Reset form after successful addition
+      handleCancel(); // Reset the form
       fetchAllTeachers(); // Refresh the teacher list
     } catch (error) {
       console.error("Error adding teacher:", error);
@@ -116,13 +136,33 @@ const Teachers = () => {
                     className="w-[80%] px-3 py-1 border border-gray-500 rounded-lg"
                   />
                 </View>
-                <View className="flex-row items-center">
+                <View className="flex-row items-center mb-6">
                   <Text className="tracking-wider font-rmedium w-[26%]">
                     Contact:
                   </Text>
                   <TextInput
                     value={contact}
                     onChangeText={setContact}
+                    className="w-[74%] px-3 py-1 border border-gray-500 rounded-lg"
+                  />
+                </View>
+                <View className="flex-row items-center mb-6">
+                  <Text className="tracking-wider font-rmedium w-[26%]">
+                    Task Title:
+                  </Text>
+                  <TextInput
+                    value={taskTitle}
+                    onChangeText={setTaskTitle}
+                    className="w-[74%] px-3 py-1 border border-gray-500 rounded-lg"
+                  />
+                </View>
+                <View className="flex-row items-center">
+                  <Text className="tracking-wider font-rmedium w-[26%]">
+                    Task Description:
+                  </Text>
+                  <TextInput
+                    value={taskDescription}
+                    onChangeText={setTaskDescription}
                     className="w-[74%] px-3 py-1 border border-gray-500 rounded-lg"
                   />
                 </View>
@@ -162,13 +202,11 @@ const Teachers = () => {
                     router.push("/adminRoutes/teachers/" + teacher.name)
                   }
                 >
-                  <View>
-                    <Image
-                      source={{ uri: teacher.imageURI || "default_image_url" }}
-                      className="w-[76px] h-[76px] rounded-full"
-                      resizeMode="cover"
-                    />
-                  </View>
+                  <Image
+                    source={{ uri: teacher.imageURI || "default_image_url" }}
+                    className="w-[76px] h-[76px] rounded-full"
+                    resizeMode="cover"
+                  />
                   <View className="ml-6">
                     <Text className="text-base tracking-wide text-primary font-rregular">
                       {teacher.name}
