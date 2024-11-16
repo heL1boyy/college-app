@@ -28,7 +28,6 @@ const TaskSection = () => {
           <Text className="text-sm tracking-widest text-primary font-pmedium">
             {task.taskDetails}
           </Text>
-          <Text className="mt-3 text-sm font-pregular">{task.taskName}</Text>
           {!task.submitted ? (
             <View className="flex-row items-center justify-start gap-1 mt-3">
               <Ionicons name="time-outline" size={18} color={Colors.third} />

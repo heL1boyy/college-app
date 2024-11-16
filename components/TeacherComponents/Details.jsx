@@ -8,7 +8,7 @@ const Details = () => {
   const { user } = useGlobalContext();
 
   const [isEditing, setIsEditing] = useState(false);
-  const [username, setUsername] = useState(user?.name || "");
+  const [username, setUsername] = useState(user?.username || "");
 
   const handleEdit = () => {
     setIsEditing(!isEditing);
@@ -78,7 +78,7 @@ const Details = () => {
           ) : (
             <>
               <Text className="mb-5 first-letter:tracking-wider ">
-                {user?.name}
+                {user?.username}
               </Text>
               <Text className="mb-5 tracking-wider ">BCA</Text>
               <Text className="mb-4 tracking-wider">availabiltiy</Text>

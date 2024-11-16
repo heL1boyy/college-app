@@ -9,14 +9,15 @@ const Info = () => {
   const { user } = useGlobalContext();
 
   const [editMode, setEditMode] = useState(false);
-  const [newUsername, setNewUsername] = useState(user?.name || "");
+  const [newUsername, setNewUsername] = useState(user?.username || "");
+  const [newEmail, setNewEmail] = useState(user?.email || "");
   const [newAvatar, setNewAvatar] = useState(user?.avatar || null);
   const [isSaving, setIsSaving] = useState(false);
   const originalUsername = user?.name;
   const originalAvatar = user?.avatar;
 
   const [isEditing, setIsEditing] = useState(false);
-  const [username, setUsername] = useState(user?.name || "");
+  const [username, setUsername] = useState(user?.username || "");
   const [email, setEmail] = useState(user?.email || "");
 
   const pickImage = async () => {
@@ -77,18 +78,26 @@ const Info = () => {
           </View>
           <View className="ml-6 w-[68%]">
             {editMode ? (
-              <TextInput
-                value={newUsername}
-                onChangeText={setNewUsername}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg"
-              />
+              <>
+                <TextInput
+                  value={newUsername}
+                  onChangeText={setNewUsername}
+                  placeholder="Enter Name"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg"
+                />
+                <TextInput
+                  value={newEmail}
+                  onChangeText={setNewEmail}
+                  placeholder="Enter Email"
+                  className="w-full px-4 py-2 mt-2 border border-gray-300 rounded-lg"
+                /></>
             ) : (
               <>
                 <Text className="text-lg font-semibold tracking-wide">
-                  {user?.name}
+                  {user?.username}
                 </Text>
                 <Text className="mt-1 text-sm tracking-wide text-gray-600">
-                  {user?.uid}
+                  {user?.email}
                 </Text>
               </>
             )}

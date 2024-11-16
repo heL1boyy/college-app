@@ -15,7 +15,6 @@ const Tasks = () => {
           </Text>
         </View>
         <AddTask />
-
         <TaskSection />
         <StatusBar backgroundColor="black" />
       </ScrollView>

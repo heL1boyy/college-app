@@ -15,7 +15,7 @@ const TeacherDashboardHeader = () => {
           Welcome Back
         </Text>
         <Text className="mt-1 text-xl tracking-widest font-psemibold text-primary">
-          {user?.name}
+          {user?.username}
         </Text>
       </View>
       <View className="flex flex-row items-center justify-end w-[22%]">
