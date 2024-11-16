@@ -124,7 +124,7 @@ const Notices = () => {
           {notices.map((notice, index) => (
             <View className="p-4 mx-6 mb-8 rounded-lg bg-slate-200" key={index}>
               <Text className="text-sm tracking-wide font-pmedium text-primary">
-                {notice.noticeDate}
+                {notice.noticeDate ? notice.noticeDate : "date here"}
               </Text>
               <Text className="mt-2 text-sm tracking-widest text-justify font-pregular">
                 {notice.name}

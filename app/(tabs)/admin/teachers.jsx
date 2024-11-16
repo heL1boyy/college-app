@@ -1,3 +1,4 @@
+
 import {
   View,
   Text,
@@ -12,7 +13,6 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { TouchableOpacity } from "react-native";
 import { router } from "expo-router";
 import { StatusBar } from "expo-status-bar";
-
 import {
   addTeacherWithSubcollections,
   fetchTeachers,
@@ -137,7 +137,7 @@ const Teachers = () => {
                     className="w-[80%] px-3 py-1 border border-gray-500 rounded-lg"
                   />
                 </View>
-                <View className="flex-row items-center mb-6">
+                <View className="flex-row items-center">
                   <Text className="tracking-wider font-rmedium w-[26%]">
                     Contact:
                   </Text>
@@ -147,7 +147,7 @@ const Teachers = () => {
                     className="w-[74%] px-3 py-1 border border-gray-500 rounded-lg"
                   />
                 </View>
-                <View className="flex-row items-center mb-6">
+                {/* <View className="flex-row items-center mb-6">
                   <Text className="tracking-wider font-rmedium w-[26%]">
                     Task Title:
                   </Text>
@@ -166,7 +166,7 @@ const Teachers = () => {
                     onChangeText={setTaskDescription}
                     className="w-[74%] px-3 py-1 border border-gray-500 rounded-lg"
                   />
-                </View>
+                </View> */}
               </View>
               <TouchableOpacity onPress={handleCancel}>
                 <Text className="py-4 tracking-widest text-center text-white rounded-lg bg-slate-600 font-rmedium">
@@ -197,7 +197,7 @@ const Teachers = () => {
             ) : (
               teachers.map((teacher) => (
                 <TouchableOpacity
-                  key={teacher.uid}
+                  key={teacher.id}
                   className="flex flex-row items-center justify-start p-5 mb-8 rounded-lg bg-slate-200"
                   onPress={() =>
                     router.push("/adminRoutes/teachers/" + teacher.name)
@@ -213,7 +213,7 @@ const Teachers = () => {
                       {teacher.name}
                     </Text>
                     <Text className="mt-3 text-sm tracking-wide text-black font-rregular">
-                      {teacher.contact}
+                      {teacher.subject ? teacher.subject : "subject name here"}
                     </Text>
                   </View>
                 </TouchableOpacity>

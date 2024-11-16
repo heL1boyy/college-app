@@ -206,7 +206,7 @@ const Students = () => {
                     {student.username || "No Name"}
                   </Text>
                   <Text className="mt-3 text-sm tracking-wide text-black font-rregular">
-                    {student.id || "No ID"}
+                    {student.email || "Email Not Available"}
                   </Text>
                 </View>
               </TouchableOpacity>

@@ -17,7 +17,7 @@ import { useEffect, useState } from "react";
 import FormField from "../../../components/FormField";
 import CustomButton from "../../../components/CustomButton";
 
-import { storage, db } from "../../../lib/FirebaseConfig";
+import { storage, database } from "../../../lib/FirebaseConfig";
 import {
   ref,
   uploadBytesResumable,
@@ -35,7 +35,7 @@ import {
 
 import * as DocumentPicker from "expo-document-picker";
 import * as ImagePicker from "expo-image-picker";
-import { Ionicons } from "@expo/vector-icons";
+import { Entypo, FontAwesome5, FontAwesome6, Foundation, Ionicons, MaterialIcons } from "@expo/vector-icons";
 import { Colors } from "../../../constants/Colors";
 import { Link, router } from "expo-router";
 import { StatusBar } from "expo-status-bar";
@@ -44,12 +44,166 @@ import { StatusBar } from "expo-status-bar";
 
 const AdminDashboard = () => {
   const { user, isLoggedIn } = useGlobalContext();
+  const [userData, setUserData] = useState([]);
+
+  const getUserData = async () => {
+    try {
+      const userQuery = query(collection(database, "users"));
+
+      const querySnapshot = await getDocs(userQuery);
+
+      const data = querySnapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      console.log(data);
+      setUserData(data);
+    } catch (error) {
+      console.log("Error fetching data: ", error);
+    }
+  };
+
+  useEffect(() => {
+    getUserData();
+  }, []);
+
+  const submit = () => { };
+  const [uploading, setUploading] = useState(false);
+  const [uploadProgress, setUploadProgress] = useState(0);
+  const [uploadedUrl, setUploadedUrl] = useState("");
+  const [image, setImage] = useState(null);
+  const [title, setTitle] = useState("");
+  const [loading, setLoading] = useState(false);
+  // for  pdf upload
+  const pickAndUploadDocument = async () => {
+    try {
+      let result = await DocumentPicker.getDocumentAsync({
+        type: "application/pdf",
+      });
+
+      console.log("DocumentPicker result:", result);
+
+      if (!result.canceled && result.assets && result.assets.length > 0) {
+        const selectedFile = result.assets[0];
+        const fileUri = selectedFile.uri;
+        const fileName = selectedFile.name;
+
+        console.log("Document selected:", fileName);
+
+        setUploading(true);
+
+        // Create a reference to the file in Firebase Storage
+        const fileRef = ref(storage, `notes/${fileName}`);
+
+        // Convert the file to a blob
+        const response = await fetch(fileUri);
+        const blob = await response.blob();
+
+        // Start the file upload
+        const uploadTask = uploadBytesResumable(fileRef, blob);
+
+        // Monitor the upload progress
+        uploadTask.on(
+          "state_changed",
+          (snapshot) => {
+            const progress =
+              (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+            setUploadProgress(progress);
+            console.log(`Upload is ${progress}% done`);
+          },
+          (error) => {
+            setUploading(false);
+            console.error("Upload failed:", error);
+          },
+          async () => {
+            // Upload completed successfully
+            const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
+            setUploadedUrl(downloadURL);
+            setUploading(false);
+            console.log("File available at", downloadURL);
+
+            // Save metadata to Firestore in the "notes" collection
+            await addDoc(collection(database, "notes"), {
+              name: fileName,
+              url: downloadURL,
+              createdAt: new Date(),
+            });
+          }
+        );
+      } else {
+        console.log("Document picking cancelled or no file selected.");
+      }
+    } catch (error) {
+      setUploading(false);
+      console.error("Error picking document:", error);
+    }
+  };
+
+  // for image upload  and its title
+
+  const pickAndUploadImage = async () => {
+    let res = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      quality: 1,
+    });
+    if (!res.canceled && res.assets && res.assets.length > 0) {
+      // Set the selected image URI
+      setImage(res.assets[0].uri);
+      console.log("Selected image URI:", res.assets[0].uri);
+    } else {
+      console.log("Image picking cancelled.");
+    }
+  };
+
+  const addImageAndTitle = async () => {
+    if (!image || !title) {
+      alert("Please provide both title and image.");
+      return;
+    }
+
+    setLoading(true);
+    const fileName = Date.now().toString() + ".jpg";
+    const response = await fetch(image);
+    const blob = await response.blob();
+
+    const imageRef = ref(storage, "notices/" + fileName);
+
+    uploadBytes(imageRef, blob)
+      .then((snapshot) => {
+        console.log("file uploaded");
+      })
+      .then((res) => {
+        getDownloadURL(imageRef).then(async (downloadURL) => {
+          console.log(downloadURL);
+          addTitle(downloadURL);
+        });
+      });
+
+    setLoading(false);
+  };
+
+  const handleTitleChange = (text) => {
+    setTitle(text); // Directly set the text value to the title state
+  };
+
+  const addTitle = async (imageUrl) => {
+    try {
+      await setDoc(doc(database, "notices", Date.now().toString()), {
+        name: title,
+        imageUrl: imageUrl,
+      });
+    } catch (error) {
+      console.error("Error adding title:", error);
+      // Handle errors accordingly
+    }
+  };
 
   return (
     <SafeAreaView>
       <FlatList
-        data={user} // Add more items as needed
-        keyExtractor={(index) => index.user.id()} // Ensure keys are unique and strings
+        data={userData} // Add more items as needed
+        keyExtractor={(index) => index.toString()} // Ensure keys are unique and strings
         ListHeaderComponent={() => (
           <View className="flex-row items-center justify-between p-6 rounded-xl">
             <View>
@@ -57,116 +211,66 @@ const AdminDashboard = () => {
                 {isLoggedIn ? "Welcome Back" : "Hello"}
               </Text>
               <Text className="mt-1 text-xl tracking-widest font-psemibold text-primary">
-                {user ? user.name : "Guest"}
+                {user ? user.username : "Guest"}
               </Text>
             </View>
-
             <TouchableOpacity onPress={() => router.push("/notification")}>
               <Ionicons name="notifications" size={24} color={Colors.primary} />
             </TouchableOpacity>
-
-            {/* <TouchableOpacity
-                className="px-4 py-2 bg-black rounded-lg "
-                onPress={() => { }}
-                activeOpacity={0.7}
-              >
-                <Text className="text-white">Text Here</Text>
-              </TouchableOpacity>
-
-              {userData.map((user, index) => {
-                <Text className="bg-amber-400" key={index}>
-                  {JSON.stringify(user)}
-                </Text>;
-              })} */}
-          </View>
-        )}
-        renderItem={({ item, index }) => (
-          <View key={index.toString()} className="p-6">
-            <View className="bg-green-400">
-              <Image
-                source={{ uri: item.image }}
-                className="w-20 h-20 rounded-full"
-              />
-              <Text>{item.username}</Text>
-
-              {/* <FormField
-              title="Title"
-              otherStyles="mt-5"
-              placeholder="Enter title"
-            /> */}
-
-              {/* <TouchableOpacity
-              className="self-center w-20 h-20 p-2 bg-green-200 rounded-full "
-              onPress={() => filepicker()}
-              activeOpacity={0.7}
-            >
-           
-            </TouchableOpacity> */}
-
-              <CustomButton
-                title="Submit"
-                onPress={submit}
-                // isLoading={isSubmitting}
-                containerStyles="w-full mt-6 min-h-[56px]"
-              />
-            </View>
-
-            <View className="flex items-center justify-center mt-5 bg-red">
-              <CustomButton
-                title="Upload Document"
-                onPress={pickAndUploadDocument}
-                disabled={uploading}
-                containerStyles="mt-6 bg-primary"
-                textStyles="text-white"
-              />
-              {uploading && (
-                <View style={styles.uploadInfo}>
-                  <Text>Uploading: {uploadProgress.toFixed(2)}%</Text>
-                  <ActivityIndicator size="large" color="#0000ff" />
-                </View>
-              )}
-              {uploadedUrl ? <Text>Uploaded URL: {uploadedUrl}</Text> : null}
-            </View>
-
-            {/* for the image upload  */}
-            {/* title for that image  */}
-
-            <View className="mt-5 bg-orange">
-              <TouchableOpacity onPress={() => pickAndUploadImage()}>
-                {!image ? (
-                  <Text className="w-32 px-4 py-2 text-center text-white rounded-lg bg-primary">
-                    Upload Image
-                  </Text>
-                ) : (
-                  <Image
-                    source={{ uri: image }}
-                    className="w-full h-full rounded-full"
-                  />
-                )}
-              </TouchableOpacity>
-              <View className="flex-row items-center justify-between">
-                <TextInput
-                  onChangeText={handleTitleChange}
-                  placeholder="Title"
-                  className="p-2 my-2 bg-gray-200 border-2 rounded-md w-60"
-                />
-                <TouchableOpacity
-                  disabled={loading}
-                  onPress={() => addImageAndTitle()}
-                >
-                  {loading ? (
-                    <ActivityIndicator size={"large"} color={"white"} />
-                  ) : (
-                    <Text className="px-4 py-2 text-center text-white rounded-lg bg-primary">
-                      Add Title
-                    </Text>
-                  )}
-                </TouchableOpacity>
-              </View>
-            </View>
           </View>
         )}
       />
+      <View className="px-6 mb-6">
+        <Text className="text-lg tracking-widest font-rmedium">Admin Dashboard</Text>
+      </View>
+      <View className="flex-row items-center justify-between mx-6">
+        <TouchableOpacity
+          onPress={() => router.push("/admin/students")}
+          className="flex-col items-center w-40 py-10 rounded-lg bg-slate-200"
+        >
+          <FontAwesome6 name="people-group" size={32} color={Colors.primary} />
+          <Text className="mt-4 text-lg tracking-widest text-primary font-rmedium">Students</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => router.push("/admin/teachers")}
+          className="flex-col items-center w-40 py-10 rounded-lg bg-slate-200"
+        >
+          <FontAwesome5 name="chalkboard-teacher" size={32} color={Colors.primary} />
+          <Text className="mt-4 text-lg tracking-widest text-primary font-rmedium">Teachers</Text>
+        </TouchableOpacity>
+      </View>
+      <View className="flex-row items-center justify-between m-6">
+        <TouchableOpacity
+          onPress={() => router.push("/admin/results")}
+          className="flex-col items-center w-40 py-10 rounded-lg bg-slate-200"
+        >
+          <Entypo name="bar-graph" size={32} color={Colors.primary} />
+          <Text className="mt-4 text-lg tracking-widest text-primary font-rmedium">Results</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => router.push("/admin/notices")}
+          className="flex-col items-center w-40 py-10 rounded-lg bg-slate-200"
+        >
+          <MaterialIcons name="library-books" size={32} color={Colors.primary} />
+          <Text className="mt-4 text-lg tracking-widest text-primary font-rmedium">Notices</Text>
+        </TouchableOpacity>
+      </View>
+      <View className="flex-row items-center justify-between mx-6">
+        <TouchableOpacity
+          onPress={() => router.push("/admin/adminProfile")}
+          className="flex-col items-center w-40 px-4 py-10 rounded-lg bg-slate-200"
+        >
+          <Ionicons name="person" size={32} color={Colors.primary} />
+          <Text className="mt-4 text-lg tracking-widest text-primary font-rmedium">Profile</Text>
+        </TouchableOpacity>
+        {/* <TouchableOpacity
+          onPress={() => router.push("/admin/adminProfile")}
+          className="flex-col items-center w-40 py-10 rounded-lg bg-slate-200"
+        >
+          <Ionicons name="person" size={32} color={Colors.primary} />
+          <Text className="mt-4 text-lg tracking-widest text-primary font-rmedium">Profile</Text>
+        </TouchableOpacity> */}
+      </View>
       <StatusBar backgroundColor="#000" />
     </SafeAreaView>
   );
