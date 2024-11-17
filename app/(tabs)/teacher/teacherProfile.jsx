@@ -29,8 +29,8 @@ const TeacherProfile = () => {
           </TouchableOpacity>
         </View>
         <Info />
-        <Details />
-        <AboutSection />
+        <Details /> 
+        {/* <AboutSection /> */}
         <StatusBar backgroundColor="black" />
       </ScrollView>
     </SafeAreaView>
