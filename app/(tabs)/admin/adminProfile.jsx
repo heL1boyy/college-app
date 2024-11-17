@@ -129,7 +129,7 @@ const AdminProfile = () => {
         {editMode && (
           <View className="my-2 ml-6">
             <TouchableOpacity onPress={pickImage}>
-              <Text className="underline text-primary">Change Avatar</Text>
+              <Text className="underline text-primary">Changee Avatar</Text>
             </TouchableOpacity>
           </View>
         )}
