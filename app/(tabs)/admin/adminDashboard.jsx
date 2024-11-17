@@ -35,7 +35,14 @@ import {
 
 import * as DocumentPicker from "expo-document-picker";
 import * as ImagePicker from "expo-image-picker";
-import { Entypo, FontAwesome5, FontAwesome6, Foundation, Ionicons, MaterialIcons } from "@expo/vector-icons";
+import {
+  Entypo,
+  FontAwesome5,
+  FontAwesome6,
+  Foundation,
+  Ionicons,
+  MaterialIcons,
+} from "@expo/vector-icons";
 import { Colors } from "../../../constants/Colors";
 import { Link, router } from "expo-router";
 import { StatusBar } from "expo-status-bar";
@@ -67,7 +74,7 @@ const AdminDashboard = () => {
     getUserData();
   }, []);
 
-  const submit = () => { };
+  const submit = () => {};
   const [uploading, setUploading] = useState(false);
   const [uploadProgress, setUploadProgress] = useState(0);
   const [uploadedUrl, setUploadedUrl] = useState("");
@@ -211,7 +218,7 @@ const AdminDashboard = () => {
                 {isLoggedIn ? "Welcome Back" : "Hello"}
               </Text>
               <Text className="mt-1 text-xl tracking-widest font-psemibold text-primary">
-                {user ? user.username : "Guest"}
+                {user ? user.name : "Guest"}
               </Text>
             </View>
             <TouchableOpacity onPress={() => router.push("/notification")}>
@@ -221,7 +228,9 @@ const AdminDashboard = () => {
         )}
       />
       <View className="px-6 mb-6">
-        <Text className="text-lg tracking-widest font-rmedium">Admin Dashboard</Text>
+        <Text className="text-lg tracking-widest font-rmedium">
+          Admin Dashboard
+        </Text>
       </View>
       <View className="flex-row items-center justify-between mx-6">
         <TouchableOpacity
@@ -229,14 +238,22 @@ const AdminDashboard = () => {
           className="flex-col items-center w-40 py-10 rounded-lg bg-slate-200"
         >
           <FontAwesome6 name="people-group" size={32} color={Colors.primary} />
-          <Text className="mt-4 text-lg tracking-widest text-primary font-rmedium">Students</Text>
+          <Text className="mt-4 text-lg tracking-widest text-primary font-rmedium">
+            Students
+          </Text>
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => router.push("/admin/teachers")}
           className="flex-col items-center w-40 py-10 rounded-lg bg-slate-200"
         >
-          <FontAwesome5 name="chalkboard-teacher" size={32} color={Colors.primary} />
-          <Text className="mt-4 text-lg tracking-widest text-primary font-rmedium">Teachers</Text>
+          <FontAwesome5
+            name="chalkboard-teacher"
+            size={32}
+            color={Colors.primary}
+          />
+          <Text className="mt-4 text-lg tracking-widest text-primary font-rmedium">
+            Teachers
+          </Text>
         </TouchableOpacity>
       </View>
       <View className="flex-row items-center justify-between m-6">
@@ -245,14 +262,22 @@ const AdminDashboard = () => {
           className="flex-col items-center w-40 py-10 rounded-lg bg-slate-200"
         >
           <Entypo name="bar-graph" size={32} color={Colors.primary} />
-          <Text className="mt-4 text-lg tracking-widest text-primary font-rmedium">Results</Text>
+          <Text className="mt-4 text-lg tracking-widest text-primary font-rmedium">
+            Results
+          </Text>
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => router.push("/admin/notices")}
           className="flex-col items-center w-40 py-10 rounded-lg bg-slate-200"
         >
-          <MaterialIcons name="library-books" size={32} color={Colors.primary} />
-          <Text className="mt-4 text-lg tracking-widest text-primary font-rmedium">Notices</Text>
+          <MaterialIcons
+            name="library-books"
+            size={32}
+            color={Colors.primary}
+          />
+          <Text className="mt-4 text-lg tracking-widest text-primary font-rmedium">
+            Notices
+          </Text>
         </TouchableOpacity>
       </View>
       <View className="flex-row items-center justify-between mx-6">
@@ -261,7 +286,9 @@ const AdminDashboard = () => {
           className="flex-col items-center w-40 px-4 py-10 rounded-lg bg-slate-200"
         >
           <Ionicons name="person" size={32} color={Colors.primary} />
-          <Text className="mt-4 text-lg tracking-widest text-primary font-rmedium">Profile</Text>
+          <Text className="mt-4 text-lg tracking-widest text-primary font-rmedium">
+            Profile
+          </Text>
         </TouchableOpacity>
         {/* <TouchableOpacity
           onPress={() => router.push("/admin/adminProfile")}

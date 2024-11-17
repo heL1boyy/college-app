@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import CustomButton from "../CustomButton";
 import { useGlobalContext } from "../../context/GlobalProvider";
 
-const AboutSection = ({ item = {} }) => {
+const AboutSection = ({ item }) => {
   const { updateUser } = useGlobalContext();
   const [isEditing, setIsEditing] = useState(false);
   const [dateOfBirth, setDateOfBirth] = useState(item.dateOfBirth || "");

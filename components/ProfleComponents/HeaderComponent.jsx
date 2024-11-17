@@ -12,8 +12,10 @@ import { useGlobalContext } from "../../context/GlobalProvider";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Colors } from "../../constants/Colors";
 
+import { uploadImage } from "../../lib/FirebaseConfig";
+
 const HeaderComponent = ({ users }) => {
-  const { logout, updateUser } = useGlobalContext();
+  const { logout, updateUser, updateAvatar } = useGlobalContext();
   const [editMode, setEditMode] = useState(false);
   const [newUsername, setNewUsername] = useState(users?.username || "");
   const [newAvatar, setNewAvatar] = useState(users?.profileImageUrl || null);
@@ -30,7 +32,7 @@ const HeaderComponent = ({ users }) => {
         aspect: [1, 1], // Square aspect ratio for avatar
         quality: 1,
       });
-
+      console.log(users?.profileImageUrl);
       if (!result.canceled) {
         setNewAvatar(result.assets[0].uri);
       }
@@ -49,14 +51,18 @@ const HeaderComponent = ({ users }) => {
     setIsSaving(true);
     try {
       let avatarUrl = originalAvatar;
+
+      // Check if the avatar has changed
       if (newAvatar !== originalAvatar) {
-        avatarUrl = newAvatar;
+        // Upload the new avatar image to Firebase Storage and get the URL
+        avatarUrl = await uploadImage(newAvatar);
       }
 
-      // Call updateUser function from context to update global user data
+      // Update user data in Firestore with the new username and profile image URL
       await updateUser({ username: newUsername, profileImageUrl: avatarUrl });
 
       setEditMode(false); // Exit edit mode
+      Alert.alert("Success", "Profile updated successfully.");
     } catch (error) {
       console.error("Error updating profile:", error.message);
       Alert.alert("Error", "Failed to update profile. Please try again.");

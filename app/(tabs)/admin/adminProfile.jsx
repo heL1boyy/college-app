@@ -1,18 +1,16 @@
-
-import { View, Text, ScrollView, Image, TextInput, Button } from 'react-native'
-import React, { useState } from 'react'
-import { SafeAreaView } from 'react-native-safe-area-context'
-import { StatusBar } from 'expo-status-bar'
-import { TouchableOpacity } from 'react-native'
-import { MaterialCommunityIcons } from '@expo/vector-icons'
-import { useGlobalContext } from '../../../context/GlobalProvider'
-import { Colors } from '../../../constants/Colors'
+import { View, Text, ScrollView, Image, TextInput, Button } from "react-native";
+import React, { useState } from "react";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { StatusBar } from "expo-status-bar";
+import { TouchableOpacity } from "react-native";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { useGlobalContext } from "../../../context/GlobalProvider";
+import { Colors } from "../../../constants/Colors";
 import * as ImagePicker from "expo-image-picker";
-import CustomButton from '../../../components/CustomButton'
+import CustomButton from "../../../components/CustomButton";
 
 const AdminProfile = () => {
-
-  const { user, logout } = useGlobalContext()
+  const { user, logout } = useGlobalContext();
 
   const [editMode, setEditMode] = useState(false);
   const [newUsername, setNewUsername] = useState(user?.username || "");
@@ -78,9 +76,15 @@ const AdminProfile = () => {
     <SafeAreaView className="h-full bg-main_background mb-14">
       <ScrollView showsVerticalScrollIndicator={false}>
         <View className="flex-row items-center justify-between p-6">
-          <Text className="text-xl tracking-widest font-psemibold text-primary">My Profile</Text>
+          <Text className="text-xl tracking-widest font-psemibold text-primary">
+            My Profile
+          </Text>
           <TouchableOpacity onPress={logout}>
-            <MaterialCommunityIcons name="logout" size={26} color={Colors.third} />
+            <MaterialCommunityIcons
+              name="logout"
+              size={26}
+              color={Colors.third}
+            />
           </TouchableOpacity>
         </View>
 
@@ -98,25 +102,28 @@ const AdminProfile = () => {
                   <TextInput
                     value={newUsername}
                     onChangeText={setNewUsername}
-                    placeholder='Enter Name'
+                    placeholder="Enter Name"
                     className="w-full px-4 py-2 border border-gray-300 rounded-lg"
                   />
                   <TextInput
                     value={newEmail}
                     onChangeText={setNewEmail}
-                    placeholder='Enter Email'
+                    placeholder="Enter Email"
                     className="w-full px-4 py-2 mt-2 border border-gray-300 rounded-lg"
                   />
                 </>
               ) : (
                 <>
-                  <Text className="text-lg font-semibold tracking-wide">{user?.username}</Text>
-                  <Text className="mt-1 text-sm tracking-wide text-gray-600">{user?.email}</Text>
+                  <Text className="text-lg font-semibold tracking-wide">
+                    {user?.name}
+                  </Text>
+                  <Text className="mt-1 text-sm tracking-wide text-gray-600">
+                    {user?.email}
+                  </Text>
                 </>
               )}
             </View>
           </View>
-
         </View>
 
         {editMode && (
@@ -131,19 +138,21 @@ const AdminProfile = () => {
           {editMode ? (
             <>
               <TouchableOpacity onPress={handleCancel}>
-                <Text className="py-4 tracking-widest text-center text-white rounded-lg bg-slate-600 font-rmedium">Cancel</Text>
+                <Text className="py-4 tracking-widest text-center text-white rounded-lg bg-slate-600 font-rmedium">
+                  Cancel
+                </Text>
               </TouchableOpacity>
-              <TouchableOpacity onPress={handleSave} >
+              <TouchableOpacity onPress={handleSave}>
                 <Text className="py-4 tracking-widest text-center text-white rounded-lg bg-primary font-rmedium">
                   {isSaving ? "Saving..." : "Save"}
                 </Text>
               </TouchableOpacity>
             </>
           ) : (
-            <TouchableOpacity
-              onPress={() => setEditMode(true)}
-            >
-              <Text className="py-4 tracking-widest text-center text-white rounded-lg bg-primary font-rmedium">Edit</Text>
+            <TouchableOpacity onPress={() => setEditMode(true)}>
+              <Text className="py-4 tracking-widest text-center text-white rounded-lg bg-primary font-rmedium">
+                Edit
+              </Text>
             </TouchableOpacity>
           )}
         </View>
@@ -202,9 +211,8 @@ const AdminProfile = () => {
 
         <StatusBar backgroundColor="#000" />
       </ScrollView>
-    </SafeAreaView >
-  )
+    </SafeAreaView>
+  );
+};
 
-}
-
-export default AdminProfile
+export default AdminProfile;

@@ -187,7 +187,14 @@ const Students = () => {
                 key={index}
                 className="flex flex-row items-center justify-start p-5 mb-8 rounded-lg bg-slate-200"
                 onPress={() =>
-                  router.push("/adminRoutes/students/" + student.username)
+                  router.push({
+                    pathname: "/adminRoutes/students/[username]",
+                    params: {
+                      username: student.username,
+                      userData: JSON.stringify(student),
+                      userImg: JSON.stringify(student.profileImageUrl),
+                    },
+                  })
                 }
               >
                 <View>

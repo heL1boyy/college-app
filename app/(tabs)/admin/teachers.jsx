@@ -1,4 +1,3 @@
-
 import {
   View,
   Text,
@@ -23,6 +22,7 @@ const Teachers = () => {
   const [name, setName] = useState("");
   const [subject, setSubject] = useState("");
   const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [contact, setContact] = useState("");
   const [taskTitle, setTaskTitle] = useState(""); // Task title input
   const [taskDescription, setTaskDescription] = useState(""); // Task description input
@@ -34,6 +34,7 @@ const Teachers = () => {
     setName("");
     setSubject("");
     setEmail("");
+    setPassword("");
     setContact("");
     setTaskTitle("");
     setTaskDescription("");
@@ -49,6 +50,7 @@ const Teachers = () => {
       name,
       email,
       contact,
+      password,
       imageURI: "", // Default image URI if needed
     };
 
@@ -61,13 +63,13 @@ const Teachers = () => {
       createdAt: "",
       dueDate: "",
       dueTime: "",
-      taskDetails,
+      taskDetails: "",
       taskName: "Initial Task",
       status: "Pending", // Example task data
     };
 
     try {
-      // Using addTeacherWithSubcollections function
+      // Using addTeacherWithSubcollections function to dynamically generate IDs
       await addTeacherWithSubcollections(teacherData, subjectData, taskData);
       console.log("Teacher with subcollections added successfully");
 
@@ -137,6 +139,16 @@ const Teachers = () => {
                     className="w-[80%] px-3 py-1 border border-gray-500 rounded-lg"
                   />
                 </View>
+                <View className="flex-row items-center mb-6">
+                  <Text className="tracking-wider font-rmedium w-[26%]">
+                    Password:
+                  </Text>
+                  <TextInput
+                    value={password}
+                    onChangeText={setPassword}
+                    className="w-[74%] px-3 py-1 border border-gray-500 rounded-lg"
+                  />
+                </View>
                 <View className="flex-row items-center">
                   <Text className="tracking-wider font-rmedium w-[26%]">
                     Contact:
@@ -195,9 +207,9 @@ const Teachers = () => {
             {teachers.length === 0 ? (
               <Text className="text-center">No teachers available</Text>
             ) : (
-              teachers.map((teacher) => (
+              teachers.map((teacher, index) => (
                 <TouchableOpacity
-                  key={teacher.id}
+                  key={index}
                   className="flex flex-row items-center justify-start p-5 mb-8 rounded-lg bg-slate-200"
                   onPress={() =>
                     router.push("/adminRoutes/teachers/" + teacher.name)

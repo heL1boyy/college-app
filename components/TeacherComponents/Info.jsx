@@ -90,11 +90,12 @@ const Info = () => {
                   onChangeText={setNewEmail}
                   placeholder="Enter Email"
                   className="w-full px-4 py-2 mt-2 border border-gray-300 rounded-lg"
-                /></>
+                />
+              </>
             ) : (
               <>
                 <Text className="text-lg font-semibold tracking-wide">
-                  {user?.username}
+                  {user?.name}
                 </Text>
                 <Text className="mt-1 text-sm tracking-wide text-gray-600">
                   {user?.email}

@@ -25,7 +25,7 @@ const Profile = () => {
     <SafeAreaView className="bg-main_background mb-14">
       <FlatList
         data={user ? [user] : []} // Only pass the user if it exists
-        keyExtractor={(item, index) => index.toString()}
+        keyExtractor={(index) => index.toString()}
         className="h-full bg-main_background"
         showsVerticalScrollIndicator={false}
         ListHeaderComponent={() =>
