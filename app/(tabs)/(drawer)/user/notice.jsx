@@ -60,6 +60,7 @@ import { fetchNotices } from "../../../../lib/FirebaseConfig";
 // )
 
 const Notice = () => {
+
   const [notices, setNotices] = useState([]);
 
   useEffect(() => {
@@ -71,9 +72,9 @@ const Notice = () => {
         console.error("Error fetching notices:", error);
       }
     };
-
     getNotices();
   }, []);
+
   return (
     <SafeAreaView className="mb-14 bg-main_background">
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -94,8 +95,8 @@ const Notice = () => {
               {notice.imageUrl && (
                 <Image
                   source={{ uri: notice.imageUrl }}
-                  className="w-full mt-3 h-80"
-                  resizeMode="contain"
+                  className="w-full mt-4 rounded-lg h-60"
+                  resizeMode="conatin"
                 />
               )}
             </View>

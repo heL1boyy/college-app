@@ -17,6 +17,7 @@ const ContactSection = ({ item = {} }) => {
     setEmail(item.email || "");
     setAddress(item.address || "");
   }, [item]);
+
   const handleEdit = () => {
     setIsEditing(!isEditing);
   };
@@ -45,16 +46,14 @@ const ContactSection = ({ item = {} }) => {
         <View className="w-[34%]">
           <Text className="mb-4 tracking-wider font-rregular">Contact No:</Text>
           <Text
-            className={`mb-4 font-rregular tracking-wider ${
-              isEditing ? "mt-2" : ""
-            }`}
+            className={`mb-4 font-rregular tracking-wider ${isEditing ? "mt-2" : ""
+              }`}
           >
             Email:
           </Text>
           <Text
-            className={`font-rregular tracking-wider ${
-              isEditing ? "mt-2" : ""
-            }`}
+            className={`font-rregular tracking-wider ${isEditing ? "mt-2" : ""
+              }`}
           >
             Address:
           </Text>

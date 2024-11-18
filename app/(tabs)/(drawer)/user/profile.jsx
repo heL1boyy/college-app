@@ -17,6 +17,7 @@ import AboutSection from "../../../../components/ProfleComponents/AboutSection";
 import ContactSection from "../../../../components/ProfleComponents/ContactSection";
 import HeaderComponent from "../../../../components/ProfleComponents/HeaderComponent";
 import { StatusBar } from "expo-status-bar";
+import Detail from "../../../../components/ProfleComponents/Detail";
 
 const Profile = () => {
   const { user } = useGlobalContext();
@@ -33,15 +34,15 @@ const Profile = () => {
         }
         renderItem={({ item, index }) =>
           item && ( // Only render sections if the item exists
-            <View key={index} className="p-6">
-              <StudentInfo item={item} />
-              <AboutSection item={item} />
-              <ContactSection item={item} />
+            <View key={index} className="p-0">
+              <Detail />
+              {/* <StudentInfo item={item} /> */}
+              {/* <AboutSection item={item} /> */}
+              {/* <ContactSection item={item} /> */}
             </View>
           )
         }
       />
-
       <StatusBar backgroundColor="#000" />
     </SafeAreaView>
   );
