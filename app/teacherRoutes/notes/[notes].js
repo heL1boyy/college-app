@@ -18,16 +18,18 @@ import {
   uploadPDFToFirebase,
   fetchNotesFromFirebase,
 } from "../../../lib/FirebaseConfig";
+import { useGlobalContext } from "../../../context/GlobalProvider"; // Import context
 
 const ParticularNote = () => {
   const { notes } = useLocalSearchParams();
   const navigation = useNavigation();
+  const { user } = useGlobalContext(); // Get the current user from the context
 
   const [uploading, setUploading] = useState(false);
   const [uploadProgress, setUploadProgress] = useState(0);
   const [loadingNotes, setLoadingNotes] = useState(false);
   const [noteList, setNoteList] = useState([]);
-  const [fileTitle, setFileTitle] = useState(""); // Store the title of the uploaded note
+  const [fileTitle, setFileTitle] = useState("");
 
   // Request for media library permissions
   const checkPermissions = async () => {
@@ -49,7 +51,7 @@ const ParticularNote = () => {
 
     if (!fileTitle.trim()) {
       Alert.alert("Title Required", "Please enter a title for the note.");
-      return; // Exit if title is not provided
+      return;
     }
 
     try {
@@ -58,27 +60,26 @@ const ParticularNote = () => {
       });
 
       if (result.canceled) {
-        return; // Exit if the user canceled the file selection
+        return;
       }
 
-      const { uri, name } = result.assets[0]; // Accessing URI from the result
+      const { uri, name } = result.assets[0];
 
       if (!uri) {
         console.error("URI is undefined, file not selected properly.");
-        return; // Exit if the URI is not set correctly
+        return;
       }
 
-      // Get the current timestamp to use in the file name
-      const createdAt = new Date().toISOString();
       const fileName = `${name}`;
 
       console.log("Uploading file from URI:", uri);
 
-      // Pass the title from the TextInput when uploading
+      // Pass the teacherId from the user context
       const downloadURL = await uploadPDFToFirebase(
         uri,
-        fileName, // Use fileName with timestamp and title
-        fileTitle, // Title for the document metadata
+        fileName,
+        fileTitle,
+        user.uid, // Pass the current user's UID as teacherId
         setUploading,
         setUploadProgress
       );
@@ -94,9 +95,16 @@ const ParticularNote = () => {
   const fetchNotes = async () => {
     setLoadingNotes(true);
     try {
-      const fetchedNotes = await fetchNotesFromFirebase(notes);
+      // Replace with actual teacherId from your authentication context
+      const teacherId = user?.uid;
+
+      console.log(user?.uid);
+
+      // Fetch notes uploaded by the current teacher
+      const fetchedNotes = await fetchNotesFromFirebase(teacherId);
       setNoteList(fetchedNotes);
     } catch (error) {
+      console.error("Error fetching notes:", error);
       Alert.alert("Error", "Failed to fetch notes.");
     } finally {
       setLoadingNotes(false);
@@ -108,7 +116,7 @@ const ParticularNote = () => {
       headerTitle: notes,
       headerShown: false,
     });
-    fetchNotes(); // Fetch notes on component mount
+    fetchNotes();
   }, [navigation, notes]);
 
   return (
@@ -158,7 +166,7 @@ const ParticularNote = () => {
                 className="px-5 py-4 mb-8 rounded-lg bg-slate-200"
               >
                 <Text className="my-2 text-sm tracking-wider font-pmedium">
-                  {note.title} {/* Display title here */}
+                  {note.title}
                 </Text>
                 <Text className="text-xs text-blue-600">View PDF</Text>
               </TouchableOpacity>

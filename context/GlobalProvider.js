@@ -30,15 +30,16 @@ const GlobalProvider = ({ children }) => {
 
           if (userDoc) {
             setIsLoggedIn(true);
-            setUser(userDoc);
+            // Add the UID from firebaseUser to the userDoc
+            setUser({ uid: firebaseUser.uid, ...userDoc });
 
             // Redirect based on user type
             if (userDoc.isAdmin) {
               router.replace("/admin/adminDasboard");
             } else if (userDoc.isTeacher) {
-              router.replace("/teacher/teacherDashboard"); // Teacher-specific route
+              router.replace("/teacher/teacherDashboard");
             } else {
-              router.replace("/user/home"); // Regular user route
+              router.replace("/user/home");
             }
           } else {
             setIsLoggedIn(false);

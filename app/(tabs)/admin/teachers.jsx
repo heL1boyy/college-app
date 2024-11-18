@@ -15,17 +15,20 @@ import { StatusBar } from "expo-status-bar";
 import {
   addTeacherWithSubcollections,
   fetchTeachers,
+  fetchCurrentUserData,
+  auth,
 } from "../../../lib/FirebaseConfig"; // Updated Import
+import { useGlobalContext } from "../../../context/GlobalProvider";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 
 const Teachers = () => {
+  const { user } = useGlobalContext();
   const [editMode, setEditMode] = useState(false);
   const [name, setName] = useState("");
   const [subject, setSubject] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [contact, setContact] = useState("");
-  const [taskTitle, setTaskTitle] = useState(""); // Task title input
-  const [taskDescription, setTaskDescription] = useState(""); // Task description input
   const [teachers, setTeachers] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -36,48 +39,65 @@ const Teachers = () => {
     setEmail("");
     setPassword("");
     setContact("");
-    setTaskTitle("");
-    setTaskDescription("");
   };
 
   const handleSave = async () => {
-    if (!name || !subject || !email || !contact) {
+    if (!name || !subject || !email || !contact || !password) {
       Alert.alert("Error", "Please fill in all fields.");
       return;
     }
 
-    const teacherData = {
-      name,
-      email,
-      contact,
-      password,
-      imageURI: "", // Default image URI if needed
-    };
-
-    const subjectData = {
-      subjectName: subject,
-      // Add a description if required
-    };
-
-    const taskData = {
-      createdAt: "",
-      dueDate: "",
-      dueTime: "",
-      taskDetails: "",
-      taskName: "Initial Task",
-      status: "Pending", // Example task data
-    };
+    setLoading(true);
 
     try {
-      // Using addTeacherWithSubcollections function to dynamically generate IDs
-      await addTeacherWithSubcollections(teacherData, subjectData, taskData);
+      // Create user with email and password using Firebase Auth
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      const uid = userCredential.user.uid; // Get the UID of the created user
+
+      // Prepare data for Firestore
+      const teacherData = {
+        name,
+        email,
+        contact,
+        uid, // Add the UID explicitly
+        isTeacher: true,
+        imageURI: "", // Default image URI if needed
+      };
+
+      const subjectData = {
+        subjectName: subject,
+      };
+
+      const taskData = {
+        createdAt: new Date().toISOString(),
+        dueDate: "",
+        dueTime: "",
+        taskDetails: "",
+        taskName: "Initial Task",
+        status: "Pending",
+      };
+
+      // Add teacher with subcollections
+      await addTeacherWithSubcollections(
+        uid,
+        teacherData,
+        subjectData,
+        taskData
+      );
       console.log("Teacher with subcollections added successfully");
 
-      handleCancel(); // Reset the form
-      fetchAllTeachers(); // Refresh the teacher list
+      // Reset form and refresh the teacher list
+      handleCancel();
+      fetchAllTeachers();
     } catch (error) {
       console.error("Error adding teacher:", error);
-      Alert.alert("Error", "Failed to add teacher.");
+      Alert.alert("Error", "Failed to add teacher: " + error.message);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -159,26 +179,6 @@ const Teachers = () => {
                     className="w-[74%] px-3 py-1 border border-gray-500 rounded-lg"
                   />
                 </View>
-                {/* <View className="flex-row items-center mb-6">
-                  <Text className="tracking-wider font-rmedium w-[26%]">
-                    Task Title:
-                  </Text>
-                  <TextInput
-                    value={taskTitle}
-                    onChangeText={setTaskTitle}
-                    className="w-[74%] px-3 py-1 border border-gray-500 rounded-lg"
-                  />
-                </View>
-                <View className="flex-row items-center">
-                  <Text className="tracking-wider font-rmedium w-[26%]">
-                    Task Description:
-                  </Text>
-                  <TextInput
-                    value={taskDescription}
-                    onChangeText={setTaskDescription}
-                    className="w-[74%] px-3 py-1 border border-gray-500 rounded-lg"
-                  />
-                </View> */}
               </View>
               <TouchableOpacity onPress={handleCancel}>
                 <Text className="py-4 tracking-widest text-center text-white rounded-lg bg-slate-600 font-rmedium">

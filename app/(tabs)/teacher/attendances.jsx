@@ -2,17 +2,25 @@ import { View, Text, ScrollView, FlatList, Image } from "react-native";
 import React, { useEffect, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { StatusBar } from "expo-status-bar";
-import { fetchUserData } from "../../../lib/FirebaseConfig";
+import { fetchUserData, updateAttendance } from "../../../lib/FirebaseConfig";
 import { TouchableOpacity } from "react-native";
+import { useGlobalContext } from "../../../context/GlobalProvider";
 
 const Attendances = () => {
+  const { user } = useGlobalContext();
   const [studentList, setStudentList] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [currentUser, setCurrentUser] = useState(null);
   useEffect(() => {
     const getUsers = async () => {
       setLoading(true);
       try {
+        setCurrentUser(user);
+
+        console.log(user.uid);
+
         const users = await fetchUserData();
+        console.log(users);
         setStudentList(users);
       } catch (error) {
         console.error("Error fetching users:", error);
@@ -22,6 +30,16 @@ const Attendances = () => {
     };
     getUsers();
   }, []);
+
+  const handleAttendance = async (studentId, status) => {
+    try {
+      const date = new Date().toISOString().split("T")[0]; // Get the current date in YYYY-MM-DD format
+      await updateAttendance(currentUser.uid, studentId, date, status);
+      console.log(`Attendance marked as ${status} for student: ${studentId}`);
+    } catch (error) {
+      console.error("Error marking attendance:", error);
+    }
+  };
   return (
     <SafeAreaView className="bg-main_background mb-14">
       <View className="">
@@ -71,7 +89,7 @@ const Attendances = () => {
                   {/* Attendance Buttons */}
                   <View className=" flex flex-row justify-start gap-2">
                     <TouchableOpacity
-                      onPress={() => handleAttendance(student.uid, "present")}
+                      onPress={() => handleAttendance(student.id, "present")}
                       className="px-2 py-1 rounded bg-green-500"
                     >
                       <Text className="text-white text-sm font-rmedium">
@@ -79,7 +97,7 @@ const Attendances = () => {
                       </Text>
                     </TouchableOpacity>
                     <TouchableOpacity
-                      onPress={() => handleAttendance(student.uid, "absent")}
+                      onPress={() => handleAttendance(student.id, "absent")}
                       className="px-2 py-1 rounded bg-red"
                     >
                       <Text className="text-white text-sm font-rmedium">

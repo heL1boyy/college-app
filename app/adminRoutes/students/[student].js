@@ -6,7 +6,7 @@ import { StatusBar } from "expo-status-bar";
 import { fetchUserData } from "../../../lib/FirebaseConfig";
 
 const ParticularStudent = () => {
-  const { username, userData } = useLocalSearchParams(); // Access the correct params
+  const { username, userData, userImg } = useLocalSearchParams(); // Access the correct params
   const navigation = useNavigation();
   const [studentData, setStudentData] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -60,7 +60,7 @@ const ParticularStudent = () => {
                 ? studentData.profileImageUrl
                 : "https://via.placeholder.com/150",
             }}
-            className="w-40 h-40 rounded-full border-2"
+            className="w-40 h-40 rounded-full border-2 bg-gray-700"
             resizeMode="cover"
           />
 

@@ -21,72 +21,68 @@ const SignIn = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const submit = async () => {
-    if (!form.identifier || !form.password) {
-      Alert.alert("Error", "Please fill in all the fields");
+    const { identifier, password } = form;
+
+    if (!identifier || !password) {
+      Alert.alert("Error", "Please fill in all the fields.");
       return;
     }
 
     setIsSubmitting(true);
 
     try {
-      const isEmail = form.identifier.includes("@");
+      const isEmail = identifier.includes("@");
 
-      // Teacher Login: Check if identifier is an email
       if (isEmail) {
-        const qTeacher = query(
+        // Teacher Login
+        const teacherQuery = query(
           collection(db, "teachers"),
-          where("email", "==", form.identifier),
-          where("password", "==", form.password)
+          where("email", "==", identifier),
+          where("password", "==", password)
         );
-        const queryTeacherSnapshot = await getDocs(qTeacher);
+        const teacherSnapshot = await getDocs(teacherQuery);
 
-        if (queryTeacherSnapshot.empty) {
-          throw new Error("Invalid email or password for teacher.");
+        if (!teacherSnapshot.empty) {
+          const teacherDoc = teacherSnapshot.docs[0].data();
+          setUser({ ...teacherDoc, isAdmin: false, isTeacher: true });
+          setIsLoggedIn(true);
+
+          Alert.alert("Success", "Teacher signed in successfully.");
+          router.push("/teacher/teacherDashboard");
+          return;
         }
-
-        const teacherDoc = queryTeacherSnapshot.docs[0].data();
-        setUser({ ...teacherDoc, isAdmin: false });
-        setIsLoggedIn(true);
-        Alert.alert("Success", "Teacher signed in successfully");
-
-        router.push("/teacher/teacherDashboard"); // Navigate to teacher dashboard
-        return; // Exit after teacher login to prevent further checks
       }
 
-      // Admin Login (using username) if not a teacher
-      const qAdmin = query(
+      // Admin Login
+      const adminQuery = query(
         collection(db, "adminUsers"),
-        where("name", "==", form.identifier),
-        where("password", "==", form.password)
+        where("name", "==", identifier),
+        where("password", "==", password)
       );
-      const queryAdminSnapshot = await getDocs(qAdmin);
+      const adminSnapshot = await getDocs(adminQuery);
 
-      if (queryAdminSnapshot.empty) {
-        throw new Error("Invalid username or password for admin.");
-      }
-
-      const adminDoc = queryAdminSnapshot.docs[0].data();
-      setUser({ ...adminDoc, isAdmin: true });
-      setIsLoggedIn(true);
-      Alert.alert("Success", "Admin signed in successfully");
-
-      router.push("/admin/adminDashboard"); // Navigate to admin dashboard
-
-      return;
-    } catch (error) {
-      // User Login: Use signIn function for regular user (email & password)
-      try {
-        const userCredential = await userSignIn(form.identifier, form.password);
-
-        // Successfully signed in as a regular user
-        setUser(userCredential);
+      if (!adminSnapshot.empty) {
+        const adminDoc = adminSnapshot.docs[0].data();
+        setUser({ ...adminDoc, isAdmin: true, isTeacher: false });
         setIsLoggedIn(true);
-        Alert.alert("Success", "You have been logged in successfully.");
 
-        router.push("/user/home"); // Navigate to user home
-      } catch (userError) {
-        Alert.alert("Error", userError.message); // This shows the error for user login
+        Alert.alert("Success", "Admin signed in successfully.");
+        router.push("/admin/adminDashboard");
+        return;
       }
+
+      // Regular User Login
+      const userCredential = await userSignIn(identifier, password);
+      const userDoc = await getCurrentUser(); // Fetch user data from Firestore
+
+      setUser({ ...userDoc, isAdmin: false, isTeacher: false });
+      setIsLoggedIn(true);
+
+      Alert.alert("Success", "User signed in successfully.");
+      router.push("/user/home");
+    } catch (error) {
+      console.error("Sign-In Error:", error.message);
+      Alert.alert("Error", "Invalid credentials or user does not exist.");
     } finally {
       setIsSubmitting(false);
     }
