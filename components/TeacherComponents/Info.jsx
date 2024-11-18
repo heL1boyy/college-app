@@ -6,18 +6,22 @@ import * as ImagePicker from "expo-image-picker";
 import { updateUserFieldByAccountId } from "../../lib/appwrite";
 
 const Info = () => {
+
   const { user } = useGlobalContext();
 
   const [editMode, setEditMode] = useState(false);
-  const [newUsername, setNewUsername] = useState(user?.username || "");
+  const [newUsername, setNewUsername] = useState(user?.name || "");
+  const [newSubject, setNewSubject] = useState(user?.subject || "");
   const [newEmail, setNewEmail] = useState(user?.email || "");
   const [newAvatar, setNewAvatar] = useState(user?.avatar || null);
   const [isSaving, setIsSaving] = useState(false);
-  const originalUsername = user?.name;
+
   const originalAvatar = user?.avatar;
+  const originalUsername = user?.name;
+  const originalSubject = user?.subject;
 
   const [isEditing, setIsEditing] = useState(false);
-  const [username, setUsername] = useState(user?.username || "");
+  const [username, setUsername] = useState(user?.name || "");
   const [email, setEmail] = useState(user?.email || "");
 
   const pickImage = async () => {
@@ -61,6 +65,7 @@ const Info = () => {
   const handleCancel = () => {
     setNewUsername(originalUsername);
     setNewAvatar(originalAvatar);
+    setNewSubject(originalSubject);
     setEditMode(false);
   };
 
@@ -86,9 +91,9 @@ const Info = () => {
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg"
                 />
                 <TextInput
-                  value={newEmail}
-                  onChangeText={setNewEmail}
-                  placeholder="Enter Email"
+                  value={newSubject}
+                  onChangeText={setNewSubject}
+                  placeholder="Enter Subject"
                   className="w-full px-4 py-2 mt-2 border border-gray-300 rounded-lg"
                 />
               </>
@@ -98,7 +103,7 @@ const Info = () => {
                   {user?.name}
                 </Text>
                 <Text className="mt-1 text-sm tracking-wide text-gray-600">
-                  {user?.email}
+                  {user?.subject} subject name
                 </Text>
               </>
             )}

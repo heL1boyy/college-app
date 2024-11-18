@@ -114,7 +114,7 @@ const ParticularNote = () => {
   useEffect(() => {
     navigation.setOptions({
       headerTitle: notes,
-      headerShown: false,
+      headerShown: true,
     });
     fetchNotes();
   }, [navigation, notes]);
@@ -122,17 +122,17 @@ const ParticularNote = () => {
   return (
     <SafeAreaView className="h-full bg-main_background">
       <ScrollView showsHorizontalScrollIndicator={false}>
-        <View className="p-6">
-          <Text className="mt-1 text-xl tracking-widest font-psemibold text-primary">
+        <View className="px-6">
+          {/* <Text className="mt-1 text-xl tracking-widest font-psemibold text-primary">
             {notes}
-          </Text>
+          </Text> */}
 
           {/* Title Input for the uploaded note */}
           <TextInput
             value={fileTitle}
             onChangeText={setFileTitle}
             placeholder="Enter the title of the note"
-            className="border-b border-gray-300 mt-4 py-2"
+            className="pb-2 border-b border-gray-300"
           />
 
           <CustomButton
@@ -153,7 +153,7 @@ const ParticularNote = () => {
           )}
         </View>
 
-        <View className="px-6 mt-2">
+        <View className="px-6 mt-8">
           {loadingNotes ? (
             <ActivityIndicator size="large" color="#0000ff" />
           ) : noteList.length === 0 ? (

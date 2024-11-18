@@ -14,7 +14,7 @@ const TeacherProfile = () => {
   const { logout } = useGlobalContext();
 
   return (
-    <SafeAreaView className="bg-main_background mb-14">
+    <SafeAreaView className="h-full bg-main_background">
       <ScrollView showsVerticalScrollIndicator={false}>
         <View className="flex-row items-center justify-between p-6">
           <Text className="text-xl tracking-widest font-psemibold text-primary">

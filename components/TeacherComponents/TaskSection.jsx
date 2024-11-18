@@ -29,10 +29,10 @@ const TaskSection = () => {
             {task.taskDetails}
           </Text>
           {!task.submitted ? (
-            <View className="flex-row items-center justify-start gap-1 mt-3">
+            <View className="flex-row items-center mt-3">
               <Ionicons name="time-outline" size={18} color={Colors.third} />
-              <Text className="mt-2 text-xs font-pregular text-red">
-                {task.dueDate} {task.dueTime}
+              <Text className="ml-1 text-xs font-pregular text-red">
+                {task.dueDate} - {task.dueTime}
               </Text>
             </View>
           ) : (
