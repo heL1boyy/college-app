@@ -20,15 +20,15 @@ const ResultBySubject = () => {
 
   useEffect(() => {
     navigation.setOptions({
-      headerTitle: result,
-      headerShown: false,
+      headerTitle: "Results",
+      headerShown: true,
     });
   });
 
   return (
     <SafeAreaView className="h-full bg-main_background">
       <ScrollView showsHorizontalScrollIndicator={false}>
-        <View className="p-6">
+        <View className="px-6 pb-6">
           <Text className="mt-1 text-xl tracking-widest font-psemibold text-primary">
             {result} Result
           </Text>
@@ -36,7 +36,7 @@ const ResultBySubject = () => {
             title="View Result"
             containerStyles="bg-primary rounded-lg py-4 mt-8"
             textStyles="text-white text-sm font-pmedium tracking-widest"
-            // onPress={}
+          // onPress={}
           />
         </View>
       </ScrollView>

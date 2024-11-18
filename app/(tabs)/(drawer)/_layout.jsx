@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet, Image } from "react-native";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Drawer } from "expo-router/drawer";
 import {
   createDrawerNavigator,
@@ -23,41 +23,48 @@ import { useGlobalContext } from "../../../context/GlobalProvider";
 // const Drawer = createDrawerNavigator();
 
 const CustomDrawerContent = (props) => {
+
   const pathname = usePathname();
 
   // useEffect(() => {
   //     console.log(pathname)
   // }, [pathname])
 
+  const { user } = useGlobalContext();
   const { logout } = useGlobalContext();
+
+  const [avatar, setAvatar] = useState(user?.profileImageUrl || null);
 
   return (
     <>
       <DrawerContentScrollView {...props}>
-        <View className="p-4 mx-3 my-3 rounded-lg bg-primary">
+        {/* <View className="p-4 mx-3 my-3 rounded-lg bg-primary">
           <TouchableOpacity
             onPress={() => router.push("/user/profile")}
             className="flex-row items-center gap-4"
           >
             <View>
               <Image
-                source={images.profile}
+                // source={images.profile}
+                source={{
+                  uri: avatar ? avatar : "https://via.placeholder.com/150",
+                }}
                 className="w-[76px] h-[76px] rounded-full"
                 resizeMode="contain"
               />
             </View>
             <View>
               <Text className="text-sm tracking-wide text-white font-rregular">
-                Sagan Shrestha
+                {user.username}
               </Text>
               <Text className="mt-2 text-sm tracking-wide text-white font-rregular">
-                077/BCA/025
+                {user.email}
               </Text>
             </View>
           </TouchableOpacity>
-        </View>
+        </View> */}
         <View>
-          <View className="px-1 mt-1">
+          <View className="px-1 mt-4">
             <DrawerItem
               icon={({ color, size }) => (
                 <Ionicons

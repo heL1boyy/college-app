@@ -13,15 +13,15 @@ const AttendanceBySubject = () => {
     useEffect(() => {
         navigation.setOptions({
             headerTitle: attendance,
-            headerShown: false,
+            headerShown: true,
         });
     });
 
     return (
-        <View className="p-6 mt-6">
-            <Text className="text-xl tracking-widest font-psemibold text-primary">
+        <View className="px-6 mt-2">
+            {/* <Text className="text-xl tracking-widest font-psemibold text-primary">
                 {attendance}
-            </Text>
+            </Text> */}
             <View className="mt-5 mb-8">
                 <Text>Total Attendance: </Text>
                 <Text className="my-4">Total Present Days: </Text>
