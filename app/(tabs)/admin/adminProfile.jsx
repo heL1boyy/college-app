@@ -52,7 +52,7 @@ const AdminProfile = () => {
         const { imageUrl } = await uploadImage(newAvatar);
         avatarUrl = imageUrl;
       }
-      await updateUserFieldByAccountId(users.accountId, {
+      await updateUserFieldByAccountId(user.accountId, {
         username: newUsername,
         avatar: avatarUrl,
       });
@@ -94,15 +94,15 @@ const AdminProfile = () => {
               <Image
                 // source={{ uri: newAvatar || user?.avatar }}
                 source={{ uri: user?.avatar ? user?.avatar : "https://via.placeholder.com/150" }}
-                className="w-20 h-20 rounded-full bg-red"
+                className="w-20 h-20 rounded-full"
               />
             </View>
             <View className="ml-6 w-[68%]">
               {editMode ? (
                 <>
                   <TextInput
-                    value={newUsername}
-                    onChangeText={setNewUsername}
+                    value={username}
+                    onChangeText={setUsername}
                     placeholder="Enter Name"
                     className="w-full px-4 py-2 border border-gray-300 rounded-lg"
                   />

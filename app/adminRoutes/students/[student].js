@@ -14,8 +14,8 @@ const ParticularStudent = () => {
   useEffect(() => {
     // Set the navigation title
     navigation.setOptions({
-      headerTitle: username,
-      headerShown: false,
+      headerTitle: "Student",
+      headerShown: true,
     });
 
     // Check if userData is available before parsing
@@ -35,7 +35,7 @@ const ParticularStudent = () => {
   // Loading state
   if (loading) {
     return (
-      <View className="flex-1 items-center justify-center">
+      <View className="items-center justify-center flex-1">
         <ActivityIndicator size="large" color="#000" />
       </View>
     );
@@ -44,7 +44,7 @@ const ParticularStudent = () => {
   // No student data found
   if (!studentData) {
     return (
-      <View className="flex-1 items-center justify-center">
+      <View className="items-center justify-center flex-1">
         <Text className="text-xl">User not found</Text>
       </View>
     );
@@ -53,97 +53,70 @@ const ParticularStudent = () => {
   return (
     <SafeAreaView className="bg-main_background">
       <ScrollView showsHorizontalScrollIndicator={false}>
-        <View className="flex-col items-center justify-center p-6 my-2">
+        <View className="flex-col items-center justify-start p-6 mb-2">
           <Image
             source={{
               uri: studentData?.profileImageUrl
                 ? studentData.profileImageUrl
                 : "https://via.placeholder.com/150",
             }}
-            className="w-40 h-40 rounded-full border-2 bg-gray-700"
+            className="w-40 h-40 bg-gray-700 border-2 rounded-full"
             resizeMode="cover"
           />
-
           <Text className="mt-6 text-xl font-semibold tracking-widest text-primary">
             {studentData?.username || "Unknown User"}
           </Text>
         </View>
-
-        <View className="flex-row items-center justify-start p-5 mx-6 mb-4 rounded-lg bg-slate-200">
-          <View>
-            <Text className="mb-3 tracking-wider font-rmedium">
-              Department:
-            </Text>
-            <Text className="mb-3 tracking-wider font-rmedium">Semester:</Text>
-            <Text className="mb-3 tracking-wider font-rmedium">
-              Academic Year:
-            </Text>
-            <Text className="mb-3 tracking-wider font-rmedium">Roll No:</Text>
-            <Text className="tracking-wider font-rmedium">Current CGPA:</Text>
-          </View>
-          <View className="ml-4">
-            <Text className="mb-3 tracking-wider font-rregular">
+        <View className="p-5 mx-6 bg-slate-200 rounded-xl">
+          <View className="flex-row items-center mb-4">
+            <Text className={"font-rmedium tracking-wider"}>Department:</Text>
+            <Text className="ml-2 tracking-wider font-rregular">
               {studentData?.department || "N/A"}
             </Text>
-            <Text className="mb-3 tracking-wider font-rregular">
+          </View>
+          <View className="flex-row items-center mb-4">
+            <Text className={"font-rmedium tracking-wider"}>Semester:</Text>
+            <Text className="ml-2 tracking-wider font-rregular">
               {studentData?.semester || "N/A"}
             </Text>
-            <Text className="mb-3 tracking-wider font-rregular">
+          </View>
+          <View className="flex-row items-center mb-4">
+            <Text className={"font-rmedium tracking-wider"}>Academic Year:</Text>
+            <Text className="ml-2 tracking-wider font-rregular">
               {studentData?.academicYear || "N/A"}
             </Text>
-            <Text className="mb-3 tracking-wider font-rregular">
-              {studentData?.rollNo || "N/A"}
+          </View>
+          <View className="flex-row items-center mb-4">
+            <Text className={"font-rmedium tracking-wider"}>Date of Birth:</Text>
+            <Text className="ml-2 tracking-wider font-rregular">
+              {studentData?.dateOfBirth || "N/A"}
             </Text>
-            <Text className="tracking-wider font-rregular">
-              {studentData?.cgpa || "N/A"}
+          </View>
+          <View className="flex-row items-center mb-4">
+            <Text className={"font-rmedium tracking-wider"}>Gender:</Text>
+            <Text className="ml-2 tracking-wider font-rregular">
+              {studentData?.gender || "N/A"}
+            </Text>
+          </View>
+          <View className="flex-row items-center mb-4">
+            <Text className={"font-rmedium tracking-wider"}>Contact No:</Text>
+            <Text className="ml-2 tracking-wider font-rregular">
+              {studentData?.contactNumber || "N/A"}
+            </Text>
+          </View>
+          <View className="flex-row items-center mb-4">
+            <Text className={"font-rmedium tracking-wider"}>Email:</Text>
+            <Text className="ml-2 tracking-wider font-rregular">
+              {studentData?.email || "N/A"}
+            </Text>
+          </View>
+          <View className="flex-row items-center">
+            <Text className={"font-rmedium tracking-wider"}>Address:</Text>
+            <Text className="ml-2 tracking-wider font-rregular">
+              {studentData?.address || "N/A"}
             </Text>
           </View>
         </View>
-
-        <View className="p-5 mx-6 my-4 bg-slate-200 rounded-xl">
-          <Text className="text-lg font-rmedium">About</Text>
-          <View className="flex-row items-center justify-start mt-4">
-            <View>
-              <Text className="mb-3 tracking-wider font-rregular">
-                Date of Birth:
-              </Text>
-              <Text className="tracking-wider font-rregular">Gender:</Text>
-            </View>
-            <View className="ml-4">
-              <Text className="mb-3 tracking-wider font-rregular">
-                {studentData?.dateOfBirth || "N/A"}
-              </Text>
-              <Text className="tracking-wider font-rregular">
-                {studentData?.gender || "N/A"}
-              </Text>
-            </View>
-          </View>
-        </View>
-
-        <View className="p-5 mx-6 mt-4 mb-8 bg-slate-200 rounded-xl">
-          <Text className="text-lg font-rmedium">Contact</Text>
-          <View className="flex-row items-center justify-start mt-4">
-            <View>
-              <Text className="mb-3 tracking-wider font-rregular">
-                Contact No:
-              </Text>
-              <Text className="mb-3 tracking-wider font-rregular">Email:</Text>
-              <Text className="tracking-wider font-rregular">Address:</Text>
-            </View>
-            <View className="ml-4">
-              <Text className="mb-3 tracking-wider font-rregular">
-                {studentData?.contactNumber || "N/A"}
-              </Text>
-              <Text className="mb-3 tracking-wider font-rregular">
-                {studentData?.email || "N/A"}
-              </Text>
-              <Text className="tracking-wider font-rregular">
-                {studentData?.address || "N/A"}
-              </Text>
-            </View>
-          </View>
-        </View>
-
         <StatusBar backgroundColor="#000" />
       </ScrollView>
     </SafeAreaView>

@@ -15,10 +15,10 @@ const Detail = ({ item = {} }) => {
 
     const [department, setDepartment] = useState(user?.department || "");
     const [semester, setSemester] = useState(user?.semester || "");
-    const [academicyear, setAcademicYear] = useState(user?.academicyear || "");
-    const [dateofbirth, setDateofBirth] = useState(user?.dateofbirth || "");
+    const [academicYear, setAcademicYear] = useState(user?.academicYear || "");
+    const [dateofBirth, setDateofBirth] = useState(user?.dateofBirth || "");
     const [gender, setGender] = useState(user?.gender || "");
-    const [contactNumber, setContactNumber] = useState(item.contactNumber || "");
+    const [contactNumber, setContactNumber] = useState(user?.contactNumber || "");
     const [email, setEmail] = useState(user?.email || "");
     const [address, setAddress] = useState(user?.address || "");
 
@@ -35,8 +35,8 @@ const Detail = ({ item = {} }) => {
             const updatedFields = {
                 department,
                 semester,
-                academicyear,
-                dateofbirth,
+                academicYear,
+                dateofBirth,
                 gender,
                 contactNumber,
                 email,
@@ -79,7 +79,7 @@ const Detail = ({ item = {} }) => {
                         <Text className={"font-rmedium tracking-wider"}>Academic Year:</Text>
                         <TextInput
                             className="px-2 border border-gray-300 rounded w-44"
-                            value={academicyear}
+                            value={academicYear}
                             onChangeText={setAcademicYear}
                             placeholder="Enter Academic Year"
                         />
@@ -88,7 +88,7 @@ const Detail = ({ item = {} }) => {
                         <Text className={"font-rmedium tracking-wider"}>Date of Birth:</Text>
                         <TextInput
                             className="w-48 px-2 border border-gray-300 rounded"
-                            value={dateofbirth}
+                            value={dateofBirth}
                             onChangeText={setDateofBirth}
                             placeholder="Enter Date of Birth"
                         />
@@ -173,22 +173,22 @@ const Detail = ({ item = {} }) => {
                     <Text className={"font-rmedium tracking-wider"}>Academic Year:</Text>
                     {isEditing ? <TextInput
                         className="px-2 ml-2 border border-gray-300 rounded w-44"
-                        value={academicyear}
+                        value={academicYear}
                         onChangeText={setAcademicYear}
                         placeholder="Enter Academic Year"
                     /> : <Text className="ml-2 tracking-wider font-rregular">
-                        {user?.academicyear}
+                        {user?.academicYear}
                     </Text>}
                 </View>
                 <View className="flex-row items-center mb-4">
                     <Text className={"font-rmedium tracking-wider"}>Date of Birth:</Text>
                     {isEditing ? <TextInput
                         className="w-48 px-2 ml-2 border border-gray-300 rounded"
-                        value={dateofbirth}
+                        value={dateofBirth}
                         onChangeText={setDateofBirth}
                         placeholder="Enter Date of Birth"
                     /> : <Text className="ml-2 tracking-wider font-rregular">
-                        {user?.dateofbirth}
+                        {user?.dateofBirth}
                     </Text>}
                 </View>
                 <View className="flex-row items-center mb-4">

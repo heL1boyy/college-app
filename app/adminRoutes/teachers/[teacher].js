@@ -6,23 +6,24 @@ import { StatusBar } from "expo-status-bar";
 import { images } from "../../../constants";
 
 const ParticularTeacher = () => {
+
   const { teacher } = useLocalSearchParams();
 
   const navigation = useNavigation();
 
   useEffect(() => {
     navigation.setOptions({
-      headerTitle: teacher,
-      headerShown: false,
+      headerTitle: "Teacher",
+      headerShown: true,
     });
   });
 
   return (
-    <SafeAreaView className="my-6 bg-main_background">
-      <View className="flex-col items-center justify-center h-full mx-6">
+    <SafeAreaView className="bg-main_background">
+      <View className="flex-col items-center justify-start h-full m-6">
         <View className="flex-col items-center justify-center">
           <Image
-            source={images.profile}
+            source={{ uri: "https://via.placeholder.com/150" }}
             className="w-40 h-40 rounded-full"
             resizeMode="contain"
           />
@@ -30,45 +31,24 @@ const ParticularTeacher = () => {
             {teacher}
           </Text>
         </View>
-        <View className="flex-row items-center justify-start w-full p-5 my-8 rounded-lg bg-slate-200">
-          <View>
-            <Text className="mb-4 tracking-wider font-rmedium">Subject:</Text>
-            <Text className="mb-4 tracking-wider font-rmedium">Degree:</Text>
-            <Text className="mb-4 tracking-wider font-rmedium">
-              Availability:
+        <View className="w-full p-5 mx-6 mt-6 mb-10 bg-slate-200 rounded-xl">
+          <View className="flex-row items-center mb-4">
+            <Text className={"font-rmedium tracking-wider"}>Subject:</Text>
+            <Text className="ml-2 tracking-wider font-rregular">
+              subject name
             </Text>
-            <Text className="tracking-wider font-rmedium">Experience:</Text>
-            <Text className="tracking-wider font-rmedium">(Teaching)</Text>
           </View>
-          <View className="ml-4">
-            <Text className="mb-4 tracking-wider font-rregular">
-              Subject Name
+          <View className="flex-row items-center mb-4">
+            <Text className={"font-rmedium tracking-wider"}>Email:</Text>
+            <Text className="ml-2 tracking-wider font-rregular">
+              email address
             </Text>
-            <Text className="mb-4 tracking-wider font-rregular">
-              Degree Name
-            </Text>
-            <Text className="mb-4 tracking-wider font-rregular">
-              10:00 AM to 2 PM
-            </Text>
-            <Text className="mb-6 tracking-wider font-rregular">4 Years</Text>
           </View>
-        </View>
-        <View className="flex-row items-center justify-start w-full p-5 rounded-lg bg-slate-200">
-          <View>
-            <Text className="mb-4 tracking-wider font-rmedium">
-              Contact No:
+          <View className="flex-row items-center">
+            <Text className={"font-rmedium tracking-wider"}>Contact No:</Text>
+            <Text className="ml-2 tracking-wider font-rregular">
+              contact number
             </Text>
-            <Text className="mb-4 tracking-wider font-rmedium">Email:</Text>
-            <Text className="tracking-wider font-rmedium">Address:</Text>
-          </View>
-          <View className="ml-4">
-            <Text className="mb-4 tracking-wider font-rregular">
-              9841234567
-            </Text>
-            <Text className="mb-4 tracking-wider font-rregular">
-              mail@gmail.com
-            </Text>
-            <Text className="tracking-wider font-rregular">Sanepa</Text>
           </View>
         </View>
       </View>

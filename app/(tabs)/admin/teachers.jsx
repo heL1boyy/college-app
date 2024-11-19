@@ -160,13 +160,13 @@ const Teachers = () => {
                   />
                 </View>
                 <View className="flex-row items-center justify-between mb-6">
-                  <Text className="tracking-wider font-rmedium w-[26%]">
+                  <Text className="tracking-wider font-rmedium w-[28%]">
                     Password:
                   </Text>
                   <TextInput
                     value={password}
                     onChangeText={setPassword}
-                    className="w-[72%] px-3 py-1 border border-gray-500 rounded-lg"
+                    className="w-[70%] px-3 py-1 border border-gray-500 rounded-lg"
                   />
                 </View>
                 <View className="flex-row items-center justify-between">

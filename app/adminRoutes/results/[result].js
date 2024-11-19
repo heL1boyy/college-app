@@ -11,15 +11,15 @@ const ResultBySubject = () => {
 
   useEffect(() => {
     navigation.setOptions({
-      headerTitle: result,
-      headerShown: false,
+      headerTitle: "Result",
+      headerShown: true,
     });
   });
 
   return (
     <SafeAreaView className="h-full bg-main_background">
       <ScrollView showsHorizontalScrollIndicator={false}>
-        <View className="p-5">
+        <View className="px-5">
           <Text className="mt-1 text-xl tracking-widest font-psemibold text-primary">
             {result} Result
           </Text>
