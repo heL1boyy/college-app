@@ -10,13 +10,14 @@ const Attendances = () => {
   const { user } = useGlobalContext();
   const [studentList, setStudentList] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [presentCount, setPresentCount] = useState(0); // Track present count
   const [currentUser, setCurrentUser] = useState(null);
+
   useEffect(() => {
     const getUsers = async () => {
       setLoading(true);
       try {
         setCurrentUser(user);
-
         console.log(user.uid);
 
         const users = await fetchUserData();
@@ -36,16 +37,29 @@ const Attendances = () => {
       const date = new Date().toISOString().split("T")[0]; // Get the current date in YYYY-MM-DD format
       await updateAttendance(currentUser.uid, studentId, date, status);
       console.log(`Attendance marked as ${status} for student: ${studentId}`);
+
+      // Update the present count
+      setPresentCount((prevCount) =>
+        status === "present" ? prevCount + 1 : Math.max(prevCount - 1, 0)
+      );
     } catch (error) {
       console.error("Error marking attendance:", error);
     }
   };
+
   return (
     <SafeAreaView className="bg-main_background mb-14">
-      <View className="">
+      <View>
         <View className="p-6">
           <Text className="text-xl tracking-widest font-psemibold text-primary">
             Attendance
+          </Text>
+        </View>
+
+        {/* Present Count */}
+        <View className="mx-5 my-3">
+          <Text className="text-lg font-psemibold text-primary">
+            Present Students: {presentCount}
           </Text>
         </View>
 
@@ -58,7 +72,9 @@ const Attendances = () => {
             <View>
               {/* Table Header */}
               <View className="flex flex-row items-center justify-between p-2 bg-primary">
-                <Text className="w-[10%] text-white text-center font-rmedium">SN</Text>
+                <Text className="w-[10%] text-white text-center font-rmedium">
+                  SN
+                </Text>
                 <Text className="w-[40%] text-white font-rmedium">Name</Text>
                 <Text className="w-[42%] text-white font-rmedium text-center">
                   Attendance
@@ -86,7 +102,7 @@ const Attendances = () => {
                   </Text>
 
                   {/* Attendance Buttons */}
-                  <View className="flex flex-row justify-start gap-2 ">
+                  <View className="flex flex-row justify-start gap-2">
                     <TouchableOpacity
                       onPress={() => handleAttendance(student.id, "present")}
                       className="px-2 py-1 bg-green-500 rounded"

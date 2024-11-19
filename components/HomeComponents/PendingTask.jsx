@@ -1,20 +1,29 @@
 import { View, Text } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { Ionicons } from "@expo/vector-icons";
 import { Colors } from "../../constants/Colors";
 import CustomButton from "../CustomButton";
 import { router } from "expo-router";
-
+import { fetchTasks } from "../../lib/FirebaseConfig";
 const PendingTask = () => {
-  const taskdata = [
-    {
-      id: 1,
-      subject: "Networking Programming",
-      endDate: "08/06/2024",
-      taskName: "Task Name",
-    },
-  ];
+  const [tasks, setTasks] = useState([]);
+
+  useEffect(() => {
+    const getTasks = async () => {
+      try {
+        const fetchedTasks = await fetchTasks();
+        setTasks(fetchedTasks);
+      } catch (error) {
+        console.error("Failed to fetch tasks:", error);
+      }
+    };
+
+    getTasks();
+  }, []);
+
+  const lastTask = tasks.length > 0 ? tasks[tasks.length - 1] : null;
+
   return (
     <View className="px-6 mt-4">
       <View className="flex flex-row items-center justify-between">
@@ -24,22 +33,22 @@ const PendingTask = () => {
         </TouchableOpacity>
       </View>
       <View className="w-full mt-5 rounded-lg bg-slate-200">
-        {taskdata.map((task, idx) => (
-          <View key={idx} className="w-full p-5 rounded-lg bg-slate-200">
+        {lastTask ? (
+          <View className="w-full p-5 rounded-lg bg-slate-200">
             <View
-              key={task.id}
-              // className="flex-row items-center justify-between"
+
+            // className="flex-row items-center justify-between"
             >
               <Text className="text-sm tracking-widest text-primary font-pmedium">
-                {task.subject}
+                {lastTask.subject}
               </Text>
               <Text className="mt-3 text-sm font-pregular">
-                {task.taskName}
+                {lastTask.taskDetails}
               </Text>
               <View className="flex-row items-center justify-start gap-1 mt-3">
                 <Ionicons name="time-outline" size={18} color={Colors.third} />
                 <Text className="mt-2 text-xs font-pregular text-red">
-                  {task.endDate}
+                  {lastTask.endDate}
                 </Text>
               </View>
               <CustomButton
@@ -56,7 +65,11 @@ const PendingTask = () => {
               />
             </View>
           </View>
-        ))}
+        ) : (
+          <Text className="text-center text-sm text-gray-500">
+            No tasks available.
+          </Text>
+        )}
       </View>
     </View>
   );
