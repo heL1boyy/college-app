@@ -26,7 +26,7 @@ const NoteBySubject = () => {
 
     useEffect(() => {
         navigation.setOptions({
-            headerTitle: note,
+            headerTitle: "Notes",
             headerShown: true,
         })
     })
@@ -34,12 +34,12 @@ const NoteBySubject = () => {
     return (
         <SafeAreaView className="bg-main_background">
             <ScrollView showsVerticalScrollIndicator={false}>
-                {/* <View className="p-6">
+                <View className="px-6">
                     <Text className="text-xl tracking-widest font-psemibold text-primary">
                         {note}
                     </Text>
-                </View> */}
-                <View className="px-6 mt-1">
+                </View>
+                <View className="px-6 mt-6">
                     {noteList.map((note, index) => (
                         <TouchableOpacity
                             key={index}

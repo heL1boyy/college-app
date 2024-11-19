@@ -49,7 +49,7 @@ const Attendances = () => {
           </Text>
         </View>
 
-        <View className="px-4">
+        <View className="mx-5">
           {loading ? (
             <Text className="text-center text-primary font-rmedium">
               Loading...
@@ -57,10 +57,9 @@ const Attendances = () => {
           ) : studentList.length > 0 ? (
             <View>
               {/* Table Header */}
-              <View className="flex flex-row items-center justify-between bg-primary p-2">
-                <Text className="w-[8%] text-white font-rmedium">SN</Text>
-
-                <Text className="w-[50%] text-white font-rmedium">Name</Text>
+              <View className="flex flex-row items-center justify-between p-2 bg-primary">
+                <Text className="w-[10%] text-white text-center font-rmedium">SN</Text>
+                <Text className="w-[40%] text-white font-rmedium">Name</Text>
                 <Text className="w-[42%] text-white font-rmedium text-center">
                   Attendance
                 </Text>
@@ -70,7 +69,7 @@ const Attendances = () => {
               {studentList.map((student, index) => (
                 <View
                   key={student.uid || index}
-                  className="flex flex-row items-center justify-between border-b bg-slate-100 p-2"
+                  className="flex flex-row items-center justify-between p-2 border-b bg-slate-100"
                 >
                   {/* Serial Number */}
                   <Text className="w-[10%] text-center text-primary font-rregular">
@@ -87,12 +86,12 @@ const Attendances = () => {
                   </Text>
 
                   {/* Attendance Buttons */}
-                  <View className=" flex flex-row justify-start gap-2">
+                  <View className="flex flex-row justify-start gap-2 ">
                     <TouchableOpacity
                       onPress={() => handleAttendance(student.id, "present")}
-                      className="px-2 py-1 rounded bg-green-500"
+                      className="px-2 py-1 bg-green-500 rounded"
                     >
-                      <Text className="text-white text-sm font-rmedium">
+                      <Text className="text-sm text-white font-rmedium">
                         Present
                       </Text>
                     </TouchableOpacity>
@@ -100,7 +99,7 @@ const Attendances = () => {
                       onPress={() => handleAttendance(student.id, "absent")}
                       className="px-2 py-1 rounded bg-red"
                     >
-                      <Text className="text-white text-sm font-rmedium">
+                      <Text className="text-sm text-white font-rmedium">
                         Absent
                       </Text>
                     </TouchableOpacity>

@@ -113,7 +113,7 @@ const ParticularNote = () => {
 
   useEffect(() => {
     navigation.setOptions({
-      headerTitle: notes,
+      headerTitle: "Notes",
       headerShown: true,
     });
     fetchNotes();
@@ -123,9 +123,9 @@ const ParticularNote = () => {
     <SafeAreaView className="h-full bg-main_background">
       <ScrollView showsHorizontalScrollIndicator={false}>
         <View className="px-6">
-          {/* <Text className="mt-1 text-xl tracking-widest font-psemibold text-primary">
+          <Text className="mt-0 mb-4 text-xl tracking-widest font-psemibold text-primary">
             {notes}
-          </Text> */}
+          </Text>
 
           {/* Title Input for the uploaded note */}
           <TextInput
