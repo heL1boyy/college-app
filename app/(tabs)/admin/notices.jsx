@@ -132,8 +132,8 @@ const Notices = () => {
               {notice.imageUrl && (
                 <Image
                   source={{ uri: notice.imageUrl }}
-                  className="w-full mt-3 h-80"
-                  resizeMode="contain"
+                  className="w-full mt-4 rounded-lg h-60"
+                  resizeMode="cover"
                 />
               )}
             </View>

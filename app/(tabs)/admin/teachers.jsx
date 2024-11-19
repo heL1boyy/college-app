@@ -129,47 +129,47 @@ const Teachers = () => {
           {editMode ? (
             <>
               <View className="p-6 mb-2 rounded-lg bg-slate-200">
-                <View className="flex-row items-center mb-6">
-                  <Text className="tracking-wider font-rmedium w-[20%]">
+                <View className="flex-row items-center justify-between mb-6">
+                  <Text className="tracking-wider font-rmedium w-[18%]">
                     Name:
                   </Text>
                   <TextInput
                     value={name}
                     onChangeText={setName}
-                    className="w-[80%] px-3 py-1 border border-gray-500 rounded-lg"
+                    className="w-[82%] px-3 py-1 border border-gray-500 rounded-lg"
                   />
                 </View>
-                <View className="flex-row items-center mb-6">
-                  <Text className="tracking-wider font-rmedium w-[26%]">
+                <View className="flex-row items-center justify-between mb-6">
+                  <Text className="tracking-wider font-rmedium w-[24%]">
                     Subject:
                   </Text>
                   <TextInput
                     value={subject}
                     onChangeText={setSubject}
-                    className="w-[74%] px-3 py-1 border border-gray-500 rounded-lg"
+                    className="w-[76%] px-3 py-1 border border-gray-500 rounded-lg"
                   />
                 </View>
-                <View className="flex-row items-center mb-6">
-                  <Text className="tracking-wider font-rmedium w-[20%]">
+                <View className="flex-row items-center justify-between mb-6">
+                  <Text className="tracking-wider font-rmedium w-[18%]">
                     Email:
                   </Text>
                   <TextInput
                     value={email}
                     onChangeText={setEmail}
-                    className="w-[80%] px-3 py-1 border border-gray-500 rounded-lg"
+                    className="w-[82%] px-3 py-1 border border-gray-500 rounded-lg"
                   />
                 </View>
-                <View className="flex-row items-center mb-6">
+                <View className="flex-row items-center justify-between mb-6">
                   <Text className="tracking-wider font-rmedium w-[26%]">
                     Password:
                   </Text>
                   <TextInput
                     value={password}
                     onChangeText={setPassword}
-                    className="w-[74%] px-3 py-1 border border-gray-500 rounded-lg"
+                    className="w-[72%] px-3 py-1 border border-gray-500 rounded-lg"
                   />
                 </View>
-                <View className="flex-row items-center">
+                <View className="flex-row items-center justify-between">
                   <Text className="tracking-wider font-rmedium w-[26%]">
                     Contact:
                   </Text>
@@ -216,7 +216,7 @@ const Teachers = () => {
                   }
                 >
                   <Image
-                    source={{ uri: teacher.imageURI || "default_image_url" }}
+                    source={{ uri: teacher.imageURI || "https://via.placeholder.com/150" }}
                     className="w-[76px] h-[76px] rounded-full"
                     resizeMode="cover"
                   />

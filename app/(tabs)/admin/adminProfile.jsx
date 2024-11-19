@@ -13,7 +13,7 @@ const AdminProfile = () => {
   const { user, logout } = useGlobalContext();
 
   const [editMode, setEditMode] = useState(false);
-  const [newUsername, setNewUsername] = useState(user?.username || "");
+  const [newUsername, setNewUsername] = useState(user?.name || "");
   const [newEmail, setNewEmail] = useState(user?.email || "");
   const [newAvatar, setNewAvatar] = useState(user?.avatar || null);
   const [isSaving, setIsSaving] = useState(false);
@@ -21,7 +21,7 @@ const AdminProfile = () => {
   const originalAvatar = user?.avatar;
 
   const [isEditing, setIsEditing] = useState(false);
-  const [username, setUsername] = useState(user.username || "");
+  const [username, setUsername] = useState(user.name || "");
   const [email, setEmail] = useState(user.email || "");
 
   const pickImage = async () => {
@@ -92,8 +92,9 @@ const AdminProfile = () => {
           <View className="flex-row items-center">
             <View className="w-[24%]">
               <Image
-                source={{ uri: newAvatar || user?.avatar }}
-                className="w-20 h-20 rounded-full"
+                // source={{ uri: newAvatar || user?.avatar }}
+                source={{ uri: user?.avatar ? user?.avatar : "https://via.placeholder.com/150" }}
+                className="w-20 h-20 rounded-full bg-red"
               />
             </View>
             <View className="ml-6 w-[68%]">
@@ -117,7 +118,7 @@ const AdminProfile = () => {
                   <Text className="text-lg font-semibold tracking-wide">
                     {user?.name}
                   </Text>
-                  <Text className="mt-1 text-sm tracking-wide text-gray-600">
+                  <Text className="mt-2 text-sm tracking-wide text-gray-600">
                     {user?.email}
                   </Text>
                 </>
@@ -129,7 +130,7 @@ const AdminProfile = () => {
         {editMode && (
           <View className="my-2 ml-6">
             <TouchableOpacity onPress={pickImage}>
-              <Text className="underline text-primary">Changee Avatar</Text>
+              <Text className="underline text-primary">Change Avatar</Text>
             </TouchableOpacity>
           </View>
         )}
