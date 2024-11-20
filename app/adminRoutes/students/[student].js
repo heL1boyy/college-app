@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import { useLocalSearchParams, useNavigation } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { StatusBar } from "expo-status-bar";
-import { fetchUserData } from "../../../lib/FirebaseConfig";
 
 const ParticularStudent = () => {
   const { username, userData, userImg } = useLocalSearchParams(); // Access the correct params
@@ -57,7 +56,7 @@ const ParticularStudent = () => {
           <Image
             source={{
               uri: studentData?.profileImageUrl
-                ? studentData.profileImageUrl
+                ? studentData?.profileImageUrl
                 : "https://via.placeholder.com/150",
             }}
             className="w-40 h-40 bg-gray-700 border-2 rounded-full"

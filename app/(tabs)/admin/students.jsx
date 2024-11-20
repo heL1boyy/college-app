@@ -192,6 +192,7 @@ const Students = () => {
                     params: {
                       username: student.username,
                       userData: JSON.stringify(student),
+                      // img:student.profileImageUrl
                       // userImg: JSON.stringify(student.profileImageUrl),
                     },
                   })

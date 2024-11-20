@@ -26,14 +26,31 @@ const Class = () => {
     },
   ];
 
-  // Function to check if the current time is within the class time range
-  const isClassActive = (startTime, endTime) => {
-    const start = moment(startTime);
-    const end = moment(endTime); // Using ISO 8601 format directly
-    return currentDate.isBetween(start, end, null, "[]");
+  // Binary Search to find the active class
+  const findActiveClass = (classes, currentTime) => {
+    let left = 0;
+    let right = classes.length - 1;
+
+    while (left <= right) {
+      const mid = Math.floor((left + right) / 2);
+      const start = moment(classes[mid].startTime);
+      const end = moment(classes[mid].endTime);
+
+      if (currentTime.isBetween(start, end, null, "[]")) {
+        return classes[mid];
+      }
+
+      if (currentTime.isBefore(start)) {
+        right = mid - 1;
+      } else {
+        left = mid + 1;
+      }
+    }
+
+    return null; // No active class found
   };
 
-  // Function to check if the class is finished
+  // Binary Search to check if the class is finished
   const isClassFinished = (endTime) => {
     const end = moment(endTime);
     return currentDate.isAfter(end);
@@ -45,24 +62,23 @@ const Class = () => {
       {items.map((item) => {
         let classStatus = "";
         let classColor = "bg-slate-200"; // Default color (inactive)
+        let textColor = "text-slate-600"; // Default text color
 
-        // Check if the class is active, finished, or upcoming
-        if (isClassActive(item.startTime, item.endTime)) {
+        const activeClass = findActiveClass(items, currentDate);
+
+        if (activeClass && activeClass.id === item.id) {
           classStatus = "Class is running"; // Add status for active class
           classColor = "bg-green-200"; // Active class highlighted in green
-          textColor = "text-green-500"; // Active class highlighted in green
+          textColor = "text-green-500";
         } else if (isClassFinished(item.endTime)) {
           classStatus = "Finished"; // Add status for finished class
           classColor = "bg-[#fadfdf]";
-          textColor = "text-red-500"; // Finished class highlighted in red
+          textColor = "text-red-500";
         } else {
           classStatus = "Upcoming"; // Add status for upcoming class
           classColor = "bg-yellow-100";
-          textColor = "text-yellow-600"; // Upcoming classes default to slate color
+          textColor = "text-yellow-600";
         }
-
-        // Log the status to the console
-        // console.log(`${item.title}: ${classStatus}`);
 
         return (
           <View
@@ -83,7 +99,7 @@ const Class = () => {
                 <Text className="mt-3 text-sm tracking-widest font-pregular">
                   {item.title}
                 </Text>
-                <Text className={`mt-2 text-xs  ${textColor}`}>
+                <Text className={`mt-2 text-xs ${textColor}`}>
                   {classStatus}
                 </Text>
               </View>

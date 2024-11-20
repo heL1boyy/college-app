@@ -23,7 +23,6 @@ import { useGlobalContext } from "../../../context/GlobalProvider";
 // const Drawer = createDrawerNavigator();
 
 const CustomDrawerContent = (props) => {
-
   const pathname = usePathname();
 
   // useEffect(() => {
@@ -108,7 +107,7 @@ const CustomDrawerContent = (props) => {
               }}
             />
           </View>
-          <View className="px-1 mt-2">
+          {/* <View className="px-1 mt-2">
             <DrawerItem
               icon={({ color, size }) => (
                 <Entypo
@@ -129,7 +128,7 @@ const CustomDrawerContent = (props) => {
                 router.push("/result");
               }}
             />
-          </View>
+          </View> */}
         </View>
       </DrawerContentScrollView>
       <View className="flex-row items-center p-5 border-t-2 border-primary">
