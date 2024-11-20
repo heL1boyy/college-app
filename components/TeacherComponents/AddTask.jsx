@@ -1,13 +1,19 @@
 import { View, Text, TextInput } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { TouchableOpacity } from "react-native";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import * as DocumentPicker from "expo-document-picker";
-import { uploadFileToStorage } from "../../lib/FirebaseConfig"; // Import Firebase upload function
+import {
+  fetchSubjectsForTeacher,
+  uploadFileToStorage,
+} from "../../lib/FirebaseConfig"; // Import Firebase upload function
 import { Timestamp, setDoc, doc, collection, addDoc } from "firebase/firestore"; // Import Firestore methods
 import { db } from "../../lib/FirebaseConfig"; // Assuming db is already initialized in FirebaseConfig
+import { useGlobalContext } from "../../context/GlobalProvider";
 
 const AddTask = () => {
+  const { user } = useGlobalContext();
+
   const [editMode, setEditMode] = useState(false);
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const [isTimePickerVisible, setTimePickerVisibility] = useState(false);
@@ -17,7 +23,42 @@ const AddTask = () => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [uploading, setUploading] = useState(false);
   const [uploadProgress, setUploadProgress] = useState(0);
+  const [subjectId, setSubjectId] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [subjects, setSubjects] = useState([]);
+  const [teacherIds, setTeacherIds] = useState([]);
+  // Fetch the current teacher's subject IDs
+  useEffect(() => {
+    const loadSubjectsForTeacher = async () => {
+      try {
+        setLoading(true);
+        const teacherId = user?.uid;
+        console.log(teacherId);
 
+        if (!teacherId) {
+          console.error("Teacher ID is not available");
+          return;
+        }
+
+        // Fetch subjects for the current teacher
+        const fetchedSubjects = await fetchSubjectsForTeacher(teacherId);
+
+        if (fetchedSubjects && fetchedSubjects.length > 0) {
+          // Use the first subject ID by default (or modify logic as needed)
+          setSubjectId(fetchedSubjects[0].id);
+        } else {
+          console.warn("No subjects found for the current teacher");
+          setSubjectId(null); // No subjects available
+        }
+      } catch (error) {
+        console.error("Error fetching subjects:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadSubjectsForTeacher();
+  }, [user]);
   const handleCancel = () => {
     setEditMode(false);
     setSelectedDate("Select Due Date");
@@ -142,13 +183,13 @@ const AddTask = () => {
   // Save task data to Firestore
   const addTask = async (taskData) => {
     try {
-      // Reference to the tasks subcollection under specific teacher and subject
+      const teacherId = user?.uid;
       const tasksRef = collection(
         db,
         "teachers",
-        "teacherId_1", // Replace with actual teacher ID
+        teacherId, // Replace with actual teacher ID
         "subjects",
-        "subjectId_1", // Replace with actual subject ID
+        subjectId, // Replace with actual subject ID
         "tasks" // The tasks subcollection
       );
 

@@ -4,6 +4,7 @@ import { StatusBar } from "expo-status-bar";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { FlatList } from "react-native-gesture-handler";
 import { fetchNotices } from "../../../../lib/FirebaseConfig";
+import { format } from "date-fns";
 // import { images } from '../../../constants'
 
 // const notices = [
@@ -60,7 +61,6 @@ import { fetchNotices } from "../../../../lib/FirebaseConfig";
 // )
 
 const Notice = () => {
-
   const [notices, setNotices] = useState([]);
 
   useEffect(() => {
@@ -87,7 +87,9 @@ const Notice = () => {
           {notices.map((notice, index) => (
             <View className="p-4 mx-6 mb-8 rounded-lg bg-slate-200" key={index}>
               <Text className="text-sm tracking-wide font-pmedium text-primary">
-                {notice.noticeDate}
+                {notice.createdAt
+                  ? format(notice.createdAt.toDate(), "MMM dd, yyyy")
+                  : "No date available"}
               </Text>
               <Text className="mt-2 text-sm tracking-widest text-justify font-pregular">
                 {notice.name}

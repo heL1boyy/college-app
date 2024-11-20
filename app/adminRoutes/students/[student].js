@@ -81,13 +81,17 @@ const ParticularStudent = () => {
             </Text>
           </View>
           <View className="flex-row items-center mb-4">
-            <Text className={"font-rmedium tracking-wider"}>Academic Year:</Text>
+            <Text className={"font-rmedium tracking-wider"}>
+              Academic Year:
+            </Text>
             <Text className="ml-2 tracking-wider font-rregular">
               {studentData?.academicYear || "N/A"}
             </Text>
           </View>
           <View className="flex-row items-center mb-4">
-            <Text className={"font-rmedium tracking-wider"}>Date of Birth:</Text>
+            <Text className={"font-rmedium tracking-wider"}>
+              Date of Birth:
+            </Text>
             <Text className="ml-2 tracking-wider font-rregular">
               {studentData?.dateOfBirth || "N/A"}
             </Text>

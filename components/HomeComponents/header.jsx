@@ -2,8 +2,8 @@ import { View, Text, TouchableOpacity } from "react-native";
 import React from "react";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { Colors } from "../../constants/Colors";
-import { Link, router } from "expo-router";
-// import { useGlobalContext } from "@/context/GlobalProvider";
+import { router } from "expo-router";
+
 import "react-native-gesture-handler";
 import { useNavigation } from "@react-navigation/native";
 

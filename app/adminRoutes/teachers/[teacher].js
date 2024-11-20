@@ -6,8 +6,7 @@ import { StatusBar } from "expo-status-bar";
 import { images } from "../../../constants";
 
 const ParticularTeacher = () => {
-
-  const { teacher } = useLocalSearchParams();
+  const { teacher, subjects, email, contact, img } = useLocalSearchParams();
 
   const navigation = useNavigation();
 
@@ -23,7 +22,7 @@ const ParticularTeacher = () => {
       <View className="flex-col items-center justify-start h-full m-6">
         <View className="flex-col items-center justify-center">
           <Image
-            source={{ uri: "https://via.placeholder.com/150" }}
+            source={{ uri: img || "https://via.placeholder.com/150" }}
             className="w-40 h-40 rounded-full"
             resizeMode="contain"
           />
@@ -35,20 +34,16 @@ const ParticularTeacher = () => {
           <View className="flex-row items-center mb-4">
             <Text className={"font-rmedium tracking-wider"}>Subject:</Text>
             <Text className="ml-2 tracking-wider font-rregular">
-              subject name
+              {subjects}
             </Text>
           </View>
           <View className="flex-row items-center mb-4">
             <Text className={"font-rmedium tracking-wider"}>Email:</Text>
-            <Text className="ml-2 tracking-wider font-rregular">
-              email address
-            </Text>
+            <Text className="ml-2 tracking-wider font-rregular">{email}</Text>
           </View>
           <View className="flex-row items-center">
             <Text className={"font-rmedium tracking-wider"}>Contact No:</Text>
-            <Text className="ml-2 tracking-wider font-rregular">
-              contact number
-            </Text>
+            <Text className="ml-2 tracking-wider font-rregular">{contact}</Text>
           </View>
         </View>
       </View>

@@ -5,14 +5,14 @@ import { Ionicons } from "@expo/vector-icons";
 import { Colors } from "../../constants/Colors";
 import CustomButton from "../CustomButton";
 import { router } from "expo-router";
-import { fetchTasks } from "../../lib/FirebaseConfig";
+import { fetchAllTasksWithNames } from "../../lib/FirebaseConfig";
 const PendingTask = () => {
   const [tasks, setTasks] = useState([]);
 
   useEffect(() => {
     const getTasks = async () => {
       try {
-        const fetchedTasks = await fetchTasks();
+        const fetchedTasks = await fetchAllTasksWithNames();
         setTasks(fetchedTasks);
       } catch (error) {
         console.error("Failed to fetch tasks:", error);
@@ -40,15 +40,18 @@ const PendingTask = () => {
             // className="flex-row items-center justify-between"
             >
               <Text className="text-sm tracking-widest text-primary font-pmedium">
-                {lastTask.subject}
+                {lastTask.subjectName}
+              </Text>
+              <Text className="text-sm tracking-widest text-primary font-pmedium">
+                From : {lastTask.teacherName}
               </Text>
               <Text className="mt-3 text-sm font-pregular">
-                {lastTask.taskDetails}
+                {lastTask.taskDetails || "N/A"}
               </Text>
               <View className="flex-row items-center justify-start gap-1 mt-3">
                 <Ionicons name="time-outline" size={18} color={Colors.third} />
                 <Text className="mt-2 text-xs font-pregular text-red">
-                  {lastTask.endDate}
+                  {lastTask.dueDate || "N/A"}
                 </Text>
               </View>
               <CustomButton

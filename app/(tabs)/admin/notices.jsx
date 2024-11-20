@@ -5,7 +5,7 @@ import { StatusBar } from "expo-status-bar";
 import { TouchableOpacity } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import { addImageWithTitle, fetchNotices } from "../../../lib/FirebaseConfig"; // Assuming fetchNotices is a function to fetch data
-
+import { format } from "date-fns";
 const Notices = () => {
   const [editMode, setEditMode] = useState(false);
   const [title, setTitle] = useState("");
@@ -124,7 +124,9 @@ const Notices = () => {
           {notices.map((notice, index) => (
             <View className="p-4 mx-6 mb-8 rounded-lg bg-slate-200" key={index}>
               <Text className="text-sm tracking-wide font-pmedium text-primary">
-                {notice.noticeDate ? notice.noticeDate : "date here"}
+                {notice.createdAt
+                  ? format(notice.createdAt.toDate(), "MMM dd, yyyy")
+                  : "No date available"}
               </Text>
               <Text className="mt-2 text-sm tracking-widest text-justify font-pregular">
                 {notice.name}

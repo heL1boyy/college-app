@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { TouchableOpacity } from "react-native";
 import { router } from "expo-router";
 import { fetchNotices } from "../../lib/FirebaseConfig";
+import { format } from "date-fns";
 
 const Notice = () => {
   const [notices, setNotices] = useState([]);
@@ -34,7 +35,9 @@ const Notice = () => {
         {lastNotice ? (
           <View className="p-4 rounded-lg bg-slate-200">
             <Text className="text-sm tracking-wide font-pmedium text-primary">
-              {lastNotice.noticeDate}
+              {lastNotice.createdAt
+                ? format(lastNotice.createdAt.toDate(), "MMM dd, yyyy")
+                : "No date available"}
             </Text>
             <Text className="mt-2 text-sm tracking-widest text-justify font-pregular">
               {lastNotice.name}

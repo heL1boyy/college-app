@@ -17,6 +17,7 @@ import {
   fetchTeachers,
   fetchCurrentUserData,
   auth,
+  fetchSubjectsForTeacher,
 } from "../../../lib/FirebaseConfig"; // Updated Import
 import { useGlobalContext } from "../../../context/GlobalProvider";
 import { createUserWithEmailAndPassword } from "firebase/auth";
@@ -104,10 +105,17 @@ const Teachers = () => {
   const fetchAllTeachers = async () => {
     setLoading(true);
     try {
-      const teachersData = await fetchTeachers();
-      setTeachers(teachersData);
+      const teachersData = await fetchTeachers(); // Fetch basic teacher details first.
+      const teacherDetailsWithSubjects = await Promise.all(
+        teachersData.map(async (teacher) => {
+          const subjects = await fetchSubjectsForTeacher(teacher.uid); // Fetch subjects for each teacher.
+          return { ...teacher, subjects }; // Combine teacher details with their subjects.
+        })
+      );
+      setTeachers(teacherDetailsWithSubjects); // Update state with the combined data.
     } catch (error) {
-      Alert.alert("Error", "Failed to fetch teachers");
+      console.error("Error fetching teachers with subjects:", error);
+      Alert.alert("Error", "Failed to fetch teachers and subjects.");
     } finally {
       setLoading(false);
     }
@@ -212,11 +220,25 @@ const Teachers = () => {
                   key={index}
                   className="flex flex-row items-center justify-start p-5 mb-8 rounded-lg bg-slate-200"
                   onPress={() =>
-                    router.push("/adminRoutes/teachers/" + teacher.name)
+                    router.push({
+                      pathname: "/adminRoutes/teachers/" + teacher.name,
+                      params: {
+                        name: teacher.name,
+                        subjects: teacher.subjects
+                          ?.map((sub) => sub.subjectName)
+                          .join(", "),
+                        email: teacher.email,
+                        contact: teacher.contact,
+                        img: teacher.imageURI,
+                      },
+                    })
                   }
                 >
                   <Image
-                    source={{ uri: teacher.imageURI || "https://via.placeholder.com/150" }}
+                    source={{
+                      uri:
+                        teacher.imageURI || "https://via.placeholder.com/150",
+                    }}
                     className="w-[76px] h-[76px] rounded-full"
                     resizeMode="cover"
                   />
@@ -225,7 +247,11 @@ const Teachers = () => {
                       {teacher.name}
                     </Text>
                     <Text className="mt-3 text-sm tracking-wide text-black font-rregular">
-                      {teacher.subject ? teacher.subject : "subject name here"}
+                      {teacher.subjects.length > 0
+                        ? teacher.subjects
+                            .map((sub) => sub.subjectName)
+                            .join(", ")
+                        : "No subjects assigned"}
                     </Text>
                   </View>
                 </TouchableOpacity>

@@ -4,15 +4,12 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { StatusBar } from "expo-status-bar";
 import {
   fetchNotices,
-  fetchTasksFromFirestore,
+  fetchAllTasksFromAllTeachers,
 } from "../../lib/FirebaseConfig"; // Adjust the path as needed
 
 const Notification = () => {
   const [notifications, setNotifications] = useState([]);
   const [loading, setLoading] = useState(true);
-
-  const teacherId = "FXFva2t6pAJEb3B1nygc"; // Replace with the actual teacherId
-  const subjectId = "A35gj48najqwD2xVcefn"; // Replace with the actual subjectId
 
   useEffect(() => {
     const fetchData = async () => {
@@ -20,7 +17,7 @@ const Notification = () => {
         // Fetch notices and tasks concurrently
         const [notices, tasks] = await Promise.all([
           fetchNotices(),
-          fetchTasksFromFirestore(teacherId, subjectId),
+          fetchAllTasksFromAllTeachers(), // Fetch tasks from all teachers
         ]);
 
         // Format the fetched data
@@ -39,16 +36,16 @@ const Notification = () => {
           (a, b) => new Date(b.date) - new Date(a.date)
         );
 
-        setNotifications(combinedNotifications);
+        setNotifications(combinedNotifications); // Set notifications state
       } catch (error) {
         console.error("Error fetching notifications:", error);
       } finally {
-        setLoading(false);
+        setLoading(false); // Set loading to false after data is fetched
       }
     };
 
     fetchData();
-  }, [teacherId, subjectId]);
+  }, []);
 
   return (
     <SafeAreaView className="bg-main_background">
@@ -58,9 +55,13 @@ const Notification = () => {
             Notifications
           </Text>
         </View>
+
         {loading ? (
-          <View className="flex-1 justify-center items-center">
+          <View className="flex-1 justify-center items-center mt-10">
             <ActivityIndicator size="large" color="#00f" />
+            <Text className="mt-2 text-primary font-pmedium">
+              Loading notifications...
+            </Text>
           </View>
         ) : (
           <View className="px-6">
@@ -68,7 +69,9 @@ const Notification = () => {
               <View key={idx} className="mb-8">
                 <View className="flex-col items-start justify-center p-4 rounded-lg bg-slate-200">
                   <Text className="text-sm tracking-widest text-justify font-pregular">
-                    {notification.name || notification.taskName}
+                    {notification.taskDetails ||
+                      notification.taskName ||
+                      notification.name}
                   </Text>
                   {notification.type === "task" && (
                     <Text className="text-xs italic text-gray-500">[Task]</Text>
@@ -79,7 +82,8 @@ const Notification = () => {
                     </Text>
                   )}
                   <Text className="mt-3 text-sm tracking-wide font-pmedium text-primary">
-                    {notification.date || "No date provided"}
+                    {notification.dueDate || "No date provided"} ||
+                    {notification.dueTime}
                   </Text>
                 </View>
               </View>

@@ -4,11 +4,11 @@ import { router } from "expo-router";
 
 const Attendance = () => {
   const attendanceList = [
-    { subject: "Distributed System", percentage: "74%" },
-    { subject: "Applied Economics", percentage: "100%" },
-    { subject: "Mobile Programming", percentage: "92%" },
-    { subject: "Network Programming", percentage: "86%" },
-    { subject: "Advanced Java Programming", percentage: "76%" },
+    { subject: "Distributed System" },
+    { subject: "Applied Economics" },
+    { subject: "Mobile Programming" },
+    { subject: "Network Programming" },
+    { subject: "Advanced Java Programming" },
   ];
 
   return (
@@ -28,17 +28,11 @@ const Attendance = () => {
           <Text className="mt-2 mb-3 text-sm tracking-widest text-primary font-pmedium w-[70%]">
             Subjects
           </Text>
-          <Text className="mt-2 mb-3 text-sm tracking-widest text-primary font-pmedium w-[30%] text-right">
-            Attendance
-          </Text>
         </View>
         {attendanceList.map((attendance, index) => (
           <View key={index} className="flex-row items-center justify-between">
             <Text className="my-2 text-sm tracking-wider font-pmedium w-[70%]">
               {attendance.subject}
-            </Text>
-            <Text className="my-2 text-sm tracking-wider font-pmedium w-[30%] text-right">
-              {attendance.percentage}
             </Text>
           </View>
         ))}

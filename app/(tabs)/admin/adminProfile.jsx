@@ -21,8 +21,8 @@ const AdminProfile = () => {
   const originalAvatar = user?.avatar;
 
   const [isEditing, setIsEditing] = useState(false);
-  const [username, setUsername] = useState(user.name || "");
-  const [email, setEmail] = useState(user.email || "");
+  const [username, setUsername] = useState(user?.name || "");
+  const [email, setEmail] = useState(user?.email || "");
 
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -93,7 +93,11 @@ const AdminProfile = () => {
             <View className="w-[24%]">
               <Image
                 // source={{ uri: newAvatar || user?.avatar }}
-                source={{ uri: user?.avatar ? user?.avatar : "https://via.placeholder.com/150" }}
+                source={{
+                  uri: user?.avatar
+                    ? user?.avatar
+                    : "https://via.placeholder.com/150",
+                }}
                 className="w-20 h-20 rounded-full"
               />
             </View>

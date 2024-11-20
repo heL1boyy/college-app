@@ -3,22 +3,20 @@ import React, { useState } from "react";
 import { TouchableOpacity } from "react-native";
 import { useGlobalContext } from "../../context/GlobalProvider";
 import * as ImagePicker from "expo-image-picker";
-import { updateUserFieldByAccountId } from "../../lib/appwrite";
 
 const Info = () => {
-
   const { user } = useGlobalContext();
 
   const [editMode, setEditMode] = useState(false);
   const [newUsername, setNewUsername] = useState(user?.name || "");
-  const [newSubject, setNewSubject] = useState(user?.subject || "");
+  const [newSubject, setNewSubject] = useState(user?.subjectName || "");
   const [newEmail, setNewEmail] = useState(user?.email || "");
-  const [newAvatar, setNewAvatar] = useState(user?.avatar || null);
+  const [newAvatar, setNewAvatar] = useState(user?.imageUrl || null);
   const [isSaving, setIsSaving] = useState(false);
 
-  const originalAvatar = user?.avatar;
+  const originalAvatar = user?.imageUrl;
   const originalUsername = user?.name;
-  const originalSubject = user?.subject;
+  const originalSubject = user?.subjectName;
 
   const [isEditing, setIsEditing] = useState(false);
   const [username, setUsername] = useState(user?.name || "");
@@ -103,7 +101,7 @@ const Info = () => {
                   {user?.name}
                 </Text>
                 <Text className="mt-1 text-sm tracking-wide text-gray-600">
-                  {user?.subject} subject name
+                  {user?.subjectName} subject name
                 </Text>
               </>
             )}
