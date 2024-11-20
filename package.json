@@ -52,6 +52,7 @@
     "react-native": "^0.74.5",
     "react-native-appwrite": "^0.4.0",
     "react-native-calendars": "^1.1307.0",
+    "react-native-document-picker": "^9.3.1",
     "react-native-gesture-handler": "~2.16.1",
     "react-native-image-modal": "^3.0.12",
     "react-native-image-picker": "^7.1.2",
