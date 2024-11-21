@@ -66,22 +66,19 @@ const AttendanceBySubject = () => {
       <View className="my-10">
         <View className="gap-5">
           <Text className="text-[15px]">
-            Total Present Days: {presentCount}
+            Total Present Days:{" "}
+            <Text className="text-green-500"> {presentCount}</Text>
           </Text>
-          <Text className="text-[15px]">Total Absent Days: {absentCount}</Text>
-          <Text className="text-[15px]">Total Days Attended: {totalDays}</Text>
+          <Text className="text-[15px] ">
+            Total Absent Days:{" "}
+            <Text className="text-red-500">{absentCount}</Text>
+          </Text>
+          <Text className="text-[15px] ">Total Days Attended: {totalDays}</Text>
           <Text className="text-[15px]">
             Attendance Percentage: {attendancePercentage.toFixed(2)}%
           </Text>
         </View>
       </View>
-      <Calendar
-        style={{
-          borderRadius: 6,
-          elevation: 10,
-        }}
-        hideExtraDays={true}
-      />
     </View>
   );
 };

@@ -56,12 +56,12 @@ const Attendances = () => {
           </Text>
         </View>
 
-        {/* Present Count */}
+        {/* Present Count
         <View className="mx-5 my-3">
           <Text className="text-lg font-psemibold text-primary">
             Present Students: {presentCount}
           </Text>
-        </View>
+        </View> */}
 
         <View className="mx-5">
           {loading ? (
